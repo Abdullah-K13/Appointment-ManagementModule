@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:screen_1/main.dart';
 import 'package:screen_1/postappointment.dart';
 import 'package:screen_1/screen4.dart';
 var did ;
@@ -78,7 +79,7 @@ Text(
        height:667 ,
         color: const Color.fromARGB(255, 219, 218, 217),
         child:  FutureBuilder<List<dynamic>>(
-      future: fetchalldoctors(),
+      future: fetchalldoctors(Specialization.toString()),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           // Display an error message if fetching data failed

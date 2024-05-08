@@ -11,6 +11,8 @@ void main() {
   runApp(const MyApp());
 }
 
+var Specialization;
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -24,7 +26,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 103, 136, 123)),
         useMaterial3: true,
       ),
-      home:test(),
+      home:Select_specialization(),
     );
   }
 }
@@ -581,6 +583,46 @@ GestureDetector(
       ),
     ),
     onPressed: () {
+    if(_selectedIndex == 0){
+      Specialization = 'Cardiology';
+    }
+    else if(_selectedIndex == 1){
+      Specialization = 'Teeth';
+    }
+    else if(_selectedIndex == 2){
+      Specialization = 'Virologist';
+    }
+    else if(_selectedIndex == 3){
+      Specialization = 'Physicians';
+    }
+    else if(_selectedIndex == 4){
+      Specialization = 'Psychiatrists';
+    }
+    else if(_selectedIndex == 5){
+      Specialization = 'Physiologist';
+    }
+    else if(_selectedIndex == 6){
+      Specialization = 'Clinic';
+    }
+     else if(_selectedIndex == 7){
+      Specialization = 'Pharmacist';
+    }
+ else if(_selectedIndex == 8){
+      Specialization = 'Nutritionist';
+    }
+
+ else if(_selectedIndex == 9){
+      Specialization = 'Neurologist';
+    }
+
+ else 
+     print('no specialization chosen');
+
+
+    print(Specialization);
+   Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) =>screen3()));
       // Add your onPressed logic here.
     },
     child: Row(

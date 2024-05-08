@@ -63,9 +63,8 @@ Future<List<dynamic>> getTimesByDates(int doctorid, DateTime date) async {
 }
 
 Future<List<dynamic>> fetchdoctorsinfobyid(int Docid) async {
-  print('im hereee ');
-  int id = 2;
-  final url = Uri.parse('http://192.168.0.107:8000/gettimesbydoctors/$Docid');
+
+  final url = Uri.parse('http://192.168.0.107:8000/getdoctorsbyid/$Docid');
   final Map<String, String> headers = {'Content-Type': 'application/json'};
   final response = await http.get(
     url,
@@ -85,10 +84,10 @@ Future<List<dynamic>> fetchdoctorsinfobyid(int Docid) async {
 }
 
 
-Future<List<dynamic>> fetchalldoctors() async {
+Future<List<dynamic>> fetchalldoctors(String specialty) async {
   print('im hereee ');
   
-  final url = Uri.parse('http://192.168.0.107:8000/fetchalldoctors/');
+  final url = Uri.parse('http://192.168.0.107:8000/fetchalldoctorsbyspecialization/$specialty');
   final Map<String, String> headers = {'Content-Type': 'application/json'};
   final response = await http.get(
     url,
