@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:screen_1/screen2.dart';
-import 'package:screen_1/screen3.dart';
-import 'package:screen_1/screen4.dart';
-import 'package:screen_1/signin.dart';
+import 'package:screen_1/Appforsomeoneelse.dart';
+import 'package:screen_1/BookAppointment.dart';
+import 'package:screen_1/BrowseDoctors.dart';
+import 'package:screen_1/Dashboard.dart';
+import 'package:screen_1/DoctorsInfo.dart';
+import 'package:screen_1/IntroPage.dart';
+import 'package:screen_1/TryPage.dart';
+import 'package:screen_1/sign_in_screen.dart';
+import 'package:screen_1/sing_up_Screen.dart';
+import 'package:screen_1/sing_up_Screen.dart';
+import 'package:screen_1/tesclassss.dart';
 import 'package:screen_1/splashscreens.dart';
 import 'package:screen_1/test.dart';
 import 'package:screen_1/welcomescreens.dart';
-
+import 'package:screen_1/AboutPage.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -26,7 +33,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 103, 136, 123)),
         useMaterial3: true,
       ),
-      home:Select_specialization(),
+      home: signupscreen(),
     );
   }
 }
@@ -610,9 +617,8 @@ GestureDetector(
  else if(_selectedIndex == 8){
       Specialization = 'Nutritionist';
     }
-
  else if(_selectedIndex == 9){
-      Specialization = 'Neurologist';
+      Specialization = 'Neurology';
     }
 
  else 
@@ -622,7 +628,7 @@ GestureDetector(
     print(Specialization);
    Navigator.push(
     context,
-    MaterialPageRoute(builder: (context) =>screen3()));
+    MaterialPageRoute(builder: (context) =>BrowseDoctors()));
       // Add your onPressed logic here.
     },
     child: Row(
