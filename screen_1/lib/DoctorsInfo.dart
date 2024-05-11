@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:screen_1/BookAppointment.dart';
-import 'package:screen_1/postappointment.dart';
+import 'package:screen_1/apifunctions.dart';
 import 'package:screen_1/BrowseDoctors.dart';
   List<String> timeSlots = [];
 List<String> generateTimeSlots(DateTime startShift, DateTime endShift) {

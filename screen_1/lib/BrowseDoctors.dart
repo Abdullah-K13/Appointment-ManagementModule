@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:screen_1/main.dart';
-import 'package:screen_1/postappointment.dart';
+import 'package:screen_1/apifunctions.dart';
 import 'package:screen_1/DoctorsInfo.dart';
 var did ;
 class BrowseDoctors extends StatelessWidget{

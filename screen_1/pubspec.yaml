@@ -99,7 +99,18 @@ flutter:
     - family: museo700
       fonts:
         - asset: assets/fonts/museo700.ttf
+   
+    - family: poppins-medium
+      fonts:
+        - asset: assets/fonts/Poppins-Medium.otf
 
+    - family: poppins-semibold
+      fonts:
+        - asset: assets/fonts/Poppins-SemiBold.otf
+
+    - family: poppins-regular
+      fonts:
+        - asset: assets/fonts/Poppins-Regular.otf 
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

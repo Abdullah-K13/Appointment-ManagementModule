@@ -44,17 +44,17 @@ List<DateTime> getNext10Days() {
   return dates;
 }
 
-class BookAppointment extends StatefulWidget{
+class BookTest extends StatefulWidget{
  var shiftStart;
  var shiftend; 
 
- BookAppointment(this.shiftStart,this.shiftend);
+ BookTest(this.shiftStart,this.shiftend);
 
   @override
-  State<BookAppointment> createState() => _BookAppointmentstate(this.shiftStart,this.shiftend);
+  State<BookTest> createState() => _BookTeststate(this.shiftStart,this.shiftend);
 }
 
-class _BookAppointmentstate extends State<BookAppointment> {
+class _BookTeststate extends State<BookTest> {
   
  var newshiftStart;
  var newshiftend; 
@@ -67,11 +67,15 @@ var app_date;
 var gender;
 var complain = 'None';
   List<int> selecteddateindices = [];
+  
+ bool isSelectedtesttimeslot = false;
+ int selectedtestIndex = -1;
+
  // List<int> selectedtimeindices = [];
 
 List<DateTime> bookedTimeSlots = [];
 
- _BookAppointmentstate(this.newshiftStart,this.newshiftend);
+ _BookTeststate(this.newshiftStart,this.newshiftend);
 
   @override
   void initState() {
@@ -79,7 +83,7 @@ List<DateTime> bookedTimeSlots = [];
     // Call function to fetch and display available time slots
     fetchAvailableTimeSlots();
   }
-
+List<String> testtimeslots = ['9:00 AM','10:00 AM','11:00 AM','12:00 AM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM','6:00 PM','7:00 PM','8:00 PM'];
 List<String> ages = ['10-20', '21-30', '31-40', '41-50', '51-60', '61-70', '71-80', '81-90', '91-100'];
 List<String> appointmentfor = ['myself', 'Someone Else'];
 int _Selectedtimeindex = -1;
@@ -131,8 +135,6 @@ List<DateTime> next10Days = getNext10Days();
       //this.availableTimeSlots = formattedTimeSlots;
     });
   }
-
-
 
 
 
@@ -245,103 +247,78 @@ List<DateTime> next10Days = getNext10Days();
                ),
                SizedBox(height: 9,)
                
-               ,FutureBuilder<List<dynamic>>(
-  future: getTimesByDates(1, DateTime.parse('2023-02-15')),
-  builder: (context, snapshot) {
-    if (snapshot.hasError) {
-      // Display an error message if fetching data failed
-      return Text('Error: ${snapshot.error}');
-    } else if (snapshot.hasData) {
-      // Extract the data from the snapshotas
-      final List<dynamic> data = snapshot.data!;
-   print(data);
-      for (var item in data) {
-    // Access the 'Timeofvisit' property for each item
-     var newtimeOfVisit = item['Timeofvisit'].toString();
-     print('abds time of visit $newtimeOfVisit');
-     bookedTimeSlots.add(DateTime.parse('1970-01-01 $newtimeOfVisit'));
-    // print('Time of visit: $timeOfVisit');
-    // removeTimeslots(timeOfVisit);
-      }
+               ,
+                  SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
 
-     // dataoftime = snapshot.data!;
-      print('the data is $data');
-     // 
-      return
-                  Row(
-                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                 
-                           children:
-                           
-                            List.generate(5, (index) {
-                             bool isSelected = selecteddateindices.contains(index);
-                            var item = data[index];
-                 return GestureDetector(
-                  onTap: () {
-                  selectedDate = DateFormat('yyyy-MM-dd').format(next10Days[index]);
-                  var testtime = item['TimeofVisit'];
-                  removeTimeslots(testtime);
-                    setState(() {
-                      if (isSelected)
-                      selecteddateindices.remove(index);
-                      else
-                        selecteddateindices = [index];
-                    });
-                    print(selectedDate.toString());
-                  },
-                   child: Padding(
-                             padding: const EdgeInsets.all(0.0),
-                             child: Container(
-                               width: 70, // Adjust the width as needed
-                               height: 95, // Adjust the height as needed
-                               decoration: BoxDecoration(
-                               color:isSelected? Color(0xFF3E64FF): const Color.fromARGB(255, 252, 252, 252),
-                               borderRadius: BorderRadius.circular(15)
-                   
-                               ),
-                               child: Center(
-                                 child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                                          DateFormat('d').format(next10Days[index]),
-                                          style: TextStyle(
-                              decoration: TextDecoration.none,
-                              color: isSelected? const Color.fromARGB(255, 255, 255, 255): const Color.fromARGB(255, 0, 0, 0),
-                              fontSize: 33,
-                              fontFamily: 'museo500',
-                             // fontWeight: FontWeight.w800,
-                              height: 0,
-                              letterSpacing: -0.32,
-                                          )),
-                   
-                                          SizedBox(height: 5,),
-                                          Text(
-                                          DateFormat('EE').format(next10Days[index]),
-                                          style: TextStyle(
-                              decoration: TextDecoration.none,
-                              color: isSelected? const Color.fromARGB(255, 255, 255, 255): const Color.fromARGB(255, 0, 0, 0),
-                              fontSize: 16,
-                              fontFamily: 'actor',
-                             // fontWeight: FontWeight.w800,
-                              height: 0,
-                              letterSpacing: -0.32,
-                                          )),
-                    ],
+                    child: Row(
+                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                     
+                             children:
+                             
+                              List.generate(10, (index) {
+                               bool isSelected = selecteddateindices.contains(index);
+                             // var item = data[index];
+                                     return GestureDetector(
+                    onTap: () {
+                    selectedDate = DateFormat('yyyy-MM-dd').format(next10Days[index]);
+                                    //  var testtime = item['TimeofVisit'];
+                                     // removeTimeslots(testtime);
+                      setState(() {
+                        if (isSelected)
+                        selecteddateindices.remove(index);
+                        else
+                          selecteddateindices = [index];
+                      });
+                      print(selectedDate.toString());
+                    },
+                     child: Padding(
+                               padding: const EdgeInsets.only(left:12),
+                               child: Container(
+                                 width: 70, // Adjust the width as needed
+                                 height: 95, // Adjust the height as needed
+                                 decoration: BoxDecoration(
+                                 color:isSelected? Color(0xFF3E64FF): const Color.fromARGB(255, 252, 252, 252),
+                                 borderRadius: BorderRadius.circular(15)
+                                 ),
+                                 child: Center(
+                                   child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                                            DateFormat('d').format(next10Days[index]),
+                                            style: TextStyle(
+                                decoration: TextDecoration.none,
+                                color: isSelected? const Color.fromARGB(255, 255, 255, 255): const Color.fromARGB(255, 0, 0, 0),
+                                fontSize: 33,
+                                fontFamily: 'museo500',
+                               // fontWeight: FontWeight.w800,
+                                height: 0,
+                                letterSpacing: -0.32,
+                                            )),
+                     
+                                            SizedBox(height: 5,),
+                                            Text(
+                                            DateFormat('EE').format(next10Days[index]),
+                                            style: TextStyle(
+                                decoration: TextDecoration.none,
+                                color: isSelected? const Color.fromARGB(255, 255, 255, 255): const Color.fromARGB(255, 0, 0, 0),
+                                fontSize: 16,
+                                fontFamily: 'actor',
+                               // fontWeight: FontWeight.w800,
+                                height: 0,
+                                letterSpacing: -0.32,
+                                            )),
+                      ],
+                                   ),
                                  ),
                                ),
-                             ),
-                   ),
-                 );
-                           }),
-                            
-                 );
-               
-    }
-    else 
-        return CircularProgressIndicator();
-   } )
-  
+                     ),
+                                     );
+                             }),
+
+                                     ),
+                  )
                 ],
               ),
               
@@ -349,46 +326,50 @@ List<DateTime> next10Days = getNext10Days();
              Container(
           width: MediaQuery.of(context).size.width,
        //   color: Colors.lightGreen,
-
           child: 
-           GridView.count(
-        physics: NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        crossAxisCount: 4,
-        childAspectRatio: 2.2,
-        padding: const EdgeInsets.all(16.0),
-        mainAxisSpacing: 16.0,
-        crossAxisSpacing: 10.0,
-        children: timeSlotsforthispage.map((timeSlotsforthispage) {
-          return GestureDetector(
-            onTap: () {
-              setState(() {
-               // removeTimeslots();// Handle onTap event
-              });
-            },
-            child: Container(
-              height: 30,
-              decoration: BoxDecoration(
-                color: Colors.white, // Adjust color based on your condition
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              child: Center(
-                child: Text(
-                  timeSlotsforthispage,
-                  
-                  style: TextStyle(
-                    fontFamily: 'museo500',
-                    color: Colors.black, // Adjust color based on your condition
-                    fontWeight: FontWeight.w100,
-                    fontSize: 18,
-                    decoration: TextDecoration.none,
-                  ),
-                ),
-              ),
+          GridView.count(
+  physics: NeverScrollableScrollPhysics(),
+  shrinkWrap: true,
+  crossAxisCount: 4,
+  childAspectRatio: 2.2,
+  padding: const EdgeInsets.all(16.0),
+  mainAxisSpacing: 16.0,
+  crossAxisSpacing: 10.0,
+  children: testtimeslots.asMap().entries.map((entry) {
+    final index = entry.key;
+    final testtimeslot = entry.value; 
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          // Toggle the color when tapped
+          selectedtestIndex = index;
+         // isSelectedtesttimeslot = !isSelectedtesttimeslot;
+        });
+      },
+      child: Container(
+        height: 30,
+        decoration: BoxDecoration(
+          color: selectedtestIndex == index ? Color(0xFF3E64FF): Colors.white,
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        child: Center(
+          child: Text(
+            testtimeslot,
+            style: TextStyle(
+              fontFamily: 'museo500',
+              color: selectedtestIndex == index ? Colors.white : Colors.black,
+              fontWeight: FontWeight.w100,
+              fontSize: 18,
+              decoration: TextDecoration.none,
             ),
-          );
-        }).toList(),
-      )
+          ),
+        ),
+      ),
+    );
+  }).toList(),
+)
+
+   
     // } else {
     //   // Display a loading indicator while waiting for data
     //   return CircularProgressIndicator();

@@ -2,7 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:screen_1/postappointment.dart';
+import 'package:screen_1/dropupwidget.dart';
+import 'package:screen_1/apifunctions.dart';
 
 
 
@@ -75,14 +76,27 @@ class _testclassState extends State<testclass> {
   void initState() {
     // Call super.initState() to ensure that the parent class's initState method is called.
     super.initState();
-testfunction();
+//testfunction();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        
+      
+        color: Colors.red,
+        child: ElevatedButton(
+          onPressed: () {
+            // Navigate to the second screen using a named route.
+           
+          },child: DropUpMenu(
+            items: ['Item 1', 'Item 2', 'Item 3'],
+            onChanged: (item) {
+              print('Selected item: $item');
+            },
+          ),
+        )
+,
      )
    );
   }

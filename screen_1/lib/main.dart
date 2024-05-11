@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:screen_1/Appforsomeoneelse.dart';
 import 'package:screen_1/BookAppointment.dart';
 import 'package:screen_1/BrowseDoctors.dart';
+import 'package:screen_1/DashBoard%20copy.dart';
 import 'package:screen_1/Dashboard.dart';
 import 'package:screen_1/DoctorsInfo.dart';
 import 'package:screen_1/IntroPage.dart';
+import 'package:screen_1/ScheduleTest.dart';
 import 'package:screen_1/TryPage.dart';
 import 'package:screen_1/sign_in_screen.dart';
 import 'package:screen_1/sing_up_Screen.dart';
@@ -12,6 +14,7 @@ import 'package:screen_1/sing_up_Screen.dart';
 import 'package:screen_1/tesclassss.dart';
 import 'package:screen_1/splashscreens.dart';
 import 'package:screen_1/test.dart';
+import 'package:screen_1/testforsomeoneelse.dart';
 import 'package:screen_1/welcomescreens.dart';
 import 'package:screen_1/AboutPage.dart';
 void main() {
@@ -33,7 +36,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 103, 136, 123)),
         useMaterial3: true,
       ),
-      home: signupscreen(),
+      home: DashBoard(),
     );
   }
 }
