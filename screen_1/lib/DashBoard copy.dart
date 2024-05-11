@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:screen_1/main.dart';
 
 // class Colors {
 //   static const Blue = Color(0xFF0A76D8);
@@ -182,14 +183,20 @@ class DashBoard extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(44),
-                child: Container(
-                  width: 87,
-                  height: 88,
-                  color: Color(0xFF3E64FF),
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Image.asset(
-                      'assets/images/steth.png',
+                child: GestureDetector(
+                  onTap: () => Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) =>Select_specialization()),
+  ),   
+                  child: Container(
+                    width: 87,
+                    height: 88,
+                    color: Color(0xFF3E64FF),
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Image.asset(
+                        'assets/images/steth.png',
+                      ),
                     ),
                   ),
                 ),
