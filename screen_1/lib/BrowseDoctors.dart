@@ -189,7 +189,7 @@ Text(
                                    ],
                                  ),             ],
                          ),
-                         SizedBox(width: 110,),
+                         SizedBox(width: 100,),
                          Padding(
                            padding: const EdgeInsets.only(top: 90),
                            child: Container(

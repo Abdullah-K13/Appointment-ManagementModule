@@ -8,12 +8,12 @@ class UpperMiddleFooter extends StatefulWidget {
 
 class _UpperMiddleFooterState extends State<UpperMiddleFooter> {
   List<String> testIcons = [
-    'images/icons8-laboratory-32.png',
-    'images/icons8-heart-monitor-32.png',
-    'images/icons8-allergy-32.png',
-    'images/icons8-lungs-32.png',
-    'images/icons8-brain-32.png',
-    'images/icons-dna-32.png',
+    'assets/images/icons8-laboratory-32.png',
+    'assets/images/icons8-heart-monitor-32.png',
+    'assets/images/icons8-allergy-32.png',
+    'assets/images/icons8-lungs-32.png',
+    'assets/images/icons8-brain-32.png',
+    'assets/images/icons-dna-32.png',
   ];
   List<String> tests = [
     'Laboratory Test',

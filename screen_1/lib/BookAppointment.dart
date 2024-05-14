@@ -5,35 +5,9 @@ import 'package:screen_1/DoctorsInfo.dart';
 import 'package:screen_1/apifunctions.dart';
 import 'package:intl/intl.dart';
 List<String> timeSlotsforthispage = [];
-var selectedDate = '2010-02-13';
-List<String> timefromdata=[];
-
-void removeTimeslots(timed ) {
-  //var testime = timed['TimeofVisit'];
-print('the time for this slot is $timed');
-  if(timed == Null){
-    print('im in the null condition');
-    timed = '00:30:00';
-  }
-timeSlotsforthispage = [];
-timeSlotsforthispage = timeSlots;
-  //print(dataoftime[0]);
-  for (int i = 0; i < timeSlotsforthispage.length; i++) {
-
-    DateTime time2 =DateTime.parse( '1970-01-01 $timed');
-    String finaltime = DateFormat('hh:mm a').format(time2);
-    print(finaltime);
-
-     if (timeSlotsforthispage[i] == finaltime) {
-        print('i am in the if condition');
-        timeSlotsforthispage.removeAt(i);
-      }
-
-  }
- // print(timeSlotsforthispage);
-}
-
-
+var selectedDate = '2027-02-13';
+//List<String> timefromdata=[];
+DateTime newtimeOfVisit = DateTime.parse('2026-02-02 02:00:00.000');
 List<DateTime> getNext10Days() {
   List<DateTime> dates = [];
   DateTime today = DateTime.now();
@@ -77,11 +51,10 @@ List<DateTime> bookedTimeSlots = [];
   void initState() {
     super.initState();
     // Call function to fetch and display available time slots
-    fetchAvailableTimeSlots();
+  //  fetchAvailableTimeSlots();
   }
 
-List<String> ages = ['10-20', '21-30', '31-40', '41-50', '51-60', '61-70', '71-80', '81-90', '91-100'];
-List<String> appointmentfor = ['myself', 'Someone Else'];
+List<String> appointmentfor = ['Myself', 'SomeoneElse'];
 int _Selectedtimeindex = -1;
  int _selectedIndex = -1;
 int selecteddate = -1;
@@ -91,18 +64,19 @@ var selectedgender ;
 List<DateTime> next10Days = getNext10Days();
 
 
-
-
-
-
-  void fetchAvailableTimeSlots() {
+  Future<void> fetchAvailableTimeSlots(List<dynamic> data) async {
+    
+    print('in the fetchtime func');
+    bookedTimeSlots = [];
+   
     // Call API or database query to retrieve shift start and end times for the doctor
-    print(newshiftStart);
-    DateTime shiftStart = DateTime.parse('1970-01-01 09:00:00'); // Fetch shift start time from database
-    DateTime shiftEnd = DateTime.parse('1970-01-01 17:00:00'); // Fetch shift end time from database
-   
+   // print(newshiftStart);
+    DateTime shiftStart = DateTime.parse('2024-04-30 $newshiftStart'); // Fetch shift start time from database
+    DateTime shiftEnd = DateTime.parse('2024-04-30 $newshiftend'); // Fetch shift end time from database
+//    String formattedTime = DateFormat('HH:mm:ss').format(shiftStart);
+// print(formattedTime);
+   //print(shiftStart);
 
-   
     // Generate list of all possible time slots within shift start and end times with 1-hour interval
     List<DateTime> allTimeSlots = [];
     DateTime currentTime = shiftStart;
@@ -110,32 +84,40 @@ List<DateTime> next10Days = getNext10Days();
       allTimeSlots.add(currentTime);
       currentTime = currentTime.add(Duration(hours: 1));
     }
+print(allTimeSlots);
+print('all data is:');
+ print(data);
+//generate booked lists
+for ( var item in data)
+{
+  print(item['timeofvisit']);
+  var test = item['timeofvisit'];
+  DateTime time_Str = DateTime.parse('2024-04-30 $test'); // Fetch shift end time from database
+  bookedTimeSlots.add(time_Str);
+}
+print('the booked time slots are:');
+print(bookedTimeSlots);
 
-//print(allTimeSlots.toString());
-    // Call API or database query to retrieve booked time slots for the doctor on the specified date
-    
-    // Example: Fetch booked time slots from database based on doctorID and visitDate
+//remove avaialbel time slots
+ for (DateTime timeSlot in bookedTimeSlots) {
+  allTimeSlots.remove(timeSlot);
+}
+print('the new time slots are');
+print(allTimeSlots);
 
-    // Filter out booked time slots from all time slots
-    List<DateTime> availableTimeSlots = allTimeSlots.where((timeSlot) {
-      return !bookedTimeSlots.contains(timeSlot);
-    }).toList();
-   print(availableTimeSlots.toString());
-    // Format available time slots for display
-    List<String> formattedTimeSlots = availableTimeSlots.map((timeSlot) {
-      return '${timeSlot.hour}:${timeSlot.minute.toString().padLeft(2, '0')}';
-    }).toList();
+ timeSlotsforthispage = [];
 
-    // Update state to display available time slots
-    setState(() {
-      //this.availableTimeSlots = formattedTimeSlots;
-    });
+ for (DateTime timeSlot in allTimeSlots) {
+  String formattedTime = DateFormat('h:mm a').format(timeSlot);
+  timeSlotsforthispage.add(formattedTime);
+}
+print(timeSlotsforthispage);
+
+setState(() {
+  
+});
+
   }
-
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -246,48 +228,37 @@ List<DateTime> next10Days = getNext10Days();
                SizedBox(height: 9,)
                
                ,FutureBuilder<List<dynamic>>(
-  future: getTimesByDates(1, DateTime.parse('2023-02-15')),
+  future: getTimesByDates(1, selectedDate),
   builder: (context, snapshot) {
     if (snapshot.hasError) {
       // Display an error message if fetching data failed
       return Text('Error: ${snapshot.error}');
     } else if (snapshot.hasData) {
       // Extract the data from the snapshotas
-      final List<dynamic> data = snapshot.data!;
-   print(data);
-      for (var item in data) {
-    // Access the 'Timeofvisit' property for each item
-     var newtimeOfVisit = item['Timeofvisit'].toString();
-     print('abds time of visit $newtimeOfVisit');
-     bookedTimeSlots.add(DateTime.parse('1970-01-01 $newtimeOfVisit'));
-    // print('Time of visit: $timeOfVisit');
-    // removeTimeslots(timeOfVisit);
-      }
+       final List<dynamic> data = snapshot.data!;
+   print('i was here');
 
-     // dataoftime = snapshot.data!;
-      print('the data is $data');
-     // 
-      return
-                  Row(
+      return  Row(
                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                  
                            children:
                            
-                            List.generate(5, (index) {
+                            List.generate(5, (index)  {
                              bool isSelected = selecteddateindices.contains(index);
-                            var item = data[index];
+                          //  var item = data[index];
                  return GestureDetector(
-                  onTap: () {
+                  onTap: ()  async {
+                   print('in the gesture');
                   selectedDate = DateFormat('yyyy-MM-dd').format(next10Days[index]);
-                  var testtime = item['TimeofVisit'];
-                  removeTimeslots(testtime);
-                    setState(() {
+                  // print(selectedDate);
+                    setState(()  {
                       if (isSelected)
                       selecteddateindices.remove(index);
                       else
                         selecteddateindices = [index];
+                      fetchAvailableTimeSlots(data);
                     });
-                    print(selectedDate.toString());
+
                   },
                    child: Padding(
                              padding: const EdgeInsets.all(0.0),
@@ -297,7 +268,7 @@ List<DateTime> next10Days = getNext10Days();
                                decoration: BoxDecoration(
                                color:isSelected? Color(0xFF3E64FF): const Color.fromARGB(255, 252, 252, 252),
                                borderRadius: BorderRadius.circular(15)
-                   
+
                                ),
                                child: Center(
                                  child: Column(
@@ -307,7 +278,8 @@ List<DateTime> next10Days = getNext10Days();
                                           DateFormat('d').format(next10Days[index]),
                                           style: TextStyle(
                               decoration: TextDecoration.none,
-                              color: isSelected? const Color.fromARGB(255, 255, 255, 255): const Color.fromARGB(255, 0, 0, 0),
+                              color: isSelected? const Color.
+                              fromARGB(255, 255, 255, 255): const Color.fromARGB(255, 0, 0, 0),
                               fontSize: 33,
                               fontFamily: 'museo500',
                              // fontWeight: FontWeight.w800,
@@ -336,11 +308,13 @@ List<DateTime> next10Days = getNext10Days();
                            }),
                             
                  );
-               
-    }
+             
+       }
     else 
         return CircularProgressIndicator();
-   } )
+       
+    }
+   )
   
                 ],
               ),
@@ -351,44 +325,50 @@ List<DateTime> next10Days = getNext10Days();
        //   color: Colors.lightGreen,
 
           child: 
-           GridView.count(
-        physics: NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        crossAxisCount: 4,
-        childAspectRatio: 2.2,
-        padding: const EdgeInsets.all(16.0),
-        mainAxisSpacing: 16.0,
-        crossAxisSpacing: 10.0,
-        children: timeSlotsforthispage.map((timeSlotsforthispage) {
-          return GestureDetector(
-            onTap: () {
-              setState(() {
-               // removeTimeslots();// Handle onTap event
-              });
-            },
-            child: Container(
-              height: 30,
-              decoration: BoxDecoration(
-                color: Colors.white, // Adjust color based on your condition
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              child: Center(
-                child: Text(
-                  timeSlotsforthispage,
-                  
-                  style: TextStyle(
-                    fontFamily: 'museo500',
-                    color: Colors.black, // Adjust color based on your condition
-                    fontWeight: FontWeight.w100,
-                    fontSize: 18,
-                    decoration: TextDecoration.none,
+            
+             GridView.count(
+                     physics: NeverScrollableScrollPhysics(),
+                     shrinkWrap: true,
+                     crossAxisCount: 4,
+                     childAspectRatio: 2.2,
+                     padding: const EdgeInsets.all(16.0),
+                     mainAxisSpacing: 16.0,
+                     crossAxisSpacing: 10.0,
+                     children: timeSlotsforthispage.map((timeSlotsforthispage) {
+                       
+                       
+                       return GestureDetector(
+              onTap: () {
+                setState(() {
+                 // removeTimeslots();// Handle onTap event
+                });
+              },
+              child: Container(
+                height: 30,
+                decoration: BoxDecoration(
+                  color: Colors.white, // Adjust color based on your condition
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: Center(
+                  child: Text(
+                    timeSlotsforthispage,
+                    
+                    style: TextStyle(
+                      fontFamily: 'museo500',
+                      color: Colors.black, // Adjust color based on your condition
+                      fontWeight: FontWeight.w100,
+                      fontSize: 18,
+                      decoration: TextDecoration.none,
+                    ),
                   ),
                 ),
               ),
-            ),
-          );
-        }).toList(),
-      )
+                       );
+                     }).toList(),
+                   )
+          
+            
+            
     // } else {
     //   // Display a loading indicator while waiting for data
     //   return CircularProgressIndicator();

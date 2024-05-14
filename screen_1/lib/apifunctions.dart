@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 
 class apifunction {
 
@@ -46,16 +47,24 @@ class Visit {
       };
 }
 
-Future<List<dynamic>> getTimesByDates(int doctorid, DateTime date) async {
-  final url = Uri.parse('http://192.168.0.107:8000/gettimesbydates/$doctorid/$date');
+Future<List<dynamic>> getTimesByDates(int doctorid, String date) async {
+  //print('the date of this func');
+  DateTime dateTime = DateTime.parse(date);
+String dateOnly = dateTime.toLocal().toString().split(' ')[0];
+  print('the new date is $dateOnly');
+
+print(doctorid);
+  final url = Uri.parse('http://192.168.0.107:8000/gettimesbydates/$doctorid/$dateOnly');
   //final visit = Visit(doctorid: doctorid, date: date);
   final response = await http.get(
     url,
     headers: {'Content-Type': 'application/json'},
     
   );
-
   if (response.statusCode == 200) {
+    print('i am in the get times by dates function');
+
+   // print(response.body);
     List jsonResponse = json.decode(response.body);
     return jsonResponse.map((item) => item).toList();
   } else {
