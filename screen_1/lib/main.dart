@@ -8,7 +8,8 @@ import 'package:screen_1/DoctorsInfo.dart';
 import 'package:screen_1/IntroPage.dart';
 import 'package:screen_1/ScheduleTest.dart';
 import 'package:screen_1/Select_Test.dart';
-import 'package:screen_1/TryPage.dart';
+import 'package:screen_1/updateprofile.dart';
+import 'package:screen_1/settings_screen.dart';
 import 'package:screen_1/sign_in_screen.dart';
 import 'package:screen_1/sing_up_Screen.dart';
 import 'package:screen_1/sing_up_Screen.dart';
@@ -38,7 +39,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 103, 136, 123)),
         useMaterial3: true,
       ),
-      home: Select_specialization(),
+      home: SignInScreen(),
+
     );
   }
 }
@@ -77,19 +79,22 @@ return Container(
                 padding: EdgeInsets.only(top: 60,right: 320),
                 child:
                 
-                Container(
-            width: 48,
-            height: 48,
-            padding: const EdgeInsets.all(12),
-            clipBehavior: Clip.antiAlias,
-            decoration: ShapeDecoration(
-              shape: RoundedRectangleBorder(
-                side: BorderSide(width: 1, color: Colors.white),
-                borderRadius: BorderRadius.circular(18),
-
-              ),
-            ),
-            child:Icon(Icons.arrow_back,color: Colors.white,) ,
+                GestureDetector(
+                  onTap: () => Navigator.pop(context),
+                  child: Container(
+                              width: 48,
+                              height: 48,
+                              padding: const EdgeInsets.all(12),
+                              clipBehavior: Clip.antiAlias,
+                              decoration: ShapeDecoration(
+                                shape: RoundedRectangleBorder(
+                  side: BorderSide(width: 1, color: Colors.white),
+                  borderRadius: BorderRadius.circular(18),
+                  
+                                ),
+                              ),
+                              child:Icon(Icons.arrow_back,color: Colors.white,) ,
+                  ),
                 )
           
             ),

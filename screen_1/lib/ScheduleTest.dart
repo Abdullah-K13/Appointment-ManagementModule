@@ -45,13 +45,9 @@ List<DateTime> getNext10Days() {
 }
 
 class BookTest extends StatefulWidget{
- var shiftStart;
- var shiftend; 
-
- BookTest(this.shiftStart,this.shiftend);
 
   @override
-  State<BookTest> createState() => _BookTeststate(this.shiftStart,this.shiftend);
+  State<BookTest> createState() => _BookTeststate();
 }
 
 class _BookTeststate extends State<BookTest> {
@@ -74,8 +70,6 @@ var complain = 'None';
  // List<int> selectedtimeindices = [];
 
 List<DateTime> bookedTimeSlots = [];
-
- _BookTeststate(this.newshiftStart,this.newshiftend);
 
   @override
   void initState() {

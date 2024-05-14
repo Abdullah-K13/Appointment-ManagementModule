@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:screen_1/ScheduleTest.dart';
+import 'package:screen_1/apifunctions.dart';
 import 'package:screen_1/main.dart';
+import 'package:intl/intl.dart';
+import 'package:screen_1/settings_screen.dart';
 
 // class Colors {
 //   static const Blue = Color(0xFF0A76D8);
@@ -20,444 +24,492 @@ class DashBoard extends StatelessWidget {
         body: Container(
       //color: Color.fromARGB(255, 207, 206, 206),
       color: Color(0xffFFFFFF),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-              height: 350,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(30),
-                    bottomRight: Radius.circular(30)),
-                color: Color(0xFF3E64FF),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 30, left: 15),
-                    child: Row(
-                      children: [
-                        //hello saad //bell icon
-
-                        Text('Hello ',
-                            style: TextStyle(
-                              decoration: TextDecoration.none,
-                              color: Colors.white,
-                              fontSize: 24,
-                              fontFamily: 'nunito-semibold',
-                              fontWeight: FontWeight.w500,
-                             // height: -100,
-                              letterSpacing: -0.32,
-                            )),
-                        Text('Saad! ',
-                            style: TextStyle(
-                              decoration: TextDecoration.none,
-                              color: Colors.white,
-                              fontSize: 24,
-                              fontFamily: 'nunito',
-                              fontWeight: FontWeight.w100,
-                              fontStyle: FontStyle.italic,
-                            //  height: -100,
-                              letterSpacing: -0.32,
-                            )),
-                        SizedBox(width: 220),
-                        Container(
-                          width: 45,
-                          height: 45,
-                          color: Color(0xFF3E64FF)
-                          ,
-                          child: Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: Image.asset(
-                              'assets/images/settings.png',
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                   Padding(
-                     padding: const EdgeInsets.only(left: 20,top: 25),
-                     child: Text('Welcome to ',
-                              style: TextStyle(
-                                decoration: TextDecoration.none,
-                                color: Colors.white,
-                                fontSize: 24,
-                                fontFamily: 'nunito-semibold',
-                                fontWeight: FontWeight.w500,
-                               // height: -100,
-                                letterSpacing: -0.32,
-                              )),
-                   ),
-                             Padding(
-                               padding: const EdgeInsets.only(left: 20),
-                               child: Text('Emerald Care Hospital',
-                                                           style: TextStyle(
-                                decoration: TextDecoration.none,
-                                color: Colors.white,
-                                fontSize: 24,
-                                fontFamily: 'nunito-semibold',
-                                fontWeight: FontWeight.w500,
-                               // height: -100,
-                                letterSpacing: -0.32,
-                                                           )),
-                             ),
-                  SizedBox(height:10 ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(top: 0, right: 0, left: 20),
-                    child: Text("Let's find ",
-                        style: TextStyle(
-                          decoration: TextDecoration.none,
-                          color: Colors.white,
-                          fontSize: 24,
-                          fontFamily: 'nunito-semibold',
-                          fontWeight: FontWeight.w500,
-                         // height: -100,
-                          letterSpacing: -0.32,
-                        )),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 0, left: 20),
-                    child: Text("your top doctor! ",
-                        style: TextStyle(
-                          decoration: TextDecoration.none,
-                          color: Colors.white,
-                          fontSize: 24,
-                          fontFamily: 'nunito-semibold',
-                          fontWeight: FontWeight.w500,
-                         // height: -100,
-                          letterSpacing: -0.32,
-                        )),
-                  ),
-                  SizedBox(height: 40),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Container(
-                          height: 45,
-                          width: 300,
-                          margin: EdgeInsets.only(left: 0.0),
-                          decoration: BoxDecoration(
-                              color: Color(0xffFFFFFF),
-                              borderRadius: BorderRadius.circular(21)),
-                          child: TextField(
-                            decoration: InputDecoration(
-                              hintText: 'Search',
-                              border: UnderlineInputBorder(
-                                  borderSide: BorderSide.none),
-                              prefixIcon: Icon(Icons.search),
-                            ),
-                          )),
-                      Container(
-                        margin: EdgeInsets.only(right: 0.0),
-                        height: 35,
-                        width: 35,
-                        child: Icon(Icons.tune, color: Colors.white),
-                      )
-                    ],
-                  )
-                ],
-              )),
-
-        //  SizedBox(height: 5),
-          Padding(
-            padding: const EdgeInsets.only(left: 20,top: 10),
-            child: Text('Services',
-                style: TextStyle(
-                  decoration: TextDecoration.none,
-                  color: Colors.black,
-                  fontSize: 22,
-                  fontFamily: 'nunito-semibold',
-                  fontWeight: FontWeight.w500,
-                //  height: -100,
-                  letterSpacing: -0.32,
-                )),
-          ),
-          SizedBox(height: 10),
-          // idher se firat row of circles
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(44),
-                child: GestureDetector(
-                  onTap: () => Navigator.push(
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+                height: 350,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(30),
+                      bottomRight: Radius.circular(30)),
+                  color: Color(0xFF3E64FF),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 30, left: 15),
+                      child: Row(
+                        children: [
+                          //hello saad //bell icon
+                          SizedBox(width: 140,),
+        Container(
+          width: 100,
+          height: 100,
+          child: Image.asset(
+                                    'assets/images/whitelogo.png',
+                                  ),
+        ),
+                          SizedBox(width: 90),
+                          GestureDetector(
+                            onTap: () => Navigator.push(
     context,
-    MaterialPageRoute(builder: (context) =>Select_specialization()),
-  ),   
-                  child: Container(
-                    width: 87,
-                    height: 88,
-                    color: Color(0xFF3E64FF),
-                    child: Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Image.asset(
-                        'assets/images/steth.png',
+    MaterialPageRoute(builder: (context) =>SettingsScreen()),
+  ),
+                            child: Container(
+                              width: 50,
+                              height: 50,
+                              color: Color(0xFF3E64FF)
+                              ,
+                              child: Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Icon(Icons.settings,color:Colors.white,size: 33,)
+                                // Image.asset(
+                                //   'assets/images/settings.png',
+                                // ),
+                              ),
+                            ),
+                          )
+                        ],
                       ),
                     ),
-                  ),
-                ),
-              ),
-
-              //Text('Doctors Appointment', style: TextStyle(fontSize: 12)),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(44),
-                child: Container(
-                  width: 87,
-                  height: 88,
-                  color: Color(0xFF3E64FF),
-                  child: Padding(
-                    padding: const EdgeInsets.all(25.0),
-                    child: Image.asset(
-                      'assets/images/prescription.png',
+                     Padding(
+                       padding: const EdgeInsets.only(left: 20,top: 25),
+                       child: Text('Welcome to Emerald Care Hospital ',
+                                style: TextStyle(
+                                  decoration: TextDecoration.none,
+                                  color: Colors.white,
+                                  fontSize: 24,
+                                  fontFamily: 'nunito-semibold',
+                                  fontWeight: FontWeight.w500,
+                                 // height: -100,
+                                  letterSpacing: -0.32,
+                                )),
+                     ),
+                             
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(top: 0, right: 0, left: 20),
+                      child: Text("Let's find your top doctor! ",
+                          style: TextStyle(
+                            decoration: TextDecoration.none,
+                            color: Colors.white,
+                            fontSize: 24,
+                            fontFamily: 'nunito-semibold',
+                            fontWeight: FontWeight.w500,
+                           // height: -100,
+                            letterSpacing: -0.32,
+                          )),
                     ),
-                  ),
-                ),
-              ),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(44),
-                child: Container(
-                  width: 87,
-                  height: 88,
-                  color: Color(0xFF3E64FF),
-                  child: Padding(
-                    padding: const EdgeInsets.all(25.0),
-                    child: Image.asset(
-                      'assets/images/consultant.png',
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Text('Appointment',style: TextStyle(fontFamily: 'poppins-medium'),),
-              Text('Prescription',style: TextStyle(fontFamily: 'poppins-medium'),),
-              Text('Consultant',style: TextStyle(fontFamily: 'poppins-medium'),),
-            ],
-          ),
-          SizedBox(height: 15),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(44),
-                child: Container(
-                  width: 87,
-                  height: 88,
-                  color: Color(0xFF3E64FF),
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Image.asset(
-                      'assets/images/test.png',
-                    ),
-                  ),
-                ),
-              ),
-
-              //Text('Doctors Appointment', style: TextStyle(fontSize: 12)),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(44),
-                child: Container(
-                  width: 87,
-                  height: 88,
-                  color: Color(0xFF3E64FF),
-                  child: Padding(
-                    padding: const EdgeInsets.all(25.0),
-                    child: Image.asset(
-                      'assets/images/lab.png',
-                    ),
-                  ),
-                ),
-              ),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(44),
-                child: GestureDetector(
-                  onTap: () {
-                    print('object');
-                  },
-                  child: Container(
-                    width: 87,
-                    height: 88,
-                    color:Color(0xFF3E64FF),
-                    child: Padding(
-                      padding: const EdgeInsets.all(25.0),
-                      child: Image.asset(
-                        'assets/images/medhis.png',
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Text('Test Scheduling',style: TextStyle(fontFamily: 'poppins-medium'),),
-              Text('Lab Reports',style: TextStyle(fontFamily: 'poppins-medium'),),
-              Text('Medical History',style: TextStyle(fontFamily: 'poppins-medium'),),
-            ],
-          ),
-          //SizedBox(height: 5),
-          
-//Text('sad'),
-
+                   
+                    SizedBox(height: 40),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Container(
+                            height: 55,
+                            width: 350,
+                            margin: EdgeInsets.only(left: 0.0),
+                            decoration: BoxDecoration(
+                                color: Color(0xffFFFFFF),
+                                borderRadius: BorderRadius.circular(21)),
+                            child: TextField(
+                              decoration: InputDecoration(
+                                hintText: 'Search',
+                                border: UnderlineInputBorder(
+                                    borderSide: BorderSide.none),
+                                prefixIcon: Icon(Icons.search),
+                              ),
+                            )),
+                        // Container(
+                        //   margin: EdgeInsets.only(right: 0.0),
+                        //   height: 35,
+                        //   width: 35,
+                        //   child: Icon(Icons.tune, color: Colors.white),
+                        // )
+                      ],
+                    )
+                  ],
+                )),
+        
+          //  SizedBox(height: 5),
             Padding(
-              padding: const EdgeInsets.only(left: 20,top:10, bottom: 10 ),
-              child: Text('Appointments',
+              padding: const EdgeInsets.only(left: 20,top: 10),
+              child: Text('Services',
                   style: TextStyle(
                     decoration: TextDecoration.none,
                     color: Colors.black,
                     fontSize: 22,
                     fontFamily: 'nunito-semibold',
                     fontWeight: FontWeight.w500,
-                   // height: -100,
-                   // letterSpacing: -0.32,
+                  //  height: -100,
+                    letterSpacing: -0.32,
                   )),
             ),
-          
-          //DATE OF THE APPOINTMENT
+            SizedBox(height: 10),
+            // idher se firat row of circles
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(44),
+                  child: GestureDetector(
+                    onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) =>Select_specialization()),
+          ),   
+                    child: Container(
+                      width: 87,
+                      height: 88,
+                      color: Color(0xFF3E64FF),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Image.asset(
+                          'assets/images/steth.png',
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+        
+                //Text('Doctors Appointment', style: TextStyle(fontSize: 12)),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(44),
+                  child: Container(
+                    width: 87,
+                    height: 88,
+                    color: Color(0xFF3E64FF),
+                    child: Padding(
+                      padding: const EdgeInsets.all(25.0),
+                      child: Image.asset(
+                        'assets/images/prescription.png',
+                      ),
+                    ),
+                  ),
+                ),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(44),
+                  child: Container(
+                    width: 87,
+                    height: 88,
+                    color: Color(0xFF3E64FF),
+                    child: Padding(
+                      padding: const EdgeInsets.all(25.0),
+                      child: Image.asset(
+                        'assets/images/consultant.png',
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text('Appointment',style: TextStyle(fontFamily: 'poppins-medium'),),
+                Text('Prescription',style: TextStyle(fontFamily: 'poppins-medium'),),
+                Text('Consultant',style: TextStyle(fontFamily: 'poppins-medium'),),
+              ],
+            ),
+            SizedBox(height: 15),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(44),
+                  child: GestureDetector(
+                    onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) =>BookTest()),
+          ),   
+                    child: Container(
+                      width: 87,
+                      height: 88,
+                      color: Color(0xFF3E64FF),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Image.asset(
+                          'assets/images/test.png',
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+        
+                //Text('Doctors Appointment', style: TextStyle(fontSize: 12)),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(44),
+                  child: Container(
+                    width: 87,
+                    height: 88,
+                    color: Color(0xFF3E64FF),
+                    child: Padding(
+                      padding: const EdgeInsets.all(25.0),
+                      child: Image.asset(
+                        'assets/images/lab.png',
+                      ),
+                    ),
+                  ),
+                ),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(44),
+                  child: GestureDetector(
+                    onTap: () {
+                      print('object');
+                    },
+                    child: Container(
+                      width: 87,
+                      height: 87,
+                      color:Color(0xFF3E64FF),
+                      child: Padding(
+                        padding: const EdgeInsets.all(25.0),
+                        child: Image.asset(
+                          'assets/images/medhis.png',
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text('Test Scheduling',style: TextStyle(fontFamily: 'poppins-medium'),),
+                Text('Lab Reports',style: TextStyle(fontFamily: 'poppins-medium'),),
+                Text('Medical History',style: TextStyle(fontFamily: 'poppins-medium'),),
+              ],
+            ),
+            //SizedBox(height: 5),
+            
+        //Text('sad'),
+        
+              Padding(
+                padding: const EdgeInsets.only(left: 20,top:10, bottom: 10 ),
+                child: Text('Appointments',
+                    style: TextStyle(
+                      decoration: TextDecoration.none,
+                      color: Colors.black,
+                      fontSize: 22,
+                      fontFamily: 'nunito-semibold',
+                      fontWeight: FontWeight.w500,
+                     // height: -100,
+                     // letterSpacing: -0.32,
+                    )),
+              ),
+            
+            //DATE OF THE APPOINTMENT
+        
+        //SizedBox(height: 50,),
+        FutureBuilder<List< dynamic>>(
+          future: appointinfo(),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+          //    print('am i here');
+        // Display an error message if fetching data failed
+        return Text('Error: no data');
+            }
+            
+            else if(snapshot.hasData == Null)
+            {
+          return 
+       Text('Error: no data'); 
+            }
+             else if (snapshot.hasData) {
+        // Extract the data from the snapshotas
+          final data = snapshot.data!;
+         //  print('i was here');
+        //   print(data[0]);
+        return  Container(
+            width: 450,
+            height: 150,
+            //color: Colors.red,
+            child: PageView.builder(
+                                          controller: _pageController,
+                                          itemCount: data.length,
+                                          itemBuilder: (_, i) {
+                                    final item = data[i] ;
 
-//SizedBox(height: 50,),
-Container(
-  width: 450,
-  height: 150,
-  //color: Colors.red,
-  child: PageView.builder(
-                                      controller: _pageController,
-                                      itemCount: 3,
-                                      itemBuilder: (_, i) {
-                                       // Map<String, dynamic> itemData = data[i];
-                                        return
-  
-            Padding(
-              padding: const EdgeInsets.only(left: 22),
-              child: Stack(
-                children: [
-                   Container(
-                   // margin: EdgeInsets.only(left: 10, top: 10),
-                    width: 370, height: 150,
-                    //color: Colors.red,
-                    child: Image.asset('assets/images/innershadowbox.png',fit: BoxFit.fill,),
-                   
-                   ),
-                   Positioned(
-                    left: 30,
-                    top: 20,
-                     child: Row(
-                       children: [
-                         Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                             Container(
-                              height: 40,
-                             // color: Colors.red,
-                               child: Text('29',
-                                                 style: TextStyle(
-                                                   decoration: TextDecoration.none,
-                                                   color: Colors.black,
-                                                   fontSize: 35,
-                                                   fontFamily: 'poppins-medium',
-                                                   fontWeight: FontWeight.w500,
-                                                  // height: -100,
-                                                  // letterSpacing: -0.32,
-                                                 )),
-                             ),
-                         Center(
-                           child: Container(
-                             width: 80,
-                             height: 40,
-                            //color: Colors.red,
-                             child: FittedBox(
-                               fit: BoxFit.contain,
-                               child: Text(
-                                 'May',
-                                 style: TextStyle(
-                                   decoration: TextDecoration.none,
-                                   color: Colors.black,
-                                   fontFamily: 'poppins-regular',
+                                          
+                                            return
+            
+                Padding(
+                  padding: const EdgeInsets.only(left: 22),
+                  child: Stack(
+                    children: [
+                       Container(
+                       // margin: EdgeInsets.only(left: 10, top: 10),
+                        width: 370, height: 150,
+                        //color: Colors.red,
+                        child: Image.asset('assets/images/innershadowbox.png',fit: BoxFit.fill,),
+                       
+                       ),
+                       Positioned(
+                        left: 30,
+                        top: 20,
+                         child: Row(
+                           children: [
+                             Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                 Container(
+                                  height: 40,
+                                 // color: Colors.red,
+                                   child: Text(
+                                                     // datetime.strptime(item['dateofvisit'].toString(), '%Y-%m-%d'),
+                                              DateFormat('dd').format(DateTime.parse(item['dateofvisit'].toString())),
+                                  
+                                                     style: TextStyle(
+                                                       decoration: TextDecoration.none,
+                                                       color: Colors.black,
+                                                       fontSize: 35,
+                                                       fontFamily: 'poppins-medium',
+                                                       fontWeight: FontWeight.w500,
+                                                      // height: -100,
+                                                      // letterSpacing: -0.32,
+                                                     )),
+                                 ),
+                           
+                                Center(
+                                 child: Container(
+                                   width: 80,
+                                   height: 40,
+                                  //color: Colors.red,
+                                   child: FittedBox(
+                                     fit: BoxFit.contain,
+                                     child: Text(
+                                       DateFormat('MMMM').format(DateTime.parse(item['dateofvisit'].toString())),
+                                       style: TextStyle(
+                                         decoration: TextDecoration.none,
+                                         color: Colors.black,
+                                         fontFamily: 'poppins-regular',
+                                       ),
+                                     ),
+                                   ),
                                  ),
                                ),
-                             ),
-                           ),
-                         ), 
-                          Padding(
-                            padding: const EdgeInsets.only(left: 15),
-                            child: Container(
-                              width: 50,
-                              height: 25,
-                             // color: Colors.red,
-                              child: Text('Tue',
-                                                style: TextStyle(
-                              decoration: TextDecoration.none,
-                              color: Colors.black,
-                              fontSize: 18,
-                              fontFamily: 'poppins-regular',
-                                                //  fontWeight: FontWeight.w500,
-                                                 // height: -100,
-                                                 // letterSpacing: -0.32,
-                                                )),
-                            ),
-                          ),   
-                         ],),
-                      
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
+           
+                              Padding(
+                                padding: const EdgeInsets.only(left: 15),
+                                child: Container(
+                                  width: 50,
+                                  height: 25,
+                                 // color: Colors.red,
+                                  child: Text(DateFormat('E').format(DateTime.parse(item['dateofvisit'].toString())),
+                                                    style: TextStyle(
+                                  decoration: TextDecoration.none,
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                  fontFamily: 'poppins-regular',
+                                                    //  fontWeight: FontWeight.w500,
+                                                     // height: -100,
+                                                     // letterSpacing: -0.32,
+                                                    )),
+                                ),
+                              ),   
+                             ],),
                           
-                         Text('12:00 PM',
-                                                 style: TextStyle(
-                                                   decoration: TextDecoration.none,
-                                                   color: Colors.black,
-                                                   fontSize: 18,
-                                                   fontFamily: 'poppins-medium',
-                                                   fontWeight: FontWeight.w500,
-                                                  // height: -100,
-                                                  // letterSpacing: -0.32,
-                                                 )),
-                          Text('Dr. Salman Sheikh',
-                                                 style: TextStyle(
-                                                   decoration: TextDecoration.none,
-                                                   color: Colors.black,
-                                                   fontSize: 20,
-                                                   fontFamily: 'poppins-semibold',
-                                                   fontWeight: FontWeight.w500,
-                                                  // height: -100,
-                                                  // letterSpacing: -0.32,
-                                                 )),
-                          Text('Dermatologist',
-                                                 style: TextStyle(
-                                                   decoration: TextDecoration.none,
-                                                   color: Colors.black,
-                                                   fontSize: 15,
-                                                   fontFamily: 'poppins-medium',
-                                                   fontWeight: FontWeight.w500,
-                                                  // height: -100,
-                                                  // letterSpacing: -0.32,
-                                                 )),
-                        ],),
-                      )
-                       ],
-                     ),
-                   )
-                 ],
-              ),
-            );
-         
-                                  
-                                      }
-  ),
-)
-
-        ],
+                          Padding(
+                            padding: const EdgeInsets.only(left: 20),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                              
+                             Text(
+                              //item['timeofvisit'].toString(),
+                                DateFormat('h a').format(DateFormat('HH:mm:ss').parse(item['timeofvisit'].toString())),
+                                                     style: TextStyle(
+                                                       decoration: TextDecoration.none,
+                                                       color: Colors.black,
+                                                       fontSize: 18,
+                                                       fontFamily: 'poppins-medium',
+                                                       fontWeight: FontWeight.w500,
+                                                      // height: -100,
+                                                      // letterSpacing: -0.32,
+                                                     )),
+                              FutureBuilder<List< dynamic>>(
+          future: fetchdoctorsinfobyid(2),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              print('am i here');
+        // Display an error message if fetching data failed
+        return Text('Error: ${snapshot.error}');
+            } else if (snapshot.hasData) {
+        // Extract the data from the snapshotas
+          final data = snapshot.data!;
+          final item = data[0] ;
+          print(item['Specialty'].toString());
+        return  Text(item['DoctorName'].toString(),
+                                                       style: TextStyle(
+                                                         decoration: TextDecoration.none,
+                                                         color: Colors.black,
+                                                         fontSize: 20,
+                                                         fontFamily: 'poppins-semibold',
+                                                         fontWeight: FontWeight.w500,
+                                                        // height: -100,
+                                                        // letterSpacing: -0.32,
+                                                       ));
+                                    
+            }
+              else
+            return CircularProgressIndicator();
+            }
+                              ),
+                                          
+          
+                              FutureBuilder<List< dynamic>>(
+          future: fetchdoctorsinfobyid(2),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              print('am i here');
+        // Display an error message if fetching data failed
+        return Text('Error: ${snapshot.error}');
+            } else if (snapshot.hasData) {
+        // Extract the data from the snapshotas
+          final data = snapshot.data!;
+          final item = data[0] ;
+          print(item['Specialty'].toString());
+        return                                Text(item['Specialty'].toString(),
+                                                       style: TextStyle(
+                                                         decoration: TextDecoration.none,
+                                                         color: Colors.black,
+                                                         fontSize: 15,
+                                                         fontFamily: 'poppins-medium',
+                                                         fontWeight: FontWeight.w500,
+                                                        // height: -100,
+                                                        // letterSpacing: -0.32,
+                                                       ));
+                              
+            }
+            else
+            return CircularProgressIndicator();
+          }
+                              )
+                            ],),
+                          )
+                           ],
+                         ),
+                       )
+                     ],
+                  ),
+                );
+             
+                                      
+                                          }
+            ),
+          );
+            }
+          else
+            return CircularProgressIndicator();
+          }
+          
+        )
+        
+          ],
+        ),
       ),
     ));
   }

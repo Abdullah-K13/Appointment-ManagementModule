@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:screen_1/DashBoard%20copy.dart';
+import 'package:screen_1/Dashboard.dart';
 import 'package:screen_1/apifunctions.dart';
+import 'package:screen_1/sing_up_Screen.dart';
 import 'sign_in_button.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -62,46 +65,67 @@ class _SignInScreenState extends State<SignInScreen> {
                         SizedBox(height: 16),
                         _buildTextField('Password:', Icons.lock, true),
                         SizedBox(height: 32),
-                        ElevatedButton(
-                          onPressed: () async {
-
-                            setState(() {
-                              _signInPressed = true; // Set sign-in pressed to true
-                            });
-                            if (_formKey.currentState?.validate() ?? false) {
-                              _formKey.currentState?.save();
-                              // Handle sign-in logic here
-                            }
-                           var auth =  await authorization(_email, _password);
-                          if(auth == true){
-  //                             Navigator.push(
-  //   context,
-  //   MaterialPageRoute(builder: (context) =>welcomescreen4()),
-  // );  
-                          }                            
+                      ElevatedButton(
+                            onPressed: () async {
                           
-                          },
-                          child: Text(
-                            'Sign In',
-                            style: TextStyle(
-                              fontFamily: 'nunito-extrabold',
-                              color: Colors.white,
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          style: ElevatedButton.styleFrom(
+                              setState(() {
+                                _signInPressed = true; // Set sign-in pressed to true
+                              });
+                              if (_formKey.currentState?.validate() ?? false) {
+                                _formKey.currentState?.save();
+                                // Handle sign-in logic here
+                              }
+                             var auth =  await authorization(_email, _password);
+                          print(auth);   
+                            if(auth == true){
+
+                                Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) =>DashBoard()),
+                            );  
+                            }
+                            else
+                              {
+                                  final snackBar = SnackBar(
+                backgroundColor: Color(0xFF800020), // Customize the background color
+                content: Row(
+                  children: [
+                    Icon(Icons.warning, color: Colors.white), // Warning icon
+                    SizedBox(width: 8),
+                    Text(
+                      'PIncorrect email or password',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
+                duration: Duration(seconds: 3),
+              );
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                              }           
                             
-                            padding: EdgeInsets.symmetric(vertical: 16),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(25),
+                            },
+                            child: Text(
+                              'Sign In',
+                              style: TextStyle(
+                                fontFamily: 'nunito-extrabold',
+                                color: Colors.white,
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                            elevation: 5,
-                            backgroundColor: Color(0xFF3E64FF), // Change button color to blue
-                            minimumSize: Size(double.infinity, 20), // Set button width to match text fields
-                          ),
-                        ),
-                      ],
+                            style: ElevatedButton.styleFrom(
+                              
+                              padding: EdgeInsets.symmetric(vertical: 16),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25),
+                              ),
+                              elevation: 5,
+                              backgroundColor: Color(0xFF3E64FF), // Change button color to blue
+                              minimumSize: Size(double.infinity, 20), // Set button width to match text fields
+                            ),
+                          )
+                      ]
+   
                     ),
                   ),
                   SizedBox(height: 16),
@@ -145,6 +169,10 @@ class _SignInScreenState extends State<SignInScreen> {
                       GestureDetector(
                         onTap: () {
                           // Handle sign up navigation
+                         Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) =>signupscreen()),
+  ); 
                         },
                         child: Text(
                           'Sign Up',

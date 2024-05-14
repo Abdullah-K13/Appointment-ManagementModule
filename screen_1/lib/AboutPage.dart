@@ -26,22 +26,25 @@ class AboutPage extends StatelessWidget {
                   color: Colors.white,
                   child: Row(
                     children: [
-                      Container(
-                        width: 50,
-                        height: 48,
-                        padding: const EdgeInsets.all(12),
-                        clipBehavior: Clip.antiAlias,
-                        decoration: ShapeDecoration(
-                          color: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            side: BorderSide(width: 1, color: Colors.white),
-                            borderRadius: BorderRadius.circular(18),
+                      GestureDetector(
+                        onTap:() =>  Navigator.pop(context),
+                        child: Container(
+                          width: 50,
+                          height: 48,
+                          padding: const EdgeInsets.all(12),
+                          clipBehavior: Clip.antiAlias,
+                          decoration: ShapeDecoration(
+                            color: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              side: BorderSide(width: 1, color: Colors.white),
+                              borderRadius: BorderRadius.circular(18),
+                            ),
                           ),
-                        ),
-                        child: Center(
-                          child: Icon(
-                            Icons.arrow_back,
-                            color: Colors.black,
+                          child: Center(
+                            child: Icon(
+                              Icons.arrow_back,
+                              color: Colors.black,
+                            ),
                           ),
                         ),
                       ),

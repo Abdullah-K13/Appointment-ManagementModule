@@ -113,9 +113,7 @@ print(allTimeSlots);
 }
 print(timeSlotsforthispage);
 
-setState(() {
-  
-});
+
 
   }
 
@@ -203,31 +201,7 @@ setState(() {
           
             )
           , 
-          Container(
-              height: 150,
-              width: double.infinity,
-             // color: Colors.green,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-               Padding(
-          padding: const EdgeInsets.only(left: 15,top: 10),
-          child: Text(
-                    'May, 2024',
-                                  style: TextStyle(
-                      decoration: TextDecoration.none,
-                      color: const Color.fromARGB(255, 0, 0, 0),
-                      fontSize: 20,
-                      fontFamily: 'nunito-extrabold',
-                      fontWeight: FontWeight.w800,
-                      height: 0,
-                      letterSpacing: -0.32,
-                                  )),
-               ),
-               SizedBox(height: 9,)
-               
-               ,FutureBuilder<List<dynamic>>(
+         FutureBuilder<List<dynamic>>(
   future: getTimesByDates(1, selectedDate),
   builder: (context, snapshot) {
     if (snapshot.hasError) {
@@ -238,147 +212,201 @@ setState(() {
        final List<dynamic> data = snapshot.data!;
    print('i was here');
 
-      return  Row(
-                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                 
-                           children:
-                           
-                            List.generate(5, (index)  {
-                             bool isSelected = selecteddateindices.contains(index);
-                          //  var item = data[index];
-                 return GestureDetector(
-                  onTap: ()  async {
-                   print('in the gesture');
-                  selectedDate = DateFormat('yyyy-MM-dd').format(next10Days[index]);
-                  // print(selectedDate);
-                    setState(()  {
-                      if (isSelected)
-                      selecteddateindices.remove(index);
-                      else
-                        selecteddateindices = [index];
-                      fetchAvailableTimeSlots(data);
-                    });
-
-                  },
-                   child: Padding(
-                             padding: const EdgeInsets.all(0.0),
-                             child: Container(
-                               width: 70, // Adjust the width as needed
-                               height: 95, // Adjust the height as needed
-                               decoration: BoxDecoration(
-                               color:isSelected? Color(0xFF3E64FF): const Color.fromARGB(255, 252, 252, 252),
-                               borderRadius: BorderRadius.circular(15)
-
-                               ),
-                               child: Center(
-                                 child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                                          DateFormat('d').format(next10Days[index]),
-                                          style: TextStyle(
-                              decoration: TextDecoration.none,
-                              color: isSelected? const Color.
-                              fromARGB(255, 255, 255, 255): const Color.fromARGB(255, 0, 0, 0),
-                              fontSize: 33,
-                              fontFamily: 'museo500',
-                             // fontWeight: FontWeight.w800,
-                              height: 0,
-                              letterSpacing: -0.32,
-                                          )),
-                   
-                                          SizedBox(height: 5,),
-                                          Text(
-                                          DateFormat('EE').format(next10Days[index]),
-                                          style: TextStyle(
-                              decoration: TextDecoration.none,
-                              color: isSelected? const Color.fromARGB(255, 255, 255, 255): const Color.fromARGB(255, 0, 0, 0),
-                              fontSize: 16,
-                              fontFamily: 'actor',
-                             // fontWeight: FontWeight.w800,
-                              height: 0,
-                              letterSpacing: -0.32,
-                                          )),
-                    ],
-                                 ),
-                               ),
-                             ),
-                   ),
-                 );
-                           }),
-                            
-                 );
-             
-       }
-    else 
-        return CircularProgressIndicator();
-       
-    }
-   )
-  
-                ],
-              ),
-              
-              ),
-             Container(
-          width: MediaQuery.of(context).size.width,
-       //   color: Colors.lightGreen,
-
-          child: 
-            
-             GridView.count(
-                     physics: NeverScrollableScrollPhysics(),
-                     shrinkWrap: true,
-                     crossAxisCount: 4,
-                     childAspectRatio: 2.2,
-                     padding: const EdgeInsets.all(16.0),
-                     mainAxisSpacing: 16.0,
-                     crossAxisSpacing: 10.0,
-                     children: timeSlotsforthispage.map((timeSlotsforthispage) {
-                       
-                       
-                       return GestureDetector(
-              onTap: () {
-                setState(() {
-                 // removeTimeslots();// Handle onTap event
-                });
-              },
-              child: Container(
-                height: 30,
-                decoration: BoxDecoration(
-                  color: Colors.white, // Adjust color based on your condition
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                child: Center(
+      return 
+          Column(
+              children: [
+                  Container(
+                      height: 150,
+                      width: double.infinity,
+                    // color: Colors.green,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                       Padding(
+                  padding: const EdgeInsets.only(left: 15,top: 10),
                   child: Text(
-                    timeSlotsforthispage,
+                            'May, 2024',
+                                          style: TextStyle(
+                              decoration: TextDecoration.none,
+                              color: const Color.fromARGB(255, 0, 0, 0),
+                              fontSize: 20,
+                              fontFamily: 'nunito-extrabold',
+                              fontWeight: FontWeight.w800,
+                              height: 0,
+                              letterSpacing: -0.32,
+                                          )),
+                       ),
+                       SizedBox(height: 9,)
+                       
+                       , Row(
+                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                         
+                                   children:
+                                   
+                                    List.generate(5, (index)  {
+                                     bool isSelected = selecteddateindices.contains(index);
+                                  //  var item = data[index];
+                         return GestureDetector(
+                          onTap: ()  async {
+                           print('in the gesture');
+                          selectedDate = DateFormat('yyyy-MM-dd').format(next10Days[index]);
+                          // print(selectedDate);
+                  
+                  
+                  
+                            setState(()  {
+                              if (isSelected)
+                              selecteddateindices.remove(index);
+                              else
+                                selecteddateindices = [index];
+                            
+                            fetchAvailableTimeSlots(data);
+                            });
+                        
+                  
+                          },
+                           child: Padding(
+                                     padding: const EdgeInsets.all(0.0),
+                                     child: Container(
+                                       width: 70, // Adjust the width as needed
+                                       height: 95, // Adjust the height as needed
+                                       decoration: BoxDecoration(
+                                       color:isSelected? Color(0xFF3E64FF): const Color.fromARGB(255, 252, 252, 252),
+                                       borderRadius: BorderRadius.circular(15)
+                  
+                                       ),
+                                       child: Center(
+                                         child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                                  DateFormat('d').format(next10Days[index]),
+                                                  style: TextStyle(
+                                      decoration: TextDecoration.none,
+                                      color: isSelected? const Color.
+                                      fromARGB(255, 255, 255, 255): const Color.fromARGB(255, 0, 0, 0),
+                                      fontSize: 33,
+                                      fontFamily: 'museo500',
+                                     // fontWeight: FontWeight.w800,
+                                      height: 0,
+                                      letterSpacing: -0.32,
+                                                  )),
+                           
+                                                  SizedBox(height: 5,),
+                                                  Text(
+                                                  DateFormat('EE').format(next10Days[index]),
+                                                  style: TextStyle(
+                                      decoration: TextDecoration.none,
+                                      color: isSelected? const Color.fromARGB(255, 255, 255, 255): const Color.fromARGB(255, 0, 0, 0),
+                                      fontSize: 16,
+                                      fontFamily: 'actor',
+                                     // fontWeight: FontWeight.w800,
+                                      height: 0,
+                                      letterSpacing: -0.32,
+                                                  )),
+                            ],
+                                         ),
+                                       ),
+                                     ),
+                           ),
+                         );
+                                   }),
+                                    
+                         )
+                     
+                       
                     
-                    style: TextStyle(
-                      fontFamily: 'museo500',
-                      color: Colors.black, // Adjust color based on your condition
-                      fontWeight: FontWeight.w100,
-                      fontSize: 18,
-                      decoration: TextDecoration.none,
+                        ],
+                      ),
+                      
+                      ),
+  
+          
+               FutureBuilder<void>(
+  future: fetchAvailableTimeSlots(data),
+  builder: (context, snapshot) {
+    if (snapshot.hasError) {
+      // Display an error message if fetching data failed
+      return Text('Error: ${snapshot.error}');
+    } else if (snapshot.hasData) {
+      // Extract the data from the snapshotas
+      // final List<dynamic> data = snapshot.data!;
+   //print('i was here');
+
+      return  Container(
+                             width: MediaQuery.of(context).size.width,
+                     //   color: Colors.lightGreen,
+                             
+                             child: 
+                               
+                 GridView.count(
+                         physics: NeverScrollableScrollPhysics(),
+                         shrinkWrap: true,
+                         crossAxisCount: 4,
+                         childAspectRatio: 2.2,
+                         padding: const EdgeInsets.all(16.0),
+                         mainAxisSpacing: 16.0,
+                         crossAxisSpacing: 10.0,
+                         children: timeSlotsforthispage.map((timeSlotsforthispage) {
+                           
+                           
+                           return GestureDetector(
+                  onTap: () {
+                    setState(() {
+                     // removeTimeslots();// Handle onTap event
+                    });
+                  },
+                  child: Container(
+                    height: 30,
+                    decoration: BoxDecoration(
+                      color: Colors.white, // Adjust color based on your condition
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Center(
+                      child: Text(
+                        timeSlotsforthispage,
+                        
+                        style: TextStyle(
+                          fontFamily: 'museo500',
+                          color: Colors.black, // Adjust color based on your condition
+                          fontWeight: FontWeight.w100,
+                          fontSize: 18,
+                          decoration: TextDecoration.none,
+                        ),
+                      ),
                     ),
                   ),
-                ),
-              ),
-                       );
-                     }).toList(),
-                   )
-          
-            
-            
-    // } else {
-    //   // Display a loading indicator while waiting for data
-    //   return CircularProgressIndicator();
-    // }
-
-
-
+                           );
+                         }).toList(),
+                       )
+                             
+                               
+                               
+                  // } else {
+                  //   // Display a loading indicator while waiting for data
+                  //   return CircularProgressIndicator();
+                  // }
+                             
+                             
+                             
+                   );
+    }
+    else
+      throw Exception("Unexpected condition");
+    }
                )
-         ,
+                     
+              ],
+            );
+    }
+    else
+      throw Exception("Unexpected condition");
+      }
+         ),
          
+   
+   
                Container(
           width: double.infinity,
         //       color: const Color.fromARGB(255, 30, 169, 233),
@@ -500,7 +528,7 @@ DropdownButton<String>(
                  ),
                  onPressed: () {
                    complain = complaincontroller.text;
-
+                   
                //   apifunction().postDataToApi('2024-12-13','13:36:28.094Z',name,age,gender,complain); // Add your onPressed logic here.
                 //  print(name);
                 //  print(selectedgender);

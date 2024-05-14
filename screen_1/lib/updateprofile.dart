@@ -113,20 +113,23 @@ _Agecontroller = TextEditingController(text: data['Age']);
                                   Padding(
                                     padding:
                                         const EdgeInsets.only(left: 25, bottom: 65),
-                                    child: Container(
-                                      width: 48,
-                                      height: 48,
-                                      clipBehavior: Clip.antiAlias,
-                                      decoration: ShapeDecoration(
-                                        shape: RoundedRectangleBorder(
-                                          side: BorderSide(
-                                              width: 1, color: Colors.white),
-                                          borderRadius: BorderRadius.circular(18),
+                                    child: GestureDetector(
+                                      onTap: () => Navigator.pop(context),
+                                      child: Container(
+                                        width: 48,
+                                        height: 48,
+                                        clipBehavior: Clip.antiAlias,
+                                        decoration: ShapeDecoration(
+                                          shape: RoundedRectangleBorder(
+                                            side: BorderSide(
+                                                width: 1, color: Colors.white),
+                                            borderRadius: BorderRadius.circular(18),
+                                          ),
                                         ),
-                                      ),
-                                      child: Icon(
-                                        Icons.arrow_back,
-                                        color: Colors.white,
+                                        child: Icon(
+                                          Icons.arrow_back,
+                                          color: Colors.white,
+                                        ),
                                       ),
                                     ),
                                   ),
