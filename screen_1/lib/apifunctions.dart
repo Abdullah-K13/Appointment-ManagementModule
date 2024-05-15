@@ -1,8 +1,9 @@
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-final ip = '192.168.0.101';
+final ip = '192.168.0.108';
 
 class apifunction {
 
@@ -255,10 +256,10 @@ Future<dynamic> fetchpatientsInformation(int id) async {
   }
 }
 
-Future<void> UpdatepatientsInformation(name,age,gender,address,contactinfo,emergencycontact,patientid) async {
+Future<void> UpdatepatientsInformation(name,age,gender,address,contactinfo,emergencycontact,patientid,email,password) async {
  
  
-  final apiUrl = 'http://$ip:8000/updatepatientsinformation/4'; // replace with your API URL
+  final apiUrl = 'http://$ip:8000/updatepatientsinformation/5'; // replace with your API URL
   final headers = {
     'Content-Type': 'application/json',
   };
@@ -266,13 +267,16 @@ Future<void> UpdatepatientsInformation(name,age,gender,address,contactinfo,emerg
 
   
   final requestBody ={
-  "PatientID": 4,
-  "FullName": "salman sheikh Khan",
-  "Age": "32",
-  "Gender": "Female",
-  "HomeAdress": "Malir blah blah",
-  "ContactInformation": "03101211969",
-  "EmergencyContact": "03132386659"
+  "PatientID": 0,
+  "Name": name,
+  "Age": int.parse(age),
+  "Gender": gender,
+  "EmailAddress": email ,
+  "Address": address,
+  "ContactInformation": contactinfo,
+  "EmergencyContact": emergencycontact,
+  "InsuranceInformation": "None",
+  "Password": password
 };
 
 

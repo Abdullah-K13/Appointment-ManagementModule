@@ -68,7 +68,7 @@ class _TryPageState extends State<TryPage> {
             child: SingleChildScrollView(
               child:   
 FutureBuilder<Map<String, dynamic>>(
-          future: testpatientinfo(1),
+          future: testpatientinfo(5),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               // Display an error message if fetching data failed
@@ -76,19 +76,15 @@ FutureBuilder<Map<String, dynamic>>(
             } else if (snapshot.hasData) {
               // Display different widgets based on the data
               var data = snapshot.data!;
-              print('heelooo abdullah data is');
-              print(data['FullName']);
-              print(data['Gender']);
-              print(data['Age']);
-
-              _nameController = TextEditingController(text: data['FullName']);
-_EmailController = TextEditingController(text: 'none');
-_PasswordController = TextEditingController(text: 'none');
+           
+              _nameController = TextEditingController(text: data['Name']);
+_EmailController = TextEditingController(text: data['EmailAddress']);
+_PasswordController = TextEditingController(text: data['Password']);
 _GenderController = TextEditingController(text: data['Gender']);
 _PhoneNumberController = TextEditingController(text: data['ContactInformation']);
 _EmergencyController = TextEditingController(text: data['EmergencyContact']);
-_AddressController = TextEditingController(text: data['HomeAdress']);
-_Agecontroller = TextEditingController(text: data['Age']);
+_AddressController = TextEditingController(text: data['Address']);
+_Agecontroller = TextEditingController(text: data['Age'].toString());
 
           return
                 Column(
@@ -375,7 +371,7 @@ _Agecontroller = TextEditingController(text: data['Age']);
                             minimumSize: MaterialStateProperty.all(Size(200, 60)))),
                         onPressed: () {
 
-                     UpdatepatientsInformation(_nameController.text, _Agecontroller.text, _GenderController.text, _AddressController.text,_PhoneNumberController.text,_EmergencyController.text, 4);
+                     UpdatepatientsInformation(_nameController.text, _Agecontroller.text, _GenderController.text, _AddressController.text,_PhoneNumberController.text,_EmergencyController.text, 4,_EmailController.text,_PasswordController.text);
                         //  controllers_intialization();
                         },
                         child: Text(

@@ -248,24 +248,26 @@ print(timeSlotsforthispage);
                                      bool isSelected = selecteddateindices.contains(index);
                                   //  var item = data[index];
                          return GestureDetector(
-                          onTap: ()  async {
-                           print('in the gesture');
-                          selectedDate = DateFormat('yyyy-MM-dd').format(next10Days[index]);
-                          // print(selectedDate);
-                  
-                  
-                  
-                            setState(()  {
-                              if (isSelected)
-                              selecteddateindices.remove(index);
-                              else
-                                selecteddateindices = [index];
-                            
-                            fetchAvailableTimeSlots(data);
-                            });
-                        
-                  
-                          },
+  onTap: () async {
+    print('in the gesture');
+    selectedDate = DateFormat('yyyy-MM-dd').format(next10Days[index]);
+    // print(selectedDate);
+
+    setState(()  {
+      if (isSelected)
+        selecteddateindices.remove(index);
+      else
+        selecteddateindices = [index];
+        fetchAvailableTimeSlots(data);
+
+          
+
+    });
+
+    // Call fetchAvailableTimeSlots directly after updating selecteddateindices
+  },
+
+
                            child: Padding(
                                      padding: const EdgeInsets.all(0.0),
                                      child: Container(
@@ -321,20 +323,7 @@ print(timeSlotsforthispage);
                       ),
                       
                       ),
-  
-          
-               FutureBuilder<void>(
-  future: fetchAvailableTimeSlots(data),
-  builder: (context, snapshot) {
-    if (snapshot.hasError) {
-      // Display an error message if fetching data failed
-      return Text('Error: ${snapshot.error}');
-    } else if (snapshot.hasData) {
-      // Extract the data from the snapshotas
-      // final List<dynamic> data = snapshot.data!;
-   //print('i was here');
-
-      return  Container(
+   Container(
                              width: MediaQuery.of(context).size.width,
                      //   color: Colors.lightGreen,
                              
@@ -390,18 +379,13 @@ print(timeSlotsforthispage);
                              
                              
                              
-                   );
-    }
-    else
-      throw Exception("Unexpected condition");
-    }
-               )
-                     
+                   )
+       
               ],
             );
     }
     else
-      throw Exception("Unexpected condition");
+      return CircularProgressIndicator();
       }
          ),
          
