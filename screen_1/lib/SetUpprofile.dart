@@ -78,7 +78,7 @@ List<String> choosegender = ['Male', 'Female'];
             child: SingleChildScrollView(
               child:   
 FutureBuilder<Map<String, dynamic>>(
-          future: testpatientinfo(1),
+          future: apifunction().testpatientinfo(1),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               // Display an error message if fetching data failed
@@ -429,7 +429,7 @@ DropdownButton<String>(
                               if(isValidPhoneNumber(_EmergencyController.text)){
                                 if(isValidAddress(_AddressController.text)){
                                    if (Selectedgender != null ) {
-                                    postPatientsdata(_nameController.text, _Agecontroller.text, Selectedgender, email, _AddressController.text, _PhoneNumberController.text, _EmergencyController.text, password);
+                                    apifunction().postPatientsdata(_nameController.text, _Agecontroller.text, Selectedgender, email, _AddressController.text, _PhoneNumberController.text, _EmergencyController.text, password);
  Navigator.push(
     context,
     MaterialPageRoute(builder: (context) =>DashBoard()),

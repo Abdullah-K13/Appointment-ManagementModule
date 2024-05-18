@@ -35,7 +35,7 @@ Widget build(BuildContext context) {
        color: Color.fromARGB(255, 214, 213, 213),
        child: 
              FutureBuilder<List<dynamic>>(
-  future: fetchdoctorsinfobyid(did),
+  future: apifunction().fetchdoctorsinfobyid(did),
   builder: (context, snapshot) {
      if (snapshot.connectionState == ConnectionState.waiting) {
       return CircularProgressIndicator(); // Return a loading indicator while waiting for the future
@@ -127,7 +127,7 @@ Widget build(BuildContext context) {
                     Text(
                                 //  textAlign: TextAlign.center,
                        
-                                        item['DoctorName'],
+                                        item['doctorname'],
                                         style: TextStyle(
                             decoration: TextDecoration.none,
                             color: Colors.white,
@@ -141,7 +141,7 @@ Widget build(BuildContext context) {
                                         Text(
                                   //textAlign: TextAlign.center,
                        
-                                        item['Specialty'],
+                                        item['Specialization'],
                                         style: TextStyle(
                             decoration: TextDecoration.none,
                             color: Colors.white,
@@ -173,7 +173,8 @@ Widget build(BuildContext context) {
                                Text(
                                  // textAlign: TextAlign.center,
                        
-                                        item['PatientDealt'].toString(),
+                                      //  item['PatientDealt'].toString(),
+                                       '7800',
                                         style: TextStyle(
                             decoration: TextDecoration.none,
                             color: const Color.fromARGB(255, 5, 5, 5),
@@ -226,7 +227,7 @@ Widget build(BuildContext context) {
                                Text(
                                   textAlign: TextAlign.center,
                        
-                                        item['ExperienceInYears'].toString(),
+                                        item['Experience'].toString(),
                                         style: TextStyle(
                             decoration: TextDecoration.none,
                             color: const Color.fromARGB(255, 5, 5, 5),
@@ -280,7 +281,7 @@ Widget build(BuildContext context) {
                                Text(
                                  // textAlign: TextAlign.center,
                        
-                                        item['Rating'].toString(),
+                                        item['Ratings'].toString(),
                                         style: TextStyle(
                             decoration: TextDecoration.none,
                             color: const Color.fromARGB(255, 5, 5, 5),
@@ -357,7 +358,7 @@ Widget build(BuildContext context) {
                                               width: 400,
                                                child: Text(
                                                                           //     textAlign: TextAlign.start,
-                                                                    item['Descriptions'],
+                                                                    item['Qualifications'],
                                                                                      style: TextStyle(
                                                                          decoration: TextDecoration.none,
                                                                          color: Color(0xFF444444),

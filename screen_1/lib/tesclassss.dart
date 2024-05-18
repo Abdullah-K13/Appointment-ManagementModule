@@ -26,7 +26,7 @@ import 'package:screen_1/apifunctions.dart';
 testfunction(){
   
 FutureBuilder<Map<String, dynamic>>(
-          future: testpatientinfo(1),
+          future: apifunction().testpatientinfo(1),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               // Display an error message if fetching data failed

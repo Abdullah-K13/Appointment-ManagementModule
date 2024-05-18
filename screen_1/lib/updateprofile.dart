@@ -20,7 +20,7 @@ TextEditingController _AddressController = TextEditingController();
 void controllers_intialization()  {
 
 FutureBuilder<Map<String, dynamic>>(
-          future: testpatientinfo(2),
+          future: apifunction().testpatientinfo(2),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               // Display an error message if fetching data failed
@@ -68,7 +68,7 @@ class _TryPageState extends State<TryPage> {
             child: SingleChildScrollView(
               child:   
 FutureBuilder<Map<String, dynamic>>(
-          future: testpatientinfo(5),
+          future: apifunction().testpatientinfo(5),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               // Display an error message if fetching data failed
@@ -371,7 +371,7 @@ _Agecontroller = TextEditingController(text: data['Age'].toString());
                             minimumSize: MaterialStateProperty.all(Size(200, 60)))),
                         onPressed: () {
 
-                     UpdatepatientsInformation(_nameController.text, _Agecontroller.text, _GenderController.text, _AddressController.text,_PhoneNumberController.text,_EmergencyController.text, 4,_EmailController.text,_PasswordController.text);
+                     apifunction().UpdatepatientsInformation(_nameController.text, _Agecontroller.text, _GenderController.text, _AddressController.text,_PhoneNumberController.text,_EmergencyController.text, 4,_EmailController.text,_PasswordController.text);
                         //  controllers_intialization();
                         },
                         child: Text(

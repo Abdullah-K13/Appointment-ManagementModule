@@ -13,10 +13,10 @@ class _SignInScreenState extends State<signupscreen> {
   String _email = '';
   String _password = '';
   String _confirmpassword = '';
-    TextEditingController passwordcontroller = TextEditingController();
+  TextEditingController passwordcontroller = TextEditingController();
   TextEditingController confirmpassword = TextEditingController();
  TextEditingController emailcontroller = TextEditingController();
-
+  bool _isconfirmPasswordVisible = false;
   bool _isPasswordVisible = false;
   bool _signInPressed = false; // Track if sign-in button has been pressed
 

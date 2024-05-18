@@ -124,12 +124,7 @@ class DashBoard extends StatelessWidget {
                                 prefixIcon: Icon(Icons.search),
                               ),
                             )),
-                        // Container(
-                        //   margin: EdgeInsets.only(right: 0.0),
-                        //   height: 35,
-                        //   width: 35,
-                        //   child: Icon(Icons.tune, color: Colors.white),
-                        // )
+                       
                       ],
                     )
                   ],
@@ -305,7 +300,7 @@ class DashBoard extends StatelessWidget {
         
         //SizedBox(height: 50,),
         FutureBuilder<List< dynamic>>(
-          future: appointinfo(),
+          future: apifunction().appointinfo(),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
           //    print('am i here');
@@ -360,7 +355,7 @@ class DashBoard extends StatelessWidget {
                                  // color: Colors.red,
                                    child: Text(
                                                      // datetime.strptime(item['dateofvisit'].toString(), '%Y-%m-%d'),
-                                              DateFormat('dd').format(DateTime.parse(item['dateofvisit'].toString())),
+                                              DateFormat('dd').format(DateTime.parse(item['DateOfVisit'].toString())),
                                   
                                                      style: TextStyle(
                                                        decoration: TextDecoration.none,
@@ -381,7 +376,7 @@ class DashBoard extends StatelessWidget {
                                    child: FittedBox(
                                      fit: BoxFit.contain,
                                      child: Text(
-                                       DateFormat('MMMM').format(DateTime.parse(item['dateofvisit'].toString())),
+                                       DateFormat('MMMM').format(DateTime.parse(item['DateOfVisit'].toString())),
                                        style: TextStyle(
                                          decoration: TextDecoration.none,
                                          color: Colors.black,
@@ -398,7 +393,7 @@ class DashBoard extends StatelessWidget {
                                   width: 50,
                                   height: 25,
                                  // color: Colors.red,
-                                  child: Text(DateFormat('E').format(DateTime.parse(item['dateofvisit'].toString())),
+                                  child: Text(DateFormat('E').format(DateTime.parse(item['DateOfVisit'].toString())),
                                                     style: TextStyle(
                                   decoration: TextDecoration.none,
                                   color: Colors.black,
@@ -420,7 +415,7 @@ class DashBoard extends StatelessWidget {
                               
                              Text(
                               //item['timeofvisit'].toString(),
-                                DateFormat('h a').format(DateFormat('HH:mm:ss').parse(item['timeofvisit'].toString())),
+                                DateFormat('h a').format(DateFormat('HH:mm:ss').parse(item['TimeOfVisit'].toString())),
                                                      style: TextStyle(
                                                        decoration: TextDecoration.none,
                                                        color: Colors.black,
@@ -431,7 +426,7 @@ class DashBoard extends StatelessWidget {
                                                       // letterSpacing: -0.32,
                                                      )),
                               FutureBuilder<List< dynamic>>(
-          future: fetchdoctorsinfobyid(2),
+          future: apifunction().fetchdoctorsinfobyid(1),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               print('am i here');
@@ -440,9 +435,10 @@ class DashBoard extends StatelessWidget {
             } else if (snapshot.hasData) {
         // Extract the data from the snapshotas
           final data = snapshot.data!;
+         // print(data);
           final item = data[0] ;
-          print(item['Specialty'].toString());
-        return  Text(item['DoctorName'].toString(),
+          print(item['doctorname'].toString());
+        return  Text(item['doctorname'].toString(),
                                                        style: TextStyle(
                                                          decoration: TextDecoration.none,
                                                          color: Colors.black,
@@ -461,7 +457,7 @@ class DashBoard extends StatelessWidget {
                                           
           
                               FutureBuilder<List< dynamic>>(
-          future: fetchdoctorsinfobyid(2),
+          future: apifunction().fetchdoctorsinfobyid(1),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               print('am i here');
@@ -471,8 +467,8 @@ class DashBoard extends StatelessWidget {
         // Extract the data from the snapshotas
           final data = snapshot.data!;
           final item = data[0] ;
-          print(item['Specialty'].toString());
-        return                                Text(item['Specialty'].toString(),
+        //  print(item['Specialty'].toString());
+        return                                Text(item['Specialization'].toString(),
                                                        style: TextStyle(
                                                          decoration: TextDecoration.none,
                                                          color: Colors.black,

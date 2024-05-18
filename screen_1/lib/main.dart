@@ -8,6 +8,7 @@ import 'package:screen_1/DoctorsInfo.dart';
 import 'package:screen_1/IntroPage.dart';
 import 'package:screen_1/ScheduleTest.dart';
 import 'package:screen_1/Select_Test.dart';
+import 'package:screen_1/medicalhistory.dart';
 import 'package:screen_1/updateprofile.dart';
 import 'package:screen_1/settings_screen.dart';
 import 'package:screen_1/sign_in_screen.dart';
@@ -18,6 +19,7 @@ import 'package:screen_1/splashscreens.dart';
 import 'package:screen_1/test.dart';
 import 'package:screen_1/testforsomeoneelse.dart';
 import 'package:screen_1/upper_middle_footer.dart';
+import 'package:screen_1/waleedtest.dart';
 import 'package:screen_1/welcomescreens.dart';
 import 'package:screen_1/AboutPage.dart';
 void main() {
@@ -601,7 +603,7 @@ GestureDetector(
     ),
     onPressed: () {
     if(_selectedIndex == 0){
-      Specialization = 'Cardiology';
+      Specialization = 'Cardiologist';
     }
     else if(_selectedIndex == 1){
       Specialization = 'Teeth';

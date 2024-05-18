@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:screen_1/Appforsomeoneelse.dart';
 import 'package:screen_1/BrowseDoctors.dart';
 import 'package:screen_1/DoctorsInfo.dart';
 import 'package:screen_1/apifunctions.dart';
@@ -29,7 +30,7 @@ class BookAppointment extends StatefulWidget{
 }
 
 class _BookAppointmentstate extends State<BookAppointment> {
-  
+  var reason;
  var newshiftStart;
  var newshiftend; 
 String? selectedAge;
@@ -44,7 +45,7 @@ var complain = 'None';
  // List<int> selectedtimeindices = [];
 
 List<DateTime> bookedTimeSlots = [];
-
+var selectedtime;
  _BookAppointmentstate(this.newshiftStart,this.newshiftend);
 
   @override
@@ -55,7 +56,7 @@ List<DateTime> bookedTimeSlots = [];
   }
 
 List<String> appointmentfor = ['Myself', 'SomeoneElse'];
-int _Selectedtimeindex = -1;
+ int selectedtestIndex = -1;
  int _selectedIndex = -1;
 int selecteddate = -1;
 //  TextEditingController namecontroller = TextEditingController();
@@ -91,7 +92,7 @@ print('all data is:');
 for ( var item in data)
 {
   print(item['timeofvisit']);
-  var test = item['timeofvisit'];
+  var test = item['TimeOfVisit'];
   DateTime time_Str = DateTime.parse('2024-04-30 $test'); // Fetch shift end time from database
   bookedTimeSlots.add(time_Str);
 }
@@ -112,8 +113,6 @@ print(allTimeSlots);
   timeSlotsforthispage.add(formattedTime);
 }
 print(timeSlotsforthispage);
-
-
 
   }
 
@@ -202,7 +201,7 @@ print(timeSlotsforthispage);
             )
           , 
          FutureBuilder<List<dynamic>>(
-  future: getTimesByDates(1, selectedDate),
+  future: apifunction().getTimesByDates(1, selectedDate),
   builder: (context, snapshot) {
     if (snapshot.hasError) {
       // Display an error message if fetching data failed
@@ -255,12 +254,11 @@ print(timeSlotsforthispage);
 
     setState(()  {
       if (isSelected)
-        selecteddateindices.remove(index);
+      {}
+     //   selecteddateindices.remove(index);
       else
         selecteddateindices = [index];
-        fetchAvailableTimeSlots(data);
-
-          
+      fetchAvailableTimeSlots(data);
 
     });
 
@@ -337,28 +335,38 @@ print(timeSlotsforthispage);
                          padding: const EdgeInsets.all(16.0),
                          mainAxisSpacing: 16.0,
                          crossAxisSpacing: 10.0,
-                         children: timeSlotsforthispage.map((timeSlotsforthispage) {
+                         children: timeSlotsforthispage.asMap().entries.map((entry)
+                         {
                            
-                           
+                           final index = entry.key;
+                         final testtimeslot = entry.value; 
+
                            return GestureDetector(
                   onTap: () {
+                    
+                    selectedtime = testtimeslot;
+                    print('the selected time is ');
+                    print(selectedtime);
+                    print(selectedDate);
                     setState(() {
                      // removeTimeslots();// Handle onTap event
+                     selectedtestIndex = index;
                     });
+
                   },
                   child: Container(
                     height: 30,
                     decoration: BoxDecoration(
-                      color: Colors.white, // Adjust color based on your condition
+                      color: selectedtestIndex == index ? Color(0xFF3E64FF): Colors.white, // Adjust color based on your condition
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     child: Center(
                       child: Text(
-                        timeSlotsforthispage,
+                        testtimeslot,
                         
                         style: TextStyle(
                           fontFamily: 'museo500',
-                          color: Colors.black, // Adjust color based on your condition
+                          color: selectedtestIndex == index ? Colors.white : Colors.black, // Adjust color based on your condition
                           fontWeight: FontWeight.w100,
                           fontSize: 18,
                           decoration: TextDecoration.none,
@@ -459,8 +467,7 @@ DropdownButton<String>(
       selectedappointment = newValue!;
       print(selectedappointment);
     if(selectedappointment == 'myself'){
-      print('imhere232');
-      someoneelse();
+     // print('imhere232');
     }
     });
 
@@ -512,7 +519,15 @@ DropdownButton<String>(
                  ),
                  onPressed: () {
                    complain = complaincontroller.text;
-                   
+                   if(selectedappointment == 'Myself'){
+                    print('on to the payment screen');
+                   }
+                   else{
+                     Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) =>appointmentforsomeoneelse( )),
+  );     
+                   }
                //   apifunction().postDataToApi('2024-12-13','13:36:28.094Z',name,age,gender,complain); // Add your onPressed logic here.
                 //  print(name);
                 //  print(selectedgender);
@@ -577,6 +592,10 @@ RoundedTextField(this.hintText,this.controller);
   @override
   Widget build(BuildContext context) {
     return TextField(
+        maxLines: null,
+      // Set the keyboardType to TextInputType.multiline
+      keyboardType: TextInputType.multiline,
+      //maxLength: 10,
       style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
       controller: controller,
       decoration: InputDecoration(

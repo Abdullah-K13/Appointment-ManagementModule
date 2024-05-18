@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:screen_1/Payment.dart';
+import 'package:screen_1/apifunctions.dart';
 
 class appointmentforsomeoneelse extends StatefulWidget{
 
@@ -10,7 +12,9 @@ class _appointmentforsomeoneelseState extends State<appointmentforsomeoneelse> {
  TextEditingController namecontroller = TextEditingController();
  TextEditingController Contact_Number = TextEditingController();
  TextEditingController email_address = TextEditingController();
- TextEditingController reasons_fro_checkup = TextEditingController();
+ TextEditingController emergencycontact = TextEditingController();
+TextEditingController age = TextEditingController();
+
 List<String> ages = ['10-20', '21-30', '31-40', '41-50', '51-60', '61-70', '71-80', '81-90', '91-100'];
 String? selectedAge;
  int _selectedIndex = -1;
@@ -199,33 +203,9 @@ var selectedgender;
           borderRadius: BorderRadius.circular(18)
           
             ),
-            child:
-
-DropdownButton<String>(
-  
-  value: selectedAge,
-  items: ages.map<DropdownMenuItem<String>>((String value) {
-    return DropdownMenuItem<String>(
-    
-      value: value,
-      child: Row(
-       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          SizedBox(width: 10,),
-          Text(value),
-          SizedBox(width: 280), // Add a gap between the text and the icon
-          //Icon(Icons.arrow_drop_down),
-        ],
-      ),
-    );
-  }).toList(),
-  onChanged: (String? newValue) {
-    setState(() {
-      selectedAge = newValue!;
-    });
-  },
-),)
-              
+           child:
+           RoundedTextField('Enter Age', age),
+ ) 
                ),
 
           Padding(
@@ -249,12 +229,13 @@ DropdownButton<String>(
              GestureDetector(
                onTap: () {
           setState(() {
-            if (_selectedIndex == 1 || _selectedIndex == 2){
+            if (_selectedIndex == -1 || _selectedIndex == 2){
                 _selectedIndex = 0;
-            selectedgender='Male';
+                selectedgender ='Male';
             }
            
           });
+          print(selectedgender);
                },
              
                child: Container(
@@ -281,14 +262,18 @@ DropdownButton<String>(
           SizedBox(width: 10,),
              GestureDetector(
                onTap: () {
+                print('i am tapped');
           setState(() {
-            if (_selectedIndex == 1 || _selectedIndex == 0){
+
+            if (_selectedIndex == -1 || _selectedIndex == 0){
              _selectedIndex = 2;
                 selectedgender = 'Female';
             }
+         
           
                
           });
+          print(selectedgender);
                },
              
                child: Container(
@@ -319,7 +304,7 @@ DropdownButton<String>(
                   Padding(
                 padding: const EdgeInsets.only(left: 20,top: 10,bottom: 0),
                 child: Text(
-                      'Reason for Checkup',
+                      'Emergency Contact',
                                     style: TextStyle(
                         decoration: TextDecoration.none,
                         color: const Color.fromARGB(255, 0, 0, 0),
@@ -333,14 +318,14 @@ DropdownButton<String>(
              padding: const EdgeInsets.only(top: 10,bottom: 10),
              child: Center(
              child: Container(
-             height: 150,
-             width: 380,
+             height: 50,
+            width: 370,
              decoration: BoxDecoration(
              color :Colors.white,
              borderRadius: BorderRadius.circular(10)
              
              ),
-             child: RoundedTextField('Enter your reason for checkup',reasons_fro_checkup ),
+             child: RoundedTextField('Enter Emergency Contact no',emergencycontact ),
              ),
            ),
          ),
@@ -349,8 +334,8 @@ DropdownButton<String>(
            padding: const EdgeInsets.only(top: 10,bottom: 20),
            child: Center(
              child: Container(
-              height: 60,
-              width: 300,
+             height: 50,
+            width: 300,
               child:  ElevatedButton(
                  style: ElevatedButton.styleFrom(
                    primary: const Color(0xFF0E67B8),
@@ -359,15 +344,13 @@ DropdownButton<String>(
                    ),
                  ),
                  onPressed: () {
-                  // complain = complaincontroller.text;
-
-               //   apifunction().postDataToApi('2024-12-13','13:36:28.094Z',name,age,gender,complain); // Add your onPressed logic here.
-                //  print(name);
-                //  print(selectedgender);
-                //  print(complain);
-                //  print(selectedAge);
-               // List<dynamic> times = getTimesByDates( 1, DateTime.parse('2023-02-15'));
-                //print(times);
+           // print(selectedgender);
+              Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) =>Payment()),
+  );    
+           //   postVisitorsdata(namecontroller.text, age.text, selectedgender, email_address.text, Contact_Number.text, emergencycontact.text);
+            
                  },
                  child: Row(
                    children: [
@@ -406,6 +389,7 @@ RoundedTextField(this.hintText,this.controller);
   @override
   Widget build(BuildContext context) {
     return TextField(
+     
       style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
       controller: controller,
       decoration: InputDecoration(

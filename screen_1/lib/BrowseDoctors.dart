@@ -83,7 +83,7 @@ Text(
        height:667 ,
         color: const Color.fromARGB(255, 219, 218, 217),
         child:  FutureBuilder<List<dynamic>>(
-      future: fetchalldoctors(Specialization.toString()),
+      future: apifunction().fetchalldoctors(Specialization.toString()),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           // Display an error message if fetching data failed
@@ -104,7 +104,7 @@ Text(
                   padding: const EdgeInsets.only(bottom: 25,left: 10,right: 10),
                   child:  GestureDetector(
             onTap: () {
-              did = item['DoctorID'];
+              did = item['drID'];
               print('the doctors id is: $did');
                 Navigator.push(
     context,
@@ -137,7 +137,7 @@ Text(
                                   Row(
                                     children: [
                     Text(
-                      item['DoctorName'].toString(),
+                      item['doctorname'].toString(),
                       style: TextStyle(
                         decoration: TextDecoration.none,
                         color: const Color.fromARGB(255, 0, 0, 0),
@@ -155,7 +155,7 @@ Text(
                                   ),
                                   SizedBox(height: 7,),     
                                  Text(
-                                    item['Specialty'].toString(),
+                                    item['Specialization'].toString(),
                                     style: TextStyle(
                     decoration: TextDecoration.none,
                     color: const Color.fromARGB(255, 0, 0, 0),
@@ -169,7 +169,7 @@ Text(
                                  Row(
                                    children: [
                                      Text(
-                      item['Rating'].toString(),
+                      item['Ratings'].toString(),
                       style: TextStyle(
                         decoration: TextDecoration.none,
                         color: const Color.fromARGB(255, 0, 0, 0),
@@ -189,7 +189,7 @@ Text(
                                    ],
                                  ),             ],
                          ),
-                         SizedBox(width: 100,),
+                         SizedBox(width: 20,),
                          Padding(
                            padding: const EdgeInsets.only(top: 90),
                            child: Container(

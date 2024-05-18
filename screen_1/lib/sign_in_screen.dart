@@ -75,10 +75,9 @@ class _SignInScreenState extends State<SignInScreen> {
                                 _formKey.currentState?.save();
                                 // Handle sign-in logic here
                               }
-                             var auth =  await authorization(_email, _password);
+                             var auth =  await apifunction().authorization(_email, _password);
                           print(auth);   
                             if(auth == true){
-
                                 Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) =>DashBoard()),

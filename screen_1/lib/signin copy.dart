@@ -31,7 +31,7 @@ class testclass extends StatelessWidget {
       body: Container(
         color: Colors.white,
         child: FutureBuilder<Map<String, dynamic>>(
-          future: testpatientinfo(1),
+          future: apifunction().testpatientinfo(1),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               // Display an error message if fetching data failed
