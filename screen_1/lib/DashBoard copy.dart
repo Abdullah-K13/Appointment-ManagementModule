@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:screen_1/ScheduleTest.dart';
 import 'package:screen_1/apifunctions.dart';
+import 'package:screen_1/appointment_screen.dart';
 import 'package:screen_1/main.dart';
 import 'package:intl/intl.dart';
+import 'package:screen_1/medicalhistory%20copy.dart';
 import 'package:screen_1/settings_screen.dart';
 
 // class Colors {
@@ -14,9 +16,24 @@ import 'package:screen_1/settings_screen.dart';
 //   static const red = Color(0xffFF0000);
 // }
 
-class DashBoard extends StatelessWidget {
+class DashBoard extends StatefulWidget {
+  @override
+  State<DashBoard> createState() => _DashBoardState();
+}
+
+class _DashBoardState extends State<DashBoard> {
   PageController _pageController = PageController();
 
+  var tempdid;
+
+@override
+  void initState() {
+    super.initState();
+    // Initialize your data or perform any setup here
+   setState(() {
+     
+   });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -216,10 +233,9 @@ class DashBoard extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(44),
                   child: GestureDetector(
-                    onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) =>BookTest()),
-          ),   
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => AppointmentScreen()));
+                    },
                     child: Container(
                       width: 87,
                       height: 88,
@@ -254,6 +270,11 @@ class DashBoard extends StatelessWidget {
                   child: GestureDetector(
                     onTap: () {
                       print('object');
+                     // medicalhistorynew()
+                      Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) =>medicalhistorynew()),
+  );  
                     },
                     child: Container(
                       width: 87,
@@ -328,7 +349,7 @@ class DashBoard extends StatelessWidget {
                                           itemBuilder: (_, i) {
                                     final item = data[i] ;
 
-                                          
+                                          tempdid = item['drID'];
                                             return
             
                 Padding(
@@ -414,8 +435,8 @@ class DashBoard extends StatelessWidget {
                               children: [
                               
                              Text(
-                              //item['timeofvisit'].toString(),
-                                DateFormat('h a').format(DateFormat('HH:mm:ss').parse(item['TimeOfVisit'].toString())),
+                              item['TimeOfVisit'].toString(),
+                              //  DateFormat('h a').format(DateFormat('HH:mm:ss').parse(item['TimeOfVisit'].toString())),
                                                      style: TextStyle(
                                                        decoration: TextDecoration.none,
                                                        color: Colors.black,
@@ -426,7 +447,7 @@ class DashBoard extends StatelessWidget {
                                                       // letterSpacing: -0.32,
                                                      )),
                               FutureBuilder<List< dynamic>>(
-          future: apifunction().fetchdoctorsinfobyid(1),
+          future: apifunction().fetchdoctorsinfobyid(tempdid),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               print('am i here');

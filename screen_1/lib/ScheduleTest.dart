@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:screen_1/Appforsomeoneelse.dart';
 import 'package:screen_1/BrowseDoctors.dart';
 import 'package:screen_1/DoctorsInfo.dart';
+import 'package:screen_1/Paymentfortests.dart';
 import 'package:screen_1/apifunctions.dart';
 import 'package:intl/intl.dart';
+import 'package:screen_1/upper_middle_footer.dart';
 List<String> timeSlotsforthispage = [];
 var selectedDate = '2010-02-13';
 List<String> timefromdata=[];
@@ -51,6 +54,9 @@ class BookTest extends StatefulWidget{
 }
 
 class _BookTeststate extends State<BookTest> {
+  var selectedtestdate;
+  var selectedtesttime;
+  var type;
  var newshiftStart;
  var newshiftend; 
 String? selectedAge;
@@ -74,11 +80,10 @@ List<DateTime> bookedTimeSlots = [];
   void initState() {
     super.initState();
     // Call function to fetch and display available time slots
-    fetchAvailableTimeSlots();
   }
 List<String> testtimeslots = ['9:00 AM','10:00 AM','11:00 AM','12:00 AM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM','6:00 PM','7:00 PM','8:00 PM'];
 List<String> ages = ['10-20', '21-30', '31-40', '41-50', '51-60', '61-70', '71-80', '81-90', '91-100'];
-List<String> appointmentfor = ['myself', 'Someone Else'];
+List<String> appointmentfor = ['Myself', 'Someone Else'];
 int _Selectedtimeindex = -1;
  int _selectedIndex = -1;
 int selecteddate = -1;
@@ -92,51 +97,12 @@ List<DateTime> next10Days = getNext10Days();
 
 
 
-  void fetchAvailableTimeSlots() {
-    // Call API or database query to retrieve shift start and end times for the doctor
-    print(newshiftStart);
-    DateTime shiftStart = DateTime.parse('1970-01-01 09:00:00'); // Fetch shift start time from database
-    DateTime shiftEnd = DateTime.parse('1970-01-01 17:00:00'); // Fetch shift end time from database
-   
-
-   
-    // Generate list of all possible time slots within shift start and end times with 1-hour interval
-    List<DateTime> allTimeSlots = [];
-    DateTime currentTime = shiftStart;
-    while (currentTime.isBefore(shiftEnd)) {
-      allTimeSlots.add(currentTime);
-      currentTime = currentTime.add(Duration(hours: 1));
-    }
-
-//print(allTimeSlots.toString());
-    // Call API or database query to retrieve booked time slots for the doctor on the specified date
-    
-    // Example: Fetch booked time slots from database based on doctorID and visitDate
-
-    // Filter out booked time slots from all time slots
-    List<DateTime> availableTimeSlots = allTimeSlots.where((timeSlot) {
-      return !bookedTimeSlots.contains(timeSlot);
-    }).toList();
-   print(availableTimeSlots.toString());
-    // Format available time slots for display
-    List<String> formattedTimeSlots = availableTimeSlots.map((timeSlot) {
-      return '${timeSlot.hour}:${timeSlot.minute.toString().padLeft(2, '0')}';
-    }).toList();
-
-    // Update state to display available time slots
-    setState(() {
-      //this.availableTimeSlots = formattedTimeSlots;
-    });
-  }
-
-
-
-
   @override
   Widget build(BuildContext context) {
 
     // TODO: implement build
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 218, 217, 217),
       body: Container(
         color: const Color.fromARGB(255, 73, 59, 59),
        // height: 100,
@@ -254,7 +220,7 @@ List<DateTime> next10Days = getNext10Days();
                              // var item = data[index];
                                      return GestureDetector(
                     onTap: () {
-                    selectedDate = DateFormat('yyyy-MM-dd').format(next10Days[index]);
+                    selectedtestdate = DateFormat('yyyy-MM-dd').format(next10Days[index]);
                                     //  var testtime = item['TimeofVisit'];
                                      // removeTimeslots(testtime);
                       setState(() {
@@ -336,6 +302,7 @@ List<DateTime> next10Days = getNext10Days();
         setState(() {
           // Toggle the color when tapped
           selectedtestIndex = index;
+          selectedtesttime = testtimeslot;
          // isSelectedtesttimeslot = !isSelectedtesttimeslot;
         });
       },
@@ -450,37 +417,8 @@ DropdownButton<String>(
 ),)
               
                ),
-                  Padding(
-                padding: const EdgeInsets.only(left: 20,top: 10,bottom: 0),
-                child: Text(
-                      'Reason for Checkup',
-                                    style: TextStyle(
-                        decoration: TextDecoration.none,
-                        color: const Color.fromARGB(255, 0, 0, 0),
-                        fontSize: 20,
-                        fontFamily: 'nunito-extrabold',
-                        fontWeight: FontWeight.w800,
-                        letterSpacing: -0.32,
-                                    )),
-              ),
          Padding(
-           padding: const EdgeInsets.only(top: 20),
-           child: Center(
-             child: Container(
-             height: 150,
-             width: 380,
-             decoration: BoxDecoration(
-             color :Colors.white,
-             borderRadius: BorderRadius.circular(10)
-             
-             ),
-             child: RoundedTextField('Enter any additional comments',complaincontroller ),
-             ),
-           ),
-         ),
-         
-         Padding(
-           padding: const EdgeInsets.only(top: 10,bottom: 20),
+           padding: const EdgeInsets.only(top: 80,bottom: 20),
            child: Center(
              child: Container(
               height: 60,
@@ -493,15 +431,40 @@ DropdownButton<String>(
                    ),
                  ),
                  onPressed: () {
-                   complain = complaincontroller.text;
-
-               //   apifunction().postDataToApi('2024-12-13','13:36:28.094Z',name,age,gender,complain); // Add your onPressed logic here.
-                //  print(name);
-                //  print(selectedgender);
-                //  print(complain);
-                //  print(selectedAge);
-               // List<dynamic> times = getTimesByDates( 1, DateTime.parse('2023-02-15'));
-                //print(times);
+                   var testid;
+                        if(selctedtest == 'Blood-analysis Test')
+                        {
+                          testid = 19;
+                        }
+                        else if(selctedtest == 'Thyroid-gland Test'){
+                          testid = 15;
+                        }
+                         else if(selctedtest == 'Liver Test'){
+                          testid = 16;
+                        }
+                         else if(selctedtest == 'Urine Test'){
+                          testid = 2;
+                        }
+                         else if(selctedtest == 'Lipid Test'){
+                          testid = 18;
+                        }
+                         else if(selctedtest == 'Kidney Test'){
+                          testid = 17;
+                        }
+                  print(selectedtestdate);
+                  print(selectedtesttime);
+                  print(selectedappointment);
+ if(selectedappointment == 'Myself'){
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) =>Paymentfortests(selectedappointment,selectedtestdate,selectedtesttime)),
+  );                      }
+                   else{
+                     Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) =>appointmentforsomeoneelse('test',selectedtestdate,selectedtesttime,testid)),
+  );     }
+              
                  },
                  child: Row(
                    children: [

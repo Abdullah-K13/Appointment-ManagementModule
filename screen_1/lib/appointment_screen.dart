@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'upper_middle_footer.dart';
 
-class Select_Test extends StatelessWidget {
+class AppointmentScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

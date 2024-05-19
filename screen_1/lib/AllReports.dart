@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:screen_1/main.dart';
 import 'package:screen_1/apifunctions.dart';
 import 'package:screen_1/DoctorsInfo.dart';
+import 'package:screen_1/report.dart';
 var DrID ;
-class BrowseDoctors extends StatelessWidget{
+class Browsereports extends StatelessWidget{
   TextEditingController searchcontroller = TextEditingController();
-
+var reportid;
 @override
   Widget build(BuildContext context) {
 return Scaffold(
@@ -52,7 +53,7 @@ return Scaffold(
                  ),
                 SizedBox(width: 30,),
 Text(
-            'Browse Doctors',
+            'Browse Reports',
             style: TextStyle(
               decoration: TextDecoration.none,
               color: Colors.white,
@@ -83,7 +84,7 @@ Text(
        height:667 ,
         color: const Color.fromARGB(255, 219, 218, 217),
         child:  FutureBuilder<List<dynamic>>(
-      future: apifunction().fetchalldoctors(Specialization.toString()),
+      future: apifunction().fetchallreports(2),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           // Display an error message if fetching data failed
@@ -99,7 +100,7 @@ Text(
               itemCount: data.length, // Replace 10 with the actual number of items in your list
               itemBuilder: (BuildContext context, int index) {
                  final item = data[index];
-                 
+                 reportid = item['reportid'];
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 25,left: 10,right: 10),
                   child:  GestureDetector(
@@ -108,7 +109,7 @@ Text(
               print('the doctors id is: $DrID');
                 Navigator.push(
     context,
-    MaterialPageRoute(builder: (context) =>DoctorsInfo()),
+    MaterialPageRoute(builder: (context) =>report(reportid)),
                 );
             },
                     child: Container(

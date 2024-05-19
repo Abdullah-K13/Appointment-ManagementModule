@@ -2,9 +2,24 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-final ip = '192.168.0.108';
+import 'package:screen_1/BrowseDoctors.dart';
+import 'package:screen_1/report.dart';
 var UserID;
+
+class Visit {
+  final int doctorid;
+  final DateTime date;
+
+  Visit({required this.doctorid, required this.date});
+
+  Map<String, dynamic> toJson() => {
+        'doctorid': doctorid,
+        'date': date.toIso8601String(),
+      };
+}
+
 class apifunction {
+final ip = '192.168.0.108';
 
 Future<void> postDataToApi(date,time,name,age,gender,complain) async {
   final apiUrl = 'http://192.168.0.107:8000/testappointment/'; // replace with your API URL
@@ -51,7 +66,7 @@ Future<void> postDataToApi(date,time,name,age,gender,complain) async {
 //
 
 Future<void> postPatientsdata(name,age,gender,email,address,contactInfo,emergencycontact,password) async {
-  final apiUrl = 'http://$ip:8000/testpatientsentry/'; // replace with your API URL
+  final apiUrl = 'http://$ip:8000/postpatientsdata/'; // replace with your API URL
   final headers = {
     'Content-Type': 'application/json',
   };
@@ -83,11 +98,46 @@ Future<void> postPatientsdata(name,age,gender,email,address,contactInfo,emergenc
 }
 
 
+// Future<void> postVisitorsdata(name,age,gender,email,contactInfo,emergencycontact) async {
+//   final apiUrl = 'http://$ip:8000/postnewvisiters/'; // replace with your API URL
+//   final headers = {
+//     'Content-Type': 'application/json',
+//   };
+  
+
+//   final requestBody ={
+//   "VisiterID": 0,
+//   "Name": name,
+//   "Age": int.parse(age),
+//   "Gender": gender,
+//   "Email": email,
+//   "Contactno": contactInfo,
+//   "Emergency_Contactno": emergencycontact
+// };
+
+//   final response = await http.post(
+//     Uri.parse(apiUrl),
+//     headers: headers,
+//     body: jsonEncode(requestBody),
+//   );
+
+//   if (response.statusCode == 200 || response.statusCode == 400) {
+//     print('Data posted successfully!');
+//   } else {
+//     print('Error posting data: ${response.statusCode}');
+//   }
+// }
+
+
 Future<void> postVisitorsdata(name,age,gender,email,contactInfo,emergencycontact) async {
   final apiUrl = 'http://$ip:8000/postnewvisitors/'; // replace with your API URL
   final headers = {
     'Content-Type': 'application/json',
   };
+  
+  print(name);
+  print(age);
+  print(gender);
   final requestBody ={
   "VisiterID": 0,
   "Name": name,
@@ -96,6 +146,251 @@ Future<void> postVisitorsdata(name,age,gender,email,contactInfo,emergencycontact
   "Email": email,
   "Contactno": contactInfo,
   "Emergency_Contactno": emergencycontact
+};
+
+  final response = await http.post(
+    Uri.parse(apiUrl),
+    headers: headers,
+    body: jsonEncode(requestBody),
+  );
+
+  if (response.statusCode == 200 || response.statusCode == 400) {
+    print('Data posted successfully!');
+  } else {
+    print('Error posting data: ${response.statusCode}');
+  }
+}
+
+
+Future<void> postVisitsBill(status) async {
+  final apiUrl = 'http://$ip:8000/postvisitsbillbypatients/$status'; // replace with your API URL
+  final headers = {
+    'Content-Type': 'application/json',
+  };
+  final requestBody ={
+  "BillID": 0,
+  "VisitID": 0,
+  "BillDate": "2024-05-17",
+  "BillTime": "string",
+  "BillStatus": status,
+  "Charges": 0
+};
+
+  final response = await http.post(
+    Uri.parse(apiUrl),
+    headers: headers,
+    body: jsonEncode(requestBody),
+  );
+
+  if (response.statusCode == 200 || response.statusCode == 400) {
+    print('Data posted successfully!');
+  } else {
+    print('Error posting data: ${response.statusCode}');
+  }
+}
+
+
+
+Future<void> postvisitsbypatients(date,time,reason) async {
+  final apiUrl = 'http://$ip:8000/postvisitsbypatients/'; // replace with your API URL
+  final headers = {
+    'Content-Type': 'application/json',
+  };
+  print(reason);
+  print('i am in post visits by patients');
+print(UserID);
+print(DrID);
+  final requestBody ={
+  "VisitID": 0,
+  "PatientID":UserID ,
+  "drID":DrID,
+  "DateOfVisit": date,
+  "TimeOfVisit": time,
+  "Reasonforchekcup": reason.toString()
+};
+
+  final response = await http.post(
+    Uri.parse(apiUrl),
+    headers: headers,
+    body: jsonEncode(requestBody),
+  );
+
+  if (response.statusCode == 200 || response.statusCode == 400) {
+    print('Data posted successfully!');
+  } else {
+    print('Error posting data: ${response.statusCode}');
+  }
+}
+
+
+Future<void> postvisitsbyvisitors(date,time,reason) async {
+  final apiUrl = 'http://$ip:8000/postvisitsbyvisitors/'; // replace with your API URL
+  final headers = {
+    'Content-Type': 'application/json',
+  };
+  print('i am in visitors visit');
+  print(reason);
+  print('the user id is');
+print(UserID);
+print(DrID);
+  final requestBody ={
+  "VisitID": 0,
+  "VisitorID":0 ,
+  "drID":DrID,
+  "DateOfVisit": date,
+  "TimeOfVisit": time,
+  "Reasonforchekcup": reason.toString()
+};
+
+  final response = await http.post(
+    Uri.parse(apiUrl),
+    headers: headers,
+    body: jsonEncode(requestBody),
+  );
+
+  if (response.statusCode == 200 || response.statusCode == 400) {
+    print('Data posted successfully!');
+  } else {
+    print('Error posting data: ${response.statusCode}');
+  }
+}
+
+
+
+Future<void> postVisitorsvisitsBill(status) async {
+  final apiUrl = 'http://$ip:8000/postvisitsbillbyvisitors/$status'; // replace with your API URL
+  final headers = {
+    'Content-Type': 'application/json',
+  };
+  final requestBody ={
+  "BillID": 0,
+  "VisiterID": 0,
+  "BillDate": "2024-05-18",
+  "BillTime": "string",
+  "BillStatus": "string",
+  "Charges": 0
+};
+
+  final response = await http.post(
+    Uri.parse(apiUrl),
+    headers: headers,
+    body: jsonEncode(requestBody),
+  );
+
+  if (response.statusCode == 200 || response.statusCode == 400) {
+    print('Data posted successfully!');
+  } else {
+    print('Error posting data: ${response.statusCode}');
+  }
+}
+
+
+Future<void> posttestschedulebypatients(date,time,testid) async {
+  final apiUrl = 'http://$ip:8000/posttestbypatients/'; // replace with your API URL
+  final headers = {
+    'Content-Type': 'application/json',
+  };
+  print('i am in post tests by patients');
+
+  final requestBody ={
+  "ScheduleID": 0,
+  "Test_ID": testid,
+  "PatientID": UserID,
+  "DateOfTest": date,
+  "TimeOfTest": time
+};
+
+  final response = await http.post(
+    Uri.parse(apiUrl),
+    headers: headers,
+    body: jsonEncode(requestBody),
+  );
+
+  if (response.statusCode == 200 || response.statusCode == 400) {
+    print('Data posted successfully!');
+  } else {
+    print('Error posting data: ${response.statusCode}');
+  }
+}
+
+
+Future<void> postTestsBill(status) async {
+  final apiUrl = 'http://$ip:8000/posttestsbillbypatients/$status'; // replace with your API URL
+  final headers = {
+    'Content-Type': 'application/json',
+  };
+  final requestBody ={
+  "BillID": 0,
+  "ScheduleID": 0,
+  "BillDate": "2024-05-18",
+  "BillTime": "string",
+  "BillStatus": "string",
+  "Charges": 1600
+};
+
+  final response = await http.post(
+    Uri.parse(apiUrl),
+    headers: headers,
+    body: jsonEncode(requestBody),
+  );
+
+  if (response.statusCode == 200 || response.statusCode == 400) {
+    print('Data posted successfully!');
+  } else {
+    print('Error posting data: ${response.statusCode}');
+  }
+}
+
+
+Future<void> postunregisteredtests(testid,name,age,gender,email,contactInfo,emergencycontact,Date,Time) async {
+  final apiUrl = 'http://$ip:8000/postnerwunregistertestschedules/'; // replace with your API URL
+  final headers = {
+    'Content-Type': 'application/json',
+  };
+  
+  print(name);
+  print(age);
+  print(gender);
+  final requestBody ={
+  "ScheduleID": 0,
+  "TestID": testid,
+  "Name": name,
+  "Age": int.parse(age),
+  "Gender": gender,
+  "Email": email,
+  "Contactno": contactInfo,
+  "Emergency_Contactno": emergencycontact,
+  "Date": Date,
+  "Time": Time
+};
+
+  final response = await http.post(
+    Uri.parse(apiUrl),
+    headers: headers,
+    body: jsonEncode(requestBody),
+  );
+
+  if (response.statusCode == 200 || response.statusCode == 400) {
+    print('Data posted successfully!');
+  } else {
+    print('Error posting data: ${response.statusCode}');
+  }
+}
+
+
+
+Future<void> postunresgiteredtestbilll(status) async {
+  final apiUrl = 'http://$ip:8000/postunregisteredtestsbill/$status'; // replace with your API URL
+  final headers = {
+    'Content-Type': 'application/json',
+  };
+  final requestBody ={
+  "BillID": 0,
+  "ScheduleID": 0,
+  "BillDate": "2024-05-18",
+  "BillTime": "string",
+  "BillStatus": "string",
+  "Charges": 0
 };
 
   final response = await http.post(
@@ -181,7 +476,112 @@ Future<List<dynamic>> fetchalldoctors(String specialty) async {
   }
 }
 
-var userid;
+
+
+Future<List<dynamic>> fetchallreports(int patientid) async {
+  print('im hereee ');
+  
+  final url = Uri.parse('http://$ip:8000/fetchallreports/$patientid');
+  final Map<String, String> headers = {'Content-Type': 'application/json'};
+  final response = await http.get(
+    url,
+    headers: headers,
+  );
+
+  print('URL: $url');
+  print('Headers: $headers');
+  
+  if (response.statusCode == 200) {
+    print('now im here again 2');
+    List jsonResponse = json.decode(response.body);
+    return jsonResponse.map((item) => item).toList();
+  } else {
+    throw Exception('Failed to load data');
+  }
+}
+
+Future<Map<String, dynamic>> fetchSpecificReportsData(int reportid) async {
+  print('I\'m here');
+
+  final url = Uri.parse('http://$ip:8000/fetchspecificreportsdata/$reportid');
+  final Map<String, String> headers = {'Content-Type': 'application/json'};
+  final response = await http.get(
+    url,
+    headers: headers,
+  );
+
+  print('URL: $url');
+  print('Headers: $headers');
+
+  if (response.statusCode == 200) {
+    print('Now I\'m here again 2');
+    Map<String, dynamic> jsonResponse = json.decode(response.body);
+
+    return jsonResponse;
+  } else {
+    throw Exception('Failed to load data');
+  }
+}
+
+
+Future<List<dynamic>> fetchpatientallergies(int patientid) async {
+  
+  final url = Uri.parse('http://$ip:8000/fetchpatientallergies/$patientid');
+  final Map<String, String> headers = {'Content-Type': 'application/json'};
+  final response = await http.get(
+    url,
+    headers: headers,
+  );
+
+  if (response.statusCode == 200) {
+    print('now im here again 2');
+    List jsonResponse = json.decode(response.body);
+    return jsonResponse.map((item) => item).toList();
+  } else {
+    throw Exception('Failed to load data');
+  }
+}
+
+
+
+Future<List<dynamic>> fetchpatientdisease(int patientid) async {
+  
+  final url = Uri.parse('http://$ip:8000/fetchpatientdisease/$patientid');
+  final Map<String, String> headers = {'Content-Type': 'application/json'};
+  final response = await http.get(
+    url,
+    headers: headers,
+  );
+
+  if (response.statusCode == 200) {
+    print('now im here again 2');
+    List jsonResponse = json.decode(response.body);
+    return jsonResponse.map((item) => item).toList();
+  } else {
+    throw Exception('Failed to load data');
+  }
+}
+
+
+Future<List<dynamic>> fetchongoingtreatiments(int patientid) async {
+  
+  final url = Uri.parse('http://$ip:8000/fetchpatienttreatements/$patientid');
+  final Map<String, String> headers = {'Content-Type': 'application/json'};
+  final response = await http.get(
+    url,
+    headers: headers,
+  );
+
+  if (response.statusCode == 200) {
+    print('now im here again 2');
+    List jsonResponse = json.decode(response.body);
+    return jsonResponse.map((item) => item).toList();
+  } else {
+    throw Exception('Failed to load data');
+  }
+}
+
+
 Future<bool> authorization (String emailaddress, String password) async {
   print('in authorization 1');
   final url = Uri.parse('http://$ip:8000/fetchloginInfo/$emailaddress');
@@ -200,10 +600,11 @@ Future<bool> authorization (String emailaddress, String password) async {
    if(jsonData.isNotEmpty){
       String email = jsonData['EmailAddress'];
   String passwords = jsonData['Password'];
-  userid = jsonData['PatientID'];
+  UserID = jsonData['PatientID'];
   print(email);
   print(password);
-  print(userid);
+  print('the user id is ');
+  print(UserID);
   return email == emailaddress && passwords == password;
   }
    else{
@@ -221,7 +622,7 @@ Future<bool> authorization (String emailaddress, String password) async {
 
 Future<List< dynamic>> appointinfo() async {
 print('in the appointment func');
-  final url = Uri.parse('http://$ip:8000/fetchupcomingappointments/2');
+  final url = Uri.parse('http://$ip:8000/fetchupcomingappointments/$UserID');
   final Map<String, String> headers = {'Content-Type': 'application/json'};
   final response = await http.get(
     url,

@@ -35,7 +35,7 @@ Widget build(BuildContext context) {
        color: Color.fromARGB(255, 214, 213, 213),
        child: 
              FutureBuilder<List<dynamic>>(
-  future: apifunction().fetchdoctorsinfobyid(did),
+  future: apifunction().fetchdoctorsinfobyid(DrID),
   builder: (context, snapshot) {
      if (snapshot.connectionState == ConnectionState.waiting) {
       return CircularProgressIndicator(); // Return a loading indicator while waiting for the future

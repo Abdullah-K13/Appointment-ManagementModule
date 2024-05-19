@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:screen_1/Appforsomeoneelse.dart';
 import 'package:screen_1/BrowseDoctors.dart';
 import 'package:screen_1/DoctorsInfo.dart';
+import 'package:screen_1/Payment.dart';
 import 'package:screen_1/apifunctions.dart';
 import 'package:intl/intl.dart';
 List<String> timeSlotsforthispage = [];
@@ -54,7 +55,7 @@ var selectedtime;
     // Call function to fetch and display available time slots
   //  fetchAvailableTimeSlots();
   }
-
+var type = 'myself';
 List<String> appointmentfor = ['Myself', 'SomeoneElse'];
  int selectedtestIndex = -1;
  int _selectedIndex = -1;
@@ -93,8 +94,14 @@ for ( var item in data)
 {
   print(item['timeofvisit']);
   var test = item['TimeOfVisit'];
+  try{
   DateTime time_Str = DateTime.parse('2024-04-30 $test'); // Fetch shift end time from database
   bookedTimeSlots.add(time_Str);
+
+  }
+  catch(Exception){
+    print('error');
+  }
 }
 print('the booked time slots are:');
 print(bookedTimeSlots);
@@ -518,14 +525,17 @@ DropdownButton<String>(
                    ),
                  ),
                  onPressed: () {
+                  var test;
                    complain = complaincontroller.text;
                    if(selectedappointment == 'Myself'){
-                    print('on to the payment screen');
-                   }
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) =>Payment(type,selectedDate,selectedtime,complain)),
+  );                      }
                    else{
                      Navigator.push(
     context,
-    MaterialPageRoute(builder: (context) =>appointmentforsomeoneelse( )),
+    MaterialPageRoute(builder: (context) =>appointmentforsomeoneelse('appointments',selectedDate,selectedtime,3 )),
   );     
                    }
                //   apifunction().postDataToApi('2024-12-13','13:36:28.094Z',name,age,gender,complain); // Add your onPressed logic here.

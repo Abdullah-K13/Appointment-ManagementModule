@@ -1,31 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:screen_1/BookAppointment.dart';
-import 'package:screen_1/DashBoard%20copy.dart';
-import 'package:screen_1/Dashboard.dart';
 import 'package:screen_1/apifunctions.dart';
+import 'package:screen_1/upper_middle_footer.dart';
 
 
 
-class Payment extends StatefulWidget {
+class Paymentfortests extends StatefulWidget {
  var selecteddate;
  var selectedtime;
- var reason;
  var type;
  
-  Payment(this.type,this.selecteddate,this.selectedtime,this.reason);
+  Paymentfortests(this.type,this.selecteddate,this.selectedtime);
   @override
-  _PaymentScreenState createState() => _PaymentScreenState(this.type,this.selecteddate,this.selectedtime,this.reason);
+  _PaymentScreenState createState() => _PaymentScreenState(this.type,this.selecteddate,this.selectedtime);
 }
 
-class _PaymentScreenState extends State<Payment> {
+class _PaymentScreenState extends State<Paymentfortests> {
 
  var selecteddate;
  var selectedtime;
- var reason;
  var type;
  
-  _PaymentScreenState(this.type,this.selecteddate,this.selectedtime,this.reason);
+  _PaymentScreenState(this.type,this.selecteddate,this.selectedtime);
 
   int _selectedPaymentMethod = 0; // 0 for credit card, 1 for pay at counter
   final _formKey = GlobalKey<FormState>();
@@ -189,41 +186,57 @@ class _PaymentScreenState extends State<Payment> {
                   padding: const EdgeInsets.only(left: 10,right:10),
                   child: ElevatedButton(
                     onPressed: () async {
-                  
+                        var testid;
+                        if(selctedtest == 'Blood-analysis Test')
+                        {
+                          testid = 19;
+                        }
+                        else if(selctedtest == 'Thyroid-gland Test'){
+                          testid = 15;
+                        }
+                         else if(selctedtest == 'Liver Test'){
+                          testid = 16;
+                        }
+                         else if(selctedtest == 'Urine Test'){
+                          testid = 2;
+                        }
+                         else if(selctedtest == 'Lipid Test'){
+                          testid = 18;
+                        }
+                         else if(selctedtest == 'Kidney Test'){
+                          testid = 17;
+                        }
+                        print('in the paymentfortest screen');
                       print(_selectedPaymentMethod);
                       print(type);
-                      if(type == 'myself'){
+                      if(type == 'Myself'){
                         print(' i am in myself cond');
                       if(_selectedPaymentMethod == 0){
                         print('credit card');
-                        await apifunction().postvisitsbypatients(this.selecteddate,this.selectedtime , this.reason);
+                        await apifunction().posttestschedulebypatients(this.selecteddate,this.selectedtime ,testid);
                         await Future.delayed(Duration(seconds: 1));
 
-                        await apifunction().postVisitsBill('Paid');
+                        await apifunction().postTestsBill('Paid');
                       }
                       else{
                         print('counter');
-                        await apifunction().postvisitsbypatients(this.selecteddate,this.selectedtime , this.reason);
+                        await apifunction().posttestschedulebypatients(this.selecteddate,this.selectedtime , testid);
                       //  await apifunction().postPatientsdata();
                         await Future.delayed(Duration(seconds: 1));
-                        await apifunction().postVisitsBill('Unpaid');
+                        await apifunction().postTestsBill('Unpaid');
                       }
                      
                       }
                     else{
                     if(_selectedPaymentMethod == 0){
                         print('credit card');
-                        await apifunction().postvisitsbyvisitors(this.selecteddate,this.selectedtime , this.reason);
-                        await Future.delayed(Duration(seconds: 1));
-
-                        await apifunction().postVisitorsvisitsBill('Paid');
+                      
+                        await apifunction().postunresgiteredtestbilll('Paid');
                       }
                       else{
                         print('counter');
-                        await apifunction().postvisitsbyvisitors(this.selecteddate,this.selectedtime , this.reason);
-                      //  await apifunction().postPatientsdata();
-                        await Future.delayed(Duration(seconds: 1));
-                        await apifunction().postVisitorsvisitsBill('Unpaid');
+
+                        await apifunction().postunresgiteredtestbilll('Unpaid');
                       }
                      
 
@@ -233,16 +246,7 @@ class _PaymentScreenState extends State<Payment> {
                       if (_formKey.currentState?.validate() ?? false) {
                         // Handle payment action
                       } // Handle payment action
-                    Navigator.popUntil(context, ModalRoute.withName('/'));
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => DashBoard(),
-              ),
-            );
                     },
-
-                  
                            child: Text('Proceed to desktop',style: TextStyle(fontFamily: 'nunito-extrabold',fontSize: 20,color: Colors.white),),
                     style: ElevatedButton.styleFrom(
                     //  minimumSize: Size(200, 60),

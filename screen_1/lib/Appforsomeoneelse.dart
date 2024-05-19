@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:screen_1/Payment.dart';
+import 'package:screen_1/Paymentfortests.dart';
 import 'package:screen_1/apifunctions.dart';
 
 class appointmentforsomeoneelse extends StatefulWidget{
+var selecteddate;
+var from;
+var selecetedtime;
+var testid;
+appointmentforsomeoneelse(this.from,this.selecteddate,this.selecetedtime,this.testid);
+
 
   @override
-  State<appointmentforsomeoneelse> createState() => _appointmentforsomeoneelseState();
+  State<appointmentforsomeoneelse> createState() => _appointmentforsomeoneelseState(this.from,this.selecteddate,this.selecetedtime,this.testid);
 }
 
 class _appointmentforsomeoneelseState extends State<appointmentforsomeoneelse> {
@@ -14,6 +21,15 @@ class _appointmentforsomeoneelseState extends State<appointmentforsomeoneelse> {
  TextEditingController email_address = TextEditingController();
  TextEditingController emergencycontact = TextEditingController();
 TextEditingController age = TextEditingController();
+var type = 'visitor';
+var testid;
+
+var selecteddate;
+var from;
+var selecetedtime;
+var reason;
+_appointmentforsomeoneelseState(this.from,this.selecteddate,this.selecetedtime,this.testid);
+
 
 List<String> ages = ['10-20', '21-30', '31-40', '41-50', '51-60', '61-70', '71-80', '81-90', '91-100'];
 String? selectedAge;
@@ -322,7 +338,7 @@ var selectedgender;
             width: 370,
              decoration: BoxDecoration(
              color :Colors.white,
-             borderRadius: BorderRadius.circular(10)
+             borderRadius: BorderRadius.circular(18)
              
              ),
              child: RoundedTextField('Enter Emergency Contact no',emergencycontact ),
@@ -345,11 +361,24 @@ var selectedgender;
                  ),
                  onPressed: () {
            // print(selectedgender);
+           if(from == 'test'){
+ apifunction().postunregisteredtests(testid,namecontroller.text, age.text, selectedgender, email_address.text, Contact_Number.text, emergencycontact.text,selecteddate,selecetedtime);
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) =>Paymentfortests(type,selecteddate,selecetedtime)),
+  );   
+            
+
+           }
+           else{
+            apifunction().postVisitorsdata(namecontroller.text, age.text, selectedgender, email_address.text, Contact_Number.text,emergencycontact.text);
+          //apifunction().postVisitsBill('asdasd');
               Navigator.push(
     context,
-    MaterialPageRoute(builder: (context) =>Payment()),
+    MaterialPageRoute(builder: (context) =>Payment(type,selecteddate,selecetedtime,reason)),
   );    
-           //   postVisitorsdata(namecontroller.text, age.text, selectedgender, email_address.text, Contact_Number.text, emergencycontact.text);
+           }
+       
             
                  },
                  child: Row(
@@ -364,8 +393,6 @@ var selectedgender;
              ),
            ),
          )
-        
-           
             ],
           ),
         )

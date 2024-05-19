@@ -1,55 +1,61 @@
 import 'package:flutter/material.dart';
-import 'test_tile.dart';
+import 'package:screen_1/ScheduleTest.dart';
+import 'package:screen_1/test_tile%20copy.dart';
+
+  var selctedtest;
 
 class UpperMiddleFooter extends StatefulWidget {
+
   @override
   _UpperMiddleFooterState createState() => _UpperMiddleFooterState();
 }
 
 class _UpperMiddleFooterState extends State<UpperMiddleFooter> {
+  
   List<String> testIcons = [
-    'assets/images/icons8-laboratory-32.png',
-    'assets/images/icons8-heart-monitor-32.png',
-    'assets/images/icons8-allergy-32.png',
-    'assets/images/icons8-lungs-32.png',
-    'assets/images/icons8-brain-32.png',
-    'assets/images/icons-dna-32.png',
+    'assets/images/blood-analysis.png',
+    'assets/images/thyroid-gland.png',
+    'assets/images/liver.png',
+    'assets/images/urine.png',
+    'assets/images/lipid.png',
+    'assets/images/kidney.png',
   ];
+
   List<String> tests = [
-    'Laboratory Test',
-    'Imaging Test',
-    'Allergy Test',
-    'Pulmonary Test',
-    'Neuro Test',
-    'DNA Test',
+    'Blood-analysis Test',
+    'Thyroid-gland Test',
+    'Liver Test',
+    'Urine Test',
+    'Lipid Test',
+    'Kidney Test',
   ];
   int? selectedIndex;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-
-      body: Column(
-        children: [
-          UpperPart(),
-          MiddlePart(
-            testIcons: testIcons,
-            tests: tests,
-            selectedIndex: selectedIndex,
-            onTap: (index) {
-              setState(() {
-                selectedIndex = index;
-              });
-            },
-          ),
-          Footer(
-            onPressed: () {
-              // Handle done button functionality
-              print("Done button pressed");
-            },
-          ),
-        ],
-      ),
+    return Column(
+      children: [
+        UpperPart(),
+        MiddlePart(
+          testIcons: testIcons,
+          tests: tests,
+          selectedIndex: selectedIndex,
+          onTap: (index) {
+            setState(() {
+              selectedIndex = index;
+            });
+          },
+        ),
+        Footer(
+          onPressed: () {
+            // Handle done button functionality
+            print("Done button pressed");
+Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) =>BookTest()),
+  );              },
+        ),
+      ],
     );
   }
 }
@@ -70,7 +76,7 @@ class UpperPart extends StatelessWidget {
       child: Stack(
         children: [
           Positioned(
-            top: 15,
+            top: 30,
             left: 6,
             child: GestureDetector(
               onTap: () {
@@ -151,6 +157,7 @@ class UpperPart extends StatelessWidget {
 
 
 class MiddlePart extends StatelessWidget {
+
   final List<String> testIcons;
   final List<String> tests;
   final int? selectedIndex;
@@ -185,7 +192,10 @@ class MiddlePart extends StatelessWidget {
         itemCount: tests.length,
         itemBuilder: (context, index) {
           return GestureDetector(
-            onTap: () => onTap!(index),
+            onTap: () {
+               onTap!(index);
+                 selctedtest = tests[index];
+            },
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 10), // padding
               child: TestTile(

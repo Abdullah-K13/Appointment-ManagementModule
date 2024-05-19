@@ -430,10 +430,10 @@ DropdownButton<String>(
                                 if(isValidAddress(_AddressController.text)){
                                    if (Selectedgender != null ) {
                                     apifunction().postPatientsdata(_nameController.text, _Agecontroller.text, Selectedgender, email, _AddressController.text, _PhoneNumberController.text, _EmergencyController.text, password);
- Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) =>DashBoard()),
-  ); 
+//  Navigator.push(
+//     context,
+//     MaterialPageRoute(builder: (context) =>DashBoard()),
+//   ); 
 }
 else
 {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:screen_1/AllReports.dart';
 import 'package:screen_1/Appforsomeoneelse.dart';
 import 'package:screen_1/BookAppointment.dart';
 import 'package:screen_1/BrowseDoctors.dart';
@@ -7,8 +8,10 @@ import 'package:screen_1/Dashboard.dart';
 import 'package:screen_1/DoctorsInfo.dart';
 import 'package:screen_1/IntroPage.dart';
 import 'package:screen_1/ScheduleTest.dart';
-import 'package:screen_1/Select_Test.dart';
+import 'package:screen_1/appointment_screen.dart';
+import 'package:screen_1/medicalhistory%20copy.dart';
 import 'package:screen_1/medicalhistory.dart';
+import 'package:screen_1/report.dart';
 import 'package:screen_1/updateprofile.dart';
 import 'package:screen_1/settings_screen.dart';
 import 'package:screen_1/sign_in_screen.dart';
@@ -18,7 +21,6 @@ import 'package:screen_1/tesclassss.dart';
 import 'package:screen_1/splashscreens.dart';
 import 'package:screen_1/test.dart';
 import 'package:screen_1/testforsomeoneelse.dart';
-import 'package:screen_1/upper_middle_footer.dart';
 import 'package:screen_1/waleedtest.dart';
 import 'package:screen_1/welcomescreens.dart';
 import 'package:screen_1/AboutPage.dart';
@@ -41,7 +43,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 103, 136, 123)),
         useMaterial3: true,
       ),
-      home: SignInScreen(),
+      home: Browsereports(),
 
     );
   }
