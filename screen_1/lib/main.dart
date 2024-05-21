@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:screen_1/AllReports.dart';
 import 'package:screen_1/Appforsomeoneelse.dart';
 import 'package:screen_1/BookAppointment.dart';
@@ -7,8 +8,12 @@ import 'package:screen_1/DashBoard%20copy.dart';
 import 'package:screen_1/Dashboard.dart';
 import 'package:screen_1/DoctorsInfo.dart';
 import 'package:screen_1/IntroPage.dart';
+import 'package:screen_1/Prescription1.dart';
 import 'package:screen_1/ScheduleTest.dart';
+import 'package:screen_1/SetUpprofile.dart';
 import 'package:screen_1/appointment_screen.dart';
+import 'package:screen_1/chat.dart';
+import 'package:screen_1/home_page.dart';
 import 'package:screen_1/medicalhistory%20copy.dart';
 import 'package:screen_1/medicalhistory.dart';
 import 'package:screen_1/report.dart';
@@ -25,6 +30,8 @@ import 'package:screen_1/waleedtest.dart';
 import 'package:screen_1/welcomescreens.dart';
 import 'package:screen_1/AboutPage.dart';
 void main() {
+   Gemini.init(apiKey: gemini_api_key);
+
   runApp(const MyApp());
 }
 
@@ -38,12 +45,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
+    
       theme: ThemeData(
       
         colorScheme: ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 103, 136, 123)),
         useMaterial3: true,
       ),
-      home: Browsereports(),
+      home: splash2(),
 
     );
   }
@@ -639,10 +647,33 @@ GestureDetector(
      print('no specialization chosen');
 
 
-    print(Specialization);
+//print(_selectedIndex);
+
+  //  print(Specialization);
+    if(_selectedIndex == -1){
+      print('im in here');
+        final snackBar = SnackBar(
+                backgroundColor: Color(0xFF800020), // Customize the background color
+                content: Row(
+                  children: [
+                    Icon(Icons.warning, color: Colors.white), // Warning icon
+                    SizedBox(width: 8),
+                    Text(
+                      'PIlease choose specialization',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
+                duration: Duration(seconds: 3),
+              );
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+    else{
    Navigator.push(
     context,
     MaterialPageRoute(builder: (context) =>BrowseDoctors()));
+    }
+
       // Add your onPressed logic here.
     },
     child: Row(

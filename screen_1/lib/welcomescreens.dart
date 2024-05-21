@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:screen_1/DashBoard%20copy.dart';
 
 class welcomescreen1 extends StatelessWidget{
   @override
@@ -534,6 +535,8 @@ class welcomescreen7 extends StatelessWidget{
                        ),
                        onPressed: () {
                         // Add your onPressed logic here.
+                        print('i am on the last screen');
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => DashBoard(),));
                        },
                        child:  Image.asset('assets/icons/arrowforward.png')
 

@@ -97,20 +97,23 @@ class _PaymentScreenState extends State<Payment> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(left: 30, bottom: 0),
-                      child: Container(
-                        width: 48,
-                        height: 48,
-                        padding: const EdgeInsets.all(12),
-                        clipBehavior: Clip.antiAlias,
-                        decoration: ShapeDecoration(
-                          shape: RoundedRectangleBorder(
-                            side: BorderSide(width: 1, color: Colors.white),
-                            borderRadius: BorderRadius.circular(18),
+                      child: GestureDetector(
+                        onTap: () => Navigator.pop(context),
+                        child: Container(
+                          width: 48,
+                          height: 48,
+                          padding: const EdgeInsets.all(12),
+                          clipBehavior: Clip.antiAlias,
+                          decoration: ShapeDecoration(
+                            shape: RoundedRectangleBorder(
+                              side: BorderSide(width: 1, color: Colors.white),
+                              borderRadius: BorderRadius.circular(18),
+                            ),
                           ),
-                        ),
-                        child: Icon(
-                          Icons.arrow_back,
-                          color: Colors.white,
+                          child: Icon(
+                            Icons.arrow_back,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
@@ -190,16 +193,25 @@ class _PaymentScreenState extends State<Payment> {
                   child: ElevatedButton(
                     onPressed: () async {
                   
-                      print(_selectedPaymentMethod);
-                      print(type);
-                      if(type == 'myself'){
+
+                     
+                      
+                         if(type == 'myself'){
                         print(' i am in myself cond');
                       if(_selectedPaymentMethod == 0){
                         print('credit card');
+                        if (_formKey.currentState?.validate() ?? false) {
                         await apifunction().postvisitsbypatients(this.selecteddate,this.selectedtime , this.reason);
                         await Future.delayed(Duration(seconds: 1));
-
                         await apifunction().postVisitsBill('Paid');
+                                     Navigator.popUntil(context, (route) => route.isFirst,);
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DashBoard(),
+              ),
+            );
+                        }
                       }
                       else{
                         print('counter');
@@ -207,16 +219,32 @@ class _PaymentScreenState extends State<Payment> {
                       //  await apifunction().postPatientsdata();
                         await Future.delayed(Duration(seconds: 1));
                         await apifunction().postVisitsBill('Unpaid');
+                                     Navigator.popUntil(context, (route) => route.isFirst,);
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DashBoard(),
+              ),
+            );
                       }
                      
                       }
                     else{
                     if(_selectedPaymentMethod == 0){
                         print('credit card');
+                        if (_formKey.currentState?.validate() ?? false) {
                         await apifunction().postvisitsbyvisitors(this.selecteddate,this.selectedtime , this.reason);
                         await Future.delayed(Duration(seconds: 1));
 
                         await apifunction().postVisitorsvisitsBill('Paid');
+                                     Navigator.popUntil(context, (route) => route.isFirst,);
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DashBoard(),
+              ),
+            );
+                        }
                       }
                       else{
                         print('counter');
@@ -224,22 +252,20 @@ class _PaymentScreenState extends State<Payment> {
                       //  await apifunction().postPatientsdata();
                         await Future.delayed(Duration(seconds: 1));
                         await apifunction().postVisitorsvisitsBill('Unpaid');
-                      }
-                     
-
-                    }
-
-                     
-                      if (_formKey.currentState?.validate() ?? false) {
-                        // Handle payment action
-                      } // Handle payment action
-                    Navigator.popUntil(context, ModalRoute.withName('/'));
+                                     Navigator.popUntil(context, (route) => route.isFirst,);
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
                 builder: (context) => DashBoard(),
               ),
             );
+                      }
+                     
+
+                    }
+             
+                      
+                
                     },
 
                   

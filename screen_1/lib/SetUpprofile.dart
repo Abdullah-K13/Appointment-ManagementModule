@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:screen_1/BookAppointment.dart';
 import 'package:screen_1/DashBoard%20copy.dart';
 import 'package:screen_1/apifunctions.dart';
+import 'package:screen_1/welcomescreens.dart';
 
 // class Colors {
 //   static const azureBlue = Color(0xFF3E64FF);
@@ -430,10 +431,14 @@ DropdownButton<String>(
                                 if(isValidAddress(_AddressController.text)){
                                    if (Selectedgender != null ) {
                                     apifunction().postPatientsdata(_nameController.text, _Agecontroller.text, Selectedgender, email, _AddressController.text, _PhoneNumberController.text, _EmergencyController.text, password);
-//  Navigator.push(
-//     context,
-//     MaterialPageRoute(builder: (context) =>DashBoard()),
-//   ); 
+                                    Future.delayed(Duration(seconds: 1), () {
+                                  apifunction().authorization(email, password);
+  });
+  print(UserID);
+ Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) =>welcomescreen1()),
+  ); 
 }
 else
 {

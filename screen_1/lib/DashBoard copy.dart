@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:screen_1/AllReports.dart';
+import 'package:screen_1/Prescription1.dart';
 import 'package:screen_1/ScheduleTest.dart';
 import 'package:screen_1/apifunctions.dart';
 import 'package:screen_1/appointment_screen.dart';
+import 'package:screen_1/home_page.dart';
 import 'package:screen_1/main.dart';
 import 'package:intl/intl.dart';
 import 'package:screen_1/medicalhistory%20copy.dart';
@@ -190,28 +193,40 @@ class _DashBoardState extends State<DashBoard> {
                 //Text('Doctors Appointment', style: TextStyle(fontSize: 12)),
                 ClipRRect(
                   borderRadius: BorderRadius.circular(44),
-                  child: Container(
-                    width: 87,
-                    height: 88,
-                    color: Color(0xFF3E64FF),
-                    child: Padding(
-                      padding: const EdgeInsets.all(25.0),
-                      child: Image.asset(
-                        'assets/images/prescription.png',
+                  child: GestureDetector(
+                    onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) =>Prescription1()),
+          ),   
+                    child: Container(
+                      width: 87,
+                      height: 88,
+                      color: Color(0xFF3E64FF),
+                      child: Padding(
+                        padding: const EdgeInsets.all(25.0),
+                        child: Image.asset(
+                          'assets/images/prescription.png',
+                        ),
                       ),
                     ),
                   ),
                 ),
                 ClipRRect(
                   borderRadius: BorderRadius.circular(44),
-                  child: Container(
-                    width: 87,
-                    height: 88,
-                    color: Color(0xFF3E64FF),
-                    child: Padding(
-                      padding: const EdgeInsets.all(25.0),
-                      child: Image.asset(
-                        'assets/images/consultant.png',
+                  child: GestureDetector(
+                    onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) =>HomePagess()),
+          ),   
+                    child: Container(
+                      width: 87,
+                      height: 88,
+                      color: Color(0xFF3E64FF),
+                      child: Padding(
+                        padding: const EdgeInsets.all(25.0),
+                        child: Image.asset(
+                          'assets/images/consultant.png',
+                        ),
                       ),
                     ),
                   ),
@@ -253,14 +268,22 @@ class _DashBoardState extends State<DashBoard> {
                 //Text('Doctors Appointment', style: TextStyle(fontSize: 12)),
                 ClipRRect(
                   borderRadius: BorderRadius.circular(44),
-                  child: Container(
-                    width: 87,
-                    height: 88,
-                    color: Color(0xFF3E64FF),
-                    child: Padding(
-                      padding: const EdgeInsets.all(25.0),
-                      child: Image.asset(
-                        'assets/images/lab.png',
+                  child: GestureDetector(
+                    onTap: () {
+                       Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => Browsereports()),
+  );    
+                    },
+                    child: Container(
+                      width: 87,
+                      height: 88,
+                      color: Color(0xFF3E64FF),
+                      child: Padding(
+                        padding: const EdgeInsets.all(25.0),
+                        child: Image.asset(
+                          'assets/images/lab.png',
+                        ),
                       ),
                     ),
                   ),
@@ -326,14 +349,23 @@ class _DashBoardState extends State<DashBoard> {
             if (snapshot.hasError) {
           //    print('am i here');
         // Display an error message if fetching data failed
-        return Text('Error: no data');
+        return Padding(
+          padding: const EdgeInsets.only(top: 55),
+          child: Center(child: Text('No Scheduled Appointments',style: TextStyle(
+            fontFamily: 'nunito-semibold',fontSize: 20
+          ),)),
+        );
             }
             
             else if(snapshot.hasData == Null)
             {
           return 
-       Text('Error: no data'); 
-            }
+Padding(
+          padding: const EdgeInsets.only(top: 55),
+          child: Center(child: Text('No Scheduled Appointments',style: TextStyle(
+            fontFamily: 'nunito-semibold',fontSize: 20
+          ),)),
+        );            }
              else if (snapshot.hasData) {
         // Extract the data from the snapshotas
           final data = snapshot.data!;

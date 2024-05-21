@@ -10,9 +10,7 @@ class signupscreen extends StatefulWidget {
 
 class _SignInScreenState extends State<signupscreen> {
   final _formKey = GlobalKey<FormState>();
-  String _email = '';
-  String _password = '';
-  String _confirmpassword = '';
+
   TextEditingController passwordcontroller = TextEditingController();
   TextEditingController confirmpassword = TextEditingController();
  TextEditingController emailcontroller = TextEditingController();
@@ -66,7 +64,7 @@ class _SignInScreenState extends State<signupscreen> {
                       children: [
                         buildTextField('Email Address', Icons.email_rounded,'Enter email address',emailcontroller),
                         SizedBox(height: 16),
-                        buildTextField('Password', Icons.lock, 'Enter Password',passwordcontroller),
+                        _pwTextField('Password', Icons.lock, true),
                           SizedBox(height: 16),
 
                          _confirmpwTextField('Password Confirmation', Icons.lock, true),
@@ -225,16 +223,7 @@ class _SignInScreenState extends State<signupscreen> {
             decoration: InputDecoration(
               hintText: hintText,
               prefixIcon: Icon(icon),
-              // suffixIcon: isPassword
-              //     ? IconButton(
-              //   icon: Icon(icon),
-              //   // onPressed: () {
-              //   //   setState(() {
-              //   //     _isPasswordVisible = !_isPasswordVisible;
-              //   //   });
-              //   // },
-              // )
-                  
+              
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(25),
               ),
@@ -256,6 +245,76 @@ class _SignInScreenState extends State<signupscreen> {
     );
 
  }
+
+
+  Widget _pwTextField(String label, IconData icon, bool isPassword) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: TextStyle(
+            fontFamily: 'nunito-extrabold',
+            color: Colors.black,
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        SizedBox(height: 8),
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(25),
+          ),
+          child: TextFormField(
+            controller: passwordcontroller,
+            validator: (value) {
+              if (_signInPressed && (value?.isEmpty ?? true)) {
+                return isPassword ? 'Please enter your password' : 'Please enter your email';
+              }
+              return null;
+            },
+            obscureText: isPassword && !_isPasswordVisible,
+            decoration: InputDecoration(
+              hintText: 'Enter your password',
+              prefixIcon: Icon(icon),
+              suffixIcon: isPassword
+                  ? IconButton(
+                icon: Icon(
+                  _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                  color: Colors.black,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _isPasswordVisible = !_isPasswordVisible;
+                  });
+                },
+              )
+                  : null,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(25),
+              ),
+              errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(25),
+                borderSide: BorderSide(color: Colors.red.shade900), // Set error border color to red
+              ),
+              focusedErrorBorder: OutlineInputBorder( // Define focused error border to handle focus state
+                borderRadius: BorderRadius.circular(25),
+                borderSide: BorderSide(color: Colors.red.shade900),
+              ),
+              errorStyle: TextStyle(color: Colors.red.shade800, fontSize: 14,fontWeight: FontWeight.bold),
+              errorMaxLines: 2,
+            ),
+            style: TextStyle(color: Colors.black),
+          ),
+        ),
+      ],
+    );
+
+ }
+
+
+
 
   Widget _confirmpwTextField(String label, IconData icon, bool isPassword) {
     return Column(
@@ -284,19 +343,19 @@ class _SignInScreenState extends State<signupscreen> {
               }
               return null;
             },
-            obscureText: isPassword && !_isPasswordVisible,
+            obscureText: isPassword && !_isconfirmPasswordVisible,
             decoration: InputDecoration(
               hintText: 'Enter your password',
               prefixIcon: Icon(icon),
               suffixIcon: isPassword
                   ? IconButton(
                 icon: Icon(
-                  _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                  _isconfirmPasswordVisible ? Icons.visibility : Icons.visibility_off,
                   color: Colors.black,
                 ),
                 onPressed: () {
                   setState(() {
-                    _isPasswordVisible = !_isPasswordVisible;
+                    _isconfirmPasswordVisible = !_isconfirmPasswordVisible;
                   });
                 },
               )

@@ -68,7 +68,7 @@ class _TryPageState extends State<TryPage> {
             child: SingleChildScrollView(
               child:   
 FutureBuilder<Map<String, dynamic>>(
-          future: apifunction().testpatientinfo(5),
+          future: apifunction().testpatientinfo(UserID),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               // Display an error message if fetching data failed
@@ -77,7 +77,7 @@ FutureBuilder<Map<String, dynamic>>(
               // Display different widgets based on the data
               var data = snapshot.data!;
            
-              _nameController = TextEditingController(text: data['Name']);
+_nameController = TextEditingController(text: data['Name']);
 _EmailController = TextEditingController(text: data['EmailAddress']);
 _PasswordController = TextEditingController(text: data['Password']);
 _GenderController = TextEditingController(text: data['Gender']);

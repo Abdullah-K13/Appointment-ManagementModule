@@ -91,7 +91,7 @@ var selectedgender;
                         child: Text(
                             textAlign: TextAlign.center,
                  
-                                  'Book Your Appointment',
+                                  'Enter Information',
                                   style: TextStyle(
                       decoration: TextDecoration.none,
                       color: Colors.white,
@@ -360,8 +360,17 @@ var selectedgender;
                    ),
                  ),
                  onPressed: () {
-           // print(selectedgender);
-           if(from == 'test'){
+
+
+                    if(isValidName(namecontroller.text)){
+                      print('name is valid');
+                      if(isValidPhoneNumber(Contact_Number.text)){
+
+                          if(isEmail(email_address.text)){
+                              if(isValidAge(age.text)){
+                                if(selectedgender == 'Male' || selectedgender == 'Female'){
+                                    if(isValidPhoneNumber(emergencycontact.text)){
+                                        if(from == 'test'){
  apifunction().postunregisteredtests(testid,namecontroller.text, age.text, selectedgender, email_address.text, Contact_Number.text, emergencycontact.text,selecteddate,selecetedtime);
   Navigator.push(
     context,
@@ -377,7 +386,117 @@ var selectedgender;
     context,
     MaterialPageRoute(builder: (context) =>Payment(type,selecteddate,selecetedtime,reason)),
   );    
-           }
+          }
+
+                                    }
+                                    else{
+                                      final snackBar = SnackBar(
+                backgroundColor: Color(0xFF800020), // Customize the background color
+                content: Row(
+                  children: [
+                    Icon(Icons.warning, color: Colors.white), // Warning icon
+                    SizedBox(width: 8),
+                    Text(
+                      'Invalid Emergency contact',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
+                duration: Duration(seconds: 3),
+              );
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);    
+                                    }
+                                }
+                                else{
+ final snackBar = SnackBar(
+                backgroundColor: Color(0xFF800020), // Customize the background color
+                content: Row(
+                  children: [
+                    Icon(Icons.warning, color: Colors.white), // Warning icon
+                    SizedBox(width: 8),
+                    Text(
+                      'Select gender',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
+                duration: Duration(seconds: 3),
+              );
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);                                  }
+                              }
+                              else{
+                                 final snackBar = SnackBar(
+                backgroundColor: Color(0xFF800020), // Customize the background color
+                content: Row(
+                  children: [
+                    Icon(Icons.warning, color: Colors.white), // Warning icon
+                    SizedBox(width: 8),
+                    Text(
+                      'Invalid Age',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
+                duration: Duration(seconds: 3),
+              );
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);   
+                              }
+                          }
+                          else{
+                             final snackBar = SnackBar(
+                backgroundColor: Color(0xFF800020), // Customize the background color
+                content: Row(
+                  children: [
+                    Icon(Icons.warning, color: Colors.white), // Warning icon
+                    SizedBox(width: 8),
+                    Text(
+                      'Invalid Email',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
+                duration: Duration(seconds: 3),
+              );
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);   
+                          }
+                      }
+                      else{
+                        final snackBar = SnackBar(
+                backgroundColor: Color(0xFF800020), // Customize the background color
+                content: Row(
+                  children: [
+                    Icon(Icons.warning, color: Colors.white), // Warning icon
+                    SizedBox(width: 8),
+                    Text(
+                      'Invalid Contact number',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
+                duration: Duration(seconds: 3),
+              );
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);    
+                      }
+                    }
+                    else{
+final snackBar = SnackBar(
+                backgroundColor: Color(0xFF800020), // Customize the background color
+                content: Row(
+                  children: [
+                    Icon(Icons.warning, color: Colors.white), // Warning icon
+                    SizedBox(width: 8),
+                    Text(
+                      'Invalid Name',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
+                duration: Duration(seconds: 3),
+              );
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);                    }
+
+           // print(selectedgender);
+//          
        
             
                  },
@@ -403,9 +522,62 @@ var selectedgender;
     );
 
   }
+  
+bool isValidName(String name) {
+  // Check if the name is empty
+  if (name.isEmpty) {
+    return false;
+  }
+
+  // Check if the name contains only alphabetic characters and spaces
+  if (!RegExp(r'^[a-zA-Z ]+$').hasMatch(name)) {
+    return false;
+  }
+
+  // If all criteria are met, the name is considered valid
+  return true;
 }
 
+bool isValidAge(String ageString) {
+  try {
+    // Convert the string to an integer
+    int age = int.parse(ageString);
 
+    // Check if the age is within the valid range (0 to 149)
+    if (age >= 0 && age < 150) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (e) {
+    // If parsing fails (e.g., the string is not a valid integer), return false
+    return false;
+  }
+}
+
+bool isValidPhoneNumber(String phoneNumber) {
+  // Regular expression pattern for matching common phone number formats
+  final RegExp phoneNumberRegex = RegExp(
+    r'^\+?[\d()-.\s]+$',
+    caseSensitive: false,
+    multiLine: false,
+  );
+
+  // Check if the input string matches the phone number pattern
+  return phoneNumberRegex.hasMatch(phoneNumber);
+}
+bool isEmail(String input) {
+  // Regular expression pattern for matching email addresses
+  final RegExp emailRegex = RegExp(
+    r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+    caseSensitive: false,
+    multiLine: false,
+  );
+  
+  // Check if the input string matches the email pattern
+  return emailRegex.hasMatch(input);
+}
+}
 
 class RoundedTextField extends StatelessWidget {
   final String hintText;
@@ -419,6 +591,7 @@ RoundedTextField(this.hintText,this.controller);
      
       style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
       controller: controller,
+      
       decoration: InputDecoration(
       border: UnderlineInputBorder(borderSide: BorderSide.none),
 

@@ -5,7 +5,10 @@ import 'package:intl/intl.dart';
 import 'package:screen_1/BrowseDoctors.dart';
 import 'package:screen_1/report.dart';
 var UserID;
-
+var username;
+var userage;
+var usergender;
+var usercontact;
 class Visit {
   final int doctorid;
   final DateTime date;
@@ -19,7 +22,7 @@ class Visit {
 }
 
 class apifunction {
-final ip = '192.168.0.108';
+final ip = '192.168.0.104';
 
 Future<void> postDataToApi(date,time,name,age,gender,complain) async {
   final apiUrl = 'http://192.168.0.107:8000/testappointment/'; // replace with your API URL
@@ -163,7 +166,7 @@ Future<void> postVisitorsdata(name,age,gender,email,contactInfo,emergencycontact
 
 
 Future<void> postVisitsBill(status) async {
-  final apiUrl = 'http://$ip:8000/postvisitsbillbypatients/$status'; // replace with your API URL
+  final apiUrl = 'http://$ip:8000/postvisitsbillbypatients/$status/$DrID'; // replace with your API URL
   final headers = {
     'Content-Type': 'application/json',
   };
@@ -205,7 +208,7 @@ print(DrID);
   "PatientID":UserID ,
   "drID":DrID,
   "DateOfVisit": date,
-  "TimeOfVisit": time,
+  "TimeOfVisit": time.toString(),
   "Reasonforchekcup": reason.toString()
 };
 
@@ -258,7 +261,7 @@ print(DrID);
 
 
 Future<void> postVisitorsvisitsBill(status) async {
-  final apiUrl = 'http://$ip:8000/postvisitsbillbyvisitors/$status'; // replace with your API URL
+  final apiUrl = 'http://$ip:8000/postvisitsbillbyvisitors/$status/$DrID'; // replace with your API URL
   final headers = {
     'Content-Type': 'application/json',
   };
@@ -314,8 +317,8 @@ Future<void> posttestschedulebypatients(date,time,testid) async {
 }
 
 
-Future<void> postTestsBill(status) async {
-  final apiUrl = 'http://$ip:8000/posttestsbillbypatients/$status'; // replace with your API URL
+Future<void> postTestsBill(status,charges) async {
+  final apiUrl = 'http://$ip:8000/posttestsbillbypatients/$status/$charges'; // replace with your API URL
   final headers = {
     'Content-Type': 'application/json',
   };
@@ -424,9 +427,13 @@ print(doctorid);
   if (response.statusCode == 200) {
     print('i am in the get times by dates function');
 
-   // print(response.body);
+    print(response.body);
     List jsonResponse = json.decode(response.body);
     return jsonResponse.map((item) => item).toList();
+/// yaha apke time arhy hai avaialbe?
+// ab is ko ap kis jaga save kr wa rhy ho wo array dkeaho
+//ji dikhata
+
   } else {
     throw Exception('Failed to load data');
   }
@@ -501,7 +508,7 @@ Future<List<dynamic>> fetchallreports(int patientid) async {
 }
 
 Future<Map<String, dynamic>> fetchSpecificReportsData(int reportid) async {
-  print('I\'m here');
+  //print('I\'m here');
 
   final url = Uri.parse('http://$ip:8000/fetchspecificreportsdata/$reportid');
   final Map<String, String> headers = {'Content-Type': 'application/json'};
@@ -510,13 +517,10 @@ Future<Map<String, dynamic>> fetchSpecificReportsData(int reportid) async {
     headers: headers,
   );
 
-  print('URL: $url');
-  print('Headers: $headers');
-
   if (response.statusCode == 200) {
-    print('Now I\'m here again 2');
+    //print('Now I\'m here again 2');
     Map<String, dynamic> jsonResponse = json.decode(response.body);
-
+    //print(jsonResponse);
     return jsonResponse;
   } else {
     throw Exception('Failed to load data');
@@ -581,6 +585,23 @@ Future<List<dynamic>> fetchongoingtreatiments(int patientid) async {
   }
 }
 
+Future<List<dynamic>>  fetchprescriptioninfo(int patientid) async {
+  
+  final url = Uri.parse('http://$ip:8000/fetchprescriptioninfo/$patientid');
+  final Map<String, String> headers = {'Content-Type': 'application/json'};
+  final response = await http.get(
+    url,
+    headers: headers,
+  );
+
+  if (response.statusCode == 200) {
+    print('now im here again 2');
+    List jsonResponse = json.decode(response.body);
+    return jsonResponse.map((item) => item).toList();
+  } else {
+    throw Exception('Failed to load data');
+  }
+}
 
 Future<bool> authorization (String emailaddress, String password) async {
   print('in authorization 1');
@@ -601,6 +622,10 @@ Future<bool> authorization (String emailaddress, String password) async {
       String email = jsonData['EmailAddress'];
   String passwords = jsonData['Password'];
   UserID = jsonData['PatientID'];
+  username = jsonData['Name'];
+  usergender = jsonData['Gender'];
+  userage = jsonData['Age'];
+  usercontact = jsonData['ContactInformation'];
   print(email);
   print(password);
   print('the user id is ');
@@ -663,7 +688,7 @@ Future<Map<String, dynamic>> testpatientinfo(int patientid) async {
   }
 }
 
-Future<void> fetchpatientsInformation() async {
+Future<Map<String,dynamic>> fetchpatientsInformation() async {
   print('im hereee ');
   
   final url = Uri.parse('http://$ip:8000/fetchpatientsinformation/$UserID');
@@ -675,13 +700,14 @@ Future<void> fetchpatientsInformation() async {
 
   print('URL: $url');
   print('Headers: $headers');
-  
-  if (response.statusCode == 200) {
-    print('now im here again 2');
-    List jsonResponse = json.decode(response.body);
-
-    return ;
+   if (response.statusCode == 200) {
+    print('now im here again 234');
+  //  print(response.body);
+   Map<String,dynamic>jsonData = json.decode(response.body);
+  //  print('jsonResponse: $jsonData['Age']');
+    return jsonData;
   } else {
+    print('in the else cond');
     throw Exception('Failed to load data');
   }
 }
@@ -689,7 +715,7 @@ Future<void> fetchpatientsInformation() async {
 Future<void> UpdatepatientsInformation(name,age,gender,address,contactinfo,emergencycontact,patientid,email,password) async {
  
  
-  final apiUrl = 'http://$ip:8000/updatepatientsinformation/5'; // replace with your API URL
+  final apiUrl = 'http://$ip:8000/updatepatientsinformation/$UserID'; // replace with your API URL
   final headers = {
     'Content-Type': 'application/json',
   };

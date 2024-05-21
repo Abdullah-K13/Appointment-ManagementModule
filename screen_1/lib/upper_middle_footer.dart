@@ -11,7 +11,6 @@ class UpperMiddleFooter extends StatefulWidget {
 }
 
 class _UpperMiddleFooterState extends State<UpperMiddleFooter> {
-  
   List<String> testIcons = [
     'assets/images/blood-analysis.png',
     'assets/images/thyroid-gland.png',
@@ -50,10 +49,32 @@ class _UpperMiddleFooterState extends State<UpperMiddleFooter> {
           onPressed: () {
             // Handle done button functionality
             print("Done button pressed");
+            print(selectedIndex == null);
+            if(selectedIndex == null){
+                 final snackBar = SnackBar(
+                backgroundColor: Color(0xFF800020), // Customize the background color
+                content: Row(
+                  children: [
+                    Icon(Icons.warning, color: Colors.white), // Warning icon
+                    SizedBox(width: 8),
+                    Text(
+                      'Please Select a test',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
+                duration: Duration(seconds: 3),
+              );
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            }
+            else{
 Navigator.push(
     context,
     MaterialPageRoute(builder: (context) =>BookTest()),
-  );              },
+  );    
+            }
+      
+    },
         ),
       ],
     );
@@ -76,11 +97,12 @@ class UpperPart extends StatelessWidget {
       child: Stack(
         children: [
           Positioned(
-            top: 30,
-            left: 6,
+            top: 40,
+            left: 20,
             child: GestureDetector(
               onTap: () {
                 // Handle back button tap
+                Navigator.pop(context);
               },
               child: Container(
                 width: 48,
@@ -243,7 +265,7 @@ class Footer extends StatelessWidget {
                 ),
               ),
               child: Text(
-                'Done',
+                'Proceed',
                 style: TextStyle(
                   decoration: TextDecoration.none,
                   color: Colors.white,

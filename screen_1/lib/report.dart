@@ -30,11 +30,11 @@ class report extends StatelessWidget {
         if (snapshot.hasError) {
           // Display an error message if fetching data failed
           return Text('Error: ${snapshot.error}');
-        } else if (snapshot.hasData) {
+        } else if (snapshot.hasData)  {
           // Display the data in a ListView
           final data = snapshot.data!;
-       // print(data);
-       // final item = data[0];
+        print(data['testname']);
+        final item = data[0];
           return  Stack(
                               children: [
                                 Center(
@@ -153,7 +153,7 @@ class report extends StatelessWidget {
                   left: 40,
                   top: 332,
                   child:Text(
-                    data['testname'],
+                    data['testname'].toString(),
                     style: TextStyle(
                       fontFamily: 'Poppins',
                       fontSize: 11,
@@ -193,7 +193,7 @@ class report extends StatelessWidget {
                      //   color: Colors.green,
                         width: 110,
                         child: Text(
-                          'Zainab Rauf',
+                          username.toString(),
                           style: TextStyle(
                             fontFamily: 'Poppins',
                             fontSize: 9,
@@ -202,7 +202,7 @@ class report extends StatelessWidget {
                       ),
                       SizedBox(width: 45),
                       Text(
-                        '201',
+                        data['reportid'].toString(),
                         style: TextStyle(
                           fontFamily: 'Poppins',
                           fontSize: 9,
@@ -220,7 +220,7 @@ class report extends StatelessWidget {
                       Container(
                         width: 50,
                         child: Text(
-                          'Female',
+                          usergender ,
                           style: TextStyle(
                             fontFamily: 'Poppins',
                             fontSize: 9,
@@ -247,7 +247,7 @@ class report extends StatelessWidget {
                       Container(
                         width: 50,
                         child: Text(
-                          '20',
+                          userage.toString(),
                           style: TextStyle(
                             fontFamily: 'Poppins',
                             fontSize: 9,
@@ -256,7 +256,7 @@ class report extends StatelessWidget {
                       ),
                       SizedBox(width: 145),
                       Text(
-                        '0309289302',
+                        usercontact.toString(),
                         style: TextStyle(
                           fontFamily: 'Poppins',
                           fontSize: 9,

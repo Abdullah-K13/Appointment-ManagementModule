@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:screen_1/Appforsomeoneelse.dart';
@@ -432,24 +433,31 @@ DropdownButton<String>(
                  ),
                  onPressed: () {
                    var testid;
+                   var charges;
                         if(selctedtest == 'Blood-analysis Test')
                         {
                           testid = 19;
+                          charges = 2500;
                         }
                         else if(selctedtest == 'Thyroid-gland Test'){
                           testid = 15;
+                          charges = 2800;
                         }
                          else if(selctedtest == 'Liver Test'){
                           testid = 16;
+                          charges = 3400;
                         }
                          else if(selctedtest == 'Urine Test'){
                           testid = 2;
+                          charges = 2000;
                         }
                          else if(selctedtest == 'Lipid Test'){
                           testid = 18;
+                          charges = 3200;
                         }
                          else if(selctedtest == 'Kidney Test'){
                           testid = 17;
+                          charges = 3000;
                         }
                   print(selectedtestdate);
                   print(selectedtesttime);
@@ -459,11 +467,45 @@ DropdownButton<String>(
     context,
     MaterialPageRoute(builder: (context) =>Paymentfortests(selectedappointment,selectedtestdate,selectedtesttime)),
   );                      }
-                   else{
+                   else if (selectedappointment ==  'Someone Else'){
                      Navigator.push(
     context,
     MaterialPageRoute(builder: (context) =>appointmentforsomeoneelse('test',selectedtestdate,selectedtesttime,testid)),
   );     }
+  else if( selectedtestdate == null || selectedtesttime == null){
+     final snackBar = SnackBar(
+                backgroundColor: Color(0xFF800020), // Customize the background color
+                content: Row(
+                  children: [
+                    Icon(Icons.warning, color: Colors.white), // Warning icon
+                    SizedBox(width: 8),
+                    Text(
+                      'Please date or time',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
+                duration: Duration(seconds: 3),
+              );
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+  else{
+    final snackBar = SnackBar(
+                backgroundColor: Color(0xFF800020), // Customize the background color
+                content: Row(
+                  children: [
+                    Icon(Icons.warning, color: Colors.white), // Warning icon
+                    SizedBox(width: 8),
+                    Text(
+                      'Please choose patient details',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
+                duration: Duration(seconds: 3),
+              );
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
               
                  },
                  child: Row(

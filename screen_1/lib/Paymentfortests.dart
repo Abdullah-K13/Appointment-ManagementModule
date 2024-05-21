@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:screen_1/BookAppointment.dart';
+import 'package:screen_1/DashBoard%20copy.dart';
 import 'package:screen_1/apifunctions.dart';
 import 'package:screen_1/upper_middle_footer.dart';
 
@@ -94,20 +95,23 @@ class _PaymentScreenState extends State<Paymentfortests> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(left: 30, bottom: 0),
-                      child: Container(
-                        width: 48,
-                        height: 48,
-                        padding: const EdgeInsets.all(12),
-                        clipBehavior: Clip.antiAlias,
-                        decoration: ShapeDecoration(
-                          shape: RoundedRectangleBorder(
-                            side: BorderSide(width: 1, color: Colors.white),
-                            borderRadius: BorderRadius.circular(18),
+                      child: GestureDetector(
+                        onTap: () => Navigator.pop(context),
+                        child: Container(
+                          width: 48,
+                          height: 48,
+                          padding: const EdgeInsets.all(12),
+                          clipBehavior: Clip.antiAlias,
+                          decoration: ShapeDecoration(
+                            shape: RoundedRectangleBorder(
+                              side: BorderSide(width: 1, color: Colors.white),
+                              borderRadius: BorderRadius.circular(18),
+                            ),
                           ),
-                        ),
-                        child: Icon(
-                          Icons.arrow_back,
-                          color: Colors.white,
+                          child: Icon(
+                            Icons.arrow_back,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
@@ -186,44 +190,58 @@ class _PaymentScreenState extends State<Paymentfortests> {
                   padding: const EdgeInsets.only(left: 10,right:10),
                   child: ElevatedButton(
                     onPressed: () async {
+                      var charges;
                         var testid;
                         if(selctedtest == 'Blood-analysis Test')
                         {
                           testid = 19;
+                          charges = 2000;
                         }
                         else if(selctedtest == 'Thyroid-gland Test'){
                           testid = 15;
+                           charges = 3500;
                         }
                          else if(selctedtest == 'Liver Test'){
                           testid = 16;
+                           charges = 2900;
                         }
                          else if(selctedtest == 'Urine Test'){
                           testid = 2;
+                           charges = 2000;
                         }
                          else if(selctedtest == 'Lipid Test'){
                           testid = 18;
+                           charges = 2400;
                         }
                          else if(selctedtest == 'Kidney Test'){
                           testid = 17;
+                           charges = 3000;
                         }
-                        print('in the paymentfortest screen');
-                      print(_selectedPaymentMethod);
-                      print(type);
-                      if(type == 'Myself'){
+           
+
+                     
+                    
+                       if(type == 'Myself'){
                         print(' i am in myself cond');
                       if(_selectedPaymentMethod == 0){
                         print('credit card');
+                        if (_formKey.currentState?.validate() ?? false) {
                         await apifunction().posttestschedulebypatients(this.selecteddate,this.selectedtime ,testid);
                         await Future.delayed(Duration(seconds: 1));
 
-                        await apifunction().postTestsBill('Paid');
+                        await apifunction().postTestsBill('Paid',charges);
+                         Navigator.popUntil(context, (route) => route.isFirst ,);
+
+                        }
                       }
                       else{
                         print('counter');
                         await apifunction().posttestschedulebypatients(this.selecteddate,this.selectedtime , testid);
                       //  await apifunction().postPatientsdata();
                         await Future.delayed(Duration(seconds: 1));
-                        await apifunction().postTestsBill('Unpaid');
+                        await apifunction().postTestsBill('Unpaid',charges);
+                         Navigator.popUntil(context, (route) => route.isFirst ,);
+
                       }
                      
                       }
@@ -232,20 +250,20 @@ class _PaymentScreenState extends State<Paymentfortests> {
                         print('credit card');
                       
                         await apifunction().postunresgiteredtestbilll('Paid');
+                         Navigator.popUntil(context, (route) => route.isFirst ,);
+
                       }
                       else{
                         print('counter');
 
                         await apifunction().postunresgiteredtestbilll('Unpaid');
+                         Navigator.popUntil(context, (route) => route.isFirst ,);
+
                       }
                      
+                      
+                    }                      // Handle payment action
 
-                    }
-
-                     
-                      if (_formKey.currentState?.validate() ?? false) {
-                        // Handle payment action
-                      } // Handle payment action
                     },
                            child: Text('Proceed to desktop',style: TextStyle(fontFamily: 'nunito-extrabold',fontSize: 20,color: Colors.white),),
                     style: ElevatedButton.styleFrom(

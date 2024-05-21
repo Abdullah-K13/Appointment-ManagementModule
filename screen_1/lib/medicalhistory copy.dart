@@ -33,7 +33,7 @@ class medicalhistorynew extends StatelessWidget {
                 allergies.add(data[i]['Allergy']);
                 levels.add(data[i]['Level']);
               }
-              print(data[0]['Allergy']);
+             // print(data[0]['Allergy']);
               print(allergies);
             
           return 
@@ -113,7 +113,7 @@ class medicalhistorynew extends StatelessWidget {
                 treatments.add(data[i]['Treatment'].toString());
                 status.add(data[i]['Status'].toString());
               }
-              print(data[0]['Allergy']);
+             // print(data[0]['Allergy']);
               print(treatments);
 
           return  SectionPart(

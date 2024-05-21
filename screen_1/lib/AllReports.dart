@@ -51,7 +51,7 @@ return Scaffold(
                                child:Icon(Icons.arrow_back,color: Colors.white,) ,
                                    ),
                  ),
-                SizedBox(width: 30,),
+                SizedBox(width: 15,),
 Text(
             'Browse Reports',
             style: TextStyle(
@@ -84,12 +84,16 @@ Text(
        height:667 ,
         color: const Color.fromARGB(255, 219, 218, 217),
         child:  FutureBuilder<List<dynamic>>(
-      future: apifunction().fetchallreports(2),
+      future: apifunction().fetchallreports(UserID),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           // Display an error message if fetching data failed
           return Text('Error: ${snapshot.error}');
-        } else if (snapshot.hasData) {
+        }
+        else if(snapshot == null){
+           return Text('i am null');
+        }
+         else if (snapshot.hasData) {
           // Display the data in a ListView
           final data = snapshot.data!;
        // print(data);
@@ -100,11 +104,14 @@ Text(
               itemCount: data.length, // Replace 10 with the actual number of items in your list
               itemBuilder: (BuildContext context, int index) {
                  final item = data[index];
-                 reportid = item['reportid'];
+                
+                
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 25,left: 10,right: 10),
                   child:  GestureDetector(
             onTap: () {
+               reportid = item['reportid'];
+               print(reportid);
               DrID = item['drID'];
               print('the doctors id is: $DrID');
                 Navigator.push(
@@ -119,88 +126,114 @@ Text(
                          borderRadius:BorderRadius.circular(20) ,
                          color: const Color.fromARGB(255, 255, 255, 255)
                     ),
-                    child: Row(children: [
-                         Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: Container(
-                                    height: 130,
-                                    width:  120,
-                                    decoration: BoxDecoration(
-                                    color: const Color.fromARGB(255, 226, 227, 226),
-                                    borderRadius: BorderRadius.circular(20)
-                                    )
-                                    ),
-                                    
-                         ),
-                         Column(mainAxisAlignment: MainAxisAlignment.center
-                         ,crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                  Row(
-                                    children: [
-                    Text(
-                      item['doctorname'].toString(),
-                      style: TextStyle(
-                        decoration: TextDecoration.none,
-                        color: const Color.fromARGB(255, 0, 0, 0),
-                        fontSize: 20,
-                        fontFamily: 'nunito-semibold',
-                        fontWeight: FontWeight.w800,
-                        height: 0,
-                        letterSpacing: -0.32,
-                      )),
-                      SizedBox(width: 5,),
-                                    Icon(Icons.check_circle,color: const Color.fromARGB(255, 42, 222, 48),size: 18,)
-                                    
-                         
-                                    ],
-                                  ),
-                                  SizedBox(height: 7,),     
-                                 Text(
-                                    item['Specialization'].toString(),
+                    child: Column(
+                      children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(top: 20,right: 0),
+                                                child: Container(
+                                                  width: 300,
+                                                  child: Text(
+                                                                      //      textAlign: TextAlign.center,
+                                                                 
+                                                                                  username.toString(),
+                                                                                  style: TextStyle(
+                                                                      decoration: TextDecoration.none,
+                                                                      color: const Color.fromARGB(255, 0, 0, 0),
+                                                                      fontSize: 23,
+                                                                      fontFamily: 'nunito-extrabold',
+                                                                      fontWeight: FontWeight.w800,
+                                                                      height: 0,
+                                                                      letterSpacing: -0.32,
+                                                                      
+                                                                                  )),
+                                                ),
+                                              ),
+  Padding(
+    padding: const EdgeInsets.only(right: 0,bottom: 10),
+    child: Container(
+      width: 300,
+     // color: Colors.green,
+      child: Text(
+                            //  textAlign: TextAlign.center,
+                   
+                                    item['testname'],
                                     style: TextStyle(
-                    decoration: TextDecoration.none,
-                    color: const Color.fromARGB(255, 0, 0, 0),
-                    fontSize: 18,
-                    fontFamily: 'nunito-semibold',
-                                     // fontWeight: FontWeight.w800,
-                    height: 0,
-                    letterSpacing: -0.32,
-                                    )),      
-                                    SizedBox(height:7 ,),          
-                                 Row(
-                                   children: [
-                                     Text(
-                      item['Ratings'].toString(),
-                      style: TextStyle(
                         decoration: TextDecoration.none,
                         color: const Color.fromARGB(255, 0, 0, 0),
                         fontSize: 15,
-                        fontFamily: 'nunito-semibold',
-                       // fontWeight: FontWeight.w800,
+                        fontFamily: 'nunito-extrabold',
+                        fontWeight: FontWeight.w800,
                         height: 0,
-                        //letterSpacing: -0.32,
-                      )),
-                      SizedBox(width: 5,),
-                      Icon(
-                                  Icons.star,
-                                  size: 20, // Set the size of the icon
-                                  color: Colors.yellow, // Set the color of the icon
-                         )
-                         
-                                   ],
-                                 ),             ],
-                         ),
-                         SizedBox(width: 20,),
-                         Padding(
-                           padding: const EdgeInsets.only(top: 90),
-                           child: Container(
-                                    height: 15,
-                                    width: 15,
-                                    //color: Colors.black,
-                                    child: Icon(Icons.add_circle,color: Color(0xFF3E64FF),)),
-                         )
-                         
-                    ],),
+                        letterSpacing: -0.32,
+                        
+                                    )),
+    ),
+  ),                        Container(
+                          color: Colors.blue,
+                          height: 2,
+                          width: 300,
+                        ),
+  Padding(
+    padding: const EdgeInsets.only(top: 10,left: 24),
+    child: Row(
+      children: [
+        SizedBox(width: 20,),
+                                      Icon(Icons.calendar_month,color: Color.fromARGB(255, 0, 0, 0),size: 18,),
+        Text(
+                              //  textAlign: TextAlign.center,
+                     
+                                      item['testdate'],
+                                      style: TextStyle(
+                          decoration: TextDecoration.none,
+                          color: const Color.fromARGB(255, 0, 0, 0),
+                          fontSize: 15,
+                          fontFamily: 'nunito-extrabold',
+                          fontWeight: FontWeight.w800,
+                          height: 0,
+                          letterSpacing: -0.32,
+                          
+                                      )),
+                                      SizedBox(width: 20,),
+                       Icon(Icons.access_time,color: Color.fromARGB(255, 0, 0, 0),size: 20,),
+    
+                                           Text(
+                               // textAlign: TextAlign.center,
+                     
+                                      item['testtime'],
+                                      style: TextStyle(
+                          decoration: TextDecoration.none,
+                          color: const Color.fromARGB(255, 0, 0, 0),
+                          fontSize: 15,
+                          fontFamily: 'nunito-extrabold',
+                          fontWeight: FontWeight.w800,
+                          height: 0,
+                          letterSpacing: -0.32,
+                          
+                                      )),
+      ],
+    ),
+
+  ),
+    Padding(
+      padding: const EdgeInsets.only(left: 240),
+      child: Text(
+                                  textAlign: TextAlign.center,
+                       
+                                        'View Details',
+                                        style: TextStyle(
+                            decoration: TextDecoration.none,
+                            color: const Color.fromARGB(255, 0, 0, 0),
+                            fontSize: 19,
+                            fontFamily: 'nunito-extrabold',
+                            fontWeight: FontWeight.w800,
+                            height: 0,
+                            letterSpacing: -0.32,
+                            
+                                        )),
+    ),
+                      ],
+
+                    ),
                     ),
                   ),
                 );

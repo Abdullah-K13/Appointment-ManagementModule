@@ -7,8 +7,11 @@ import 'package:screen_1/Payment.dart';
 import 'package:screen_1/apifunctions.dart';
 import 'package:intl/intl.dart';
 List<String> timeSlotsforthispage = [];
+List<String> newalltimeslots = [];
+
 var selectedDate = '2027-02-13';
 //List<String> timefromdata=[];
+//time jo fethc ho k api se arhy wo add kaha krwa rhy ho wo dkehae
 DateTime newtimeOfVisit = DateTime.parse('2026-02-02 02:00:00.000');
 List<DateTime> getNext10Days() {
   List<DateTime> dates = [];
@@ -45,7 +48,8 @@ var complain = 'None';
   List<int> selecteddateindices = [];
  // List<int> selectedtimeindices = [];
 
-List<DateTime> bookedTimeSlots = [];
+
+List<String> bookedTimeSlots = [];
 var selectedtime;
  _BookAppointmentstate(this.newshiftStart,this.newshiftend);
 
@@ -67,7 +71,10 @@ List<DateTime> next10Days = getNext10Days();
 
 
   Future<void> fetchAvailableTimeSlots(List<dynamic> data) async {
-    
+    newalltimeslots = [];
+    bookedTimeSlots = [];
+    print('fetched time slots are');
+    print(data);
     print('in the fetchtime func');
     bookedTimeSlots = [];
    
@@ -77,7 +84,8 @@ List<DateTime> next10Days = getNext10Days();
     DateTime shiftEnd = DateTime.parse('2024-04-30 $newshiftend'); // Fetch shift end time from database
 //    String formattedTime = DateFormat('HH:mm:ss').format(shiftStart);
 // print(formattedTime);
-   //print(shiftStart);
+// 
+// //print(shiftStart);
 
     // Generate list of all possible time slots within shift start and end times with 1-hour interval
     List<DateTime> allTimeSlots = [];
@@ -86,18 +94,31 @@ List<DateTime> next10Days = getNext10Days();
       allTimeSlots.add(currentTime);
       currentTime = currentTime.add(Duration(hours: 1));
     }
+    print('all of the time slots are');
 print(allTimeSlots);
+
+//yh alla time slot yaha add hone k bad kaha save krwa rhy ho dkeah kasie rhy ho 
 print('all data is:');
  print(data);
 //generate booked lists
+
+for(int i = 0;i< allTimeSlots.length;i++){
+  String formattedTime = DateFormat('h:mm a').format(allTimeSlots[i]);
+newalltimeslots.add(formattedTime);
+}
+print('new all time slots are');
+print(newalltimeslots);
 for ( var item in data)
 {
-  print(item['timeofvisit']);
+  print(item['TimeOfVisit']);
   var test = item['TimeOfVisit'];
   try{
-  DateTime time_Str = DateTime.parse('2024-04-30 $test'); // Fetch shift end time from database
-  bookedTimeSlots.add(time_Str);
-
+//   DateTime time_Str = DateTime.parse('2024-04-30 $test'); // Fetch shift end time from database
+//   print(time_Str);
+//   String formattedTime = DateFormat('h:mm a').format(time_Str);
+//  print(formattedTime);
+//   //String formattedTime = convertTimeFormat(time_Str);
+  bookedTimeSlots.add(test);
   }
   catch(Exception){
     print('error');
@@ -107,17 +128,33 @@ print('the booked time slots are:');
 print(bookedTimeSlots);
 
 //remove avaialbel time slots
- for (DateTime timeSlot in bookedTimeSlots) {
-  allTimeSlots.remove(timeSlot);
+setState(() {
+   for (String timeSlot in bookedTimeSlots) {
+  newalltimeslots.remove(timeSlot);
 }
+});
+
 print('the new time slots are');
-print(allTimeSlots);
+print(newalltimeslots);
+//main all time slots main say booked time slots remove karwa rha
 
  timeSlotsforthispage = [];
-
+ print('the time slots for this page is');
+print(allTimeSlots);
  for (DateTime timeSlot in allTimeSlots) {
   String formattedTime = DateFormat('h:mm a').format(timeSlot);
-  timeSlotsforthispage.add(formattedTime);
+ 
+      timeSlotsforthispage.add(formattedTime);
+
+//yh line c
+
+//// 
+  //yaha ab wo time arhy ha ijo avialne hain righrt?
+  // jee yahan arha hai
+  //yh methiond jb call hota hai jb ap date select krty ho?
+  //jee jab date select karta tab hota 
+  /// ab yh dekho yh jo timeslorforthis page hai isme ame apka main dathai time ka ap aisko sestate krwana hai 
+  /// 
 }
 print(timeSlotsforthispage);
 
@@ -128,6 +165,7 @@ print(timeSlotsforthispage);
 
     // TODO: implement build
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 218, 217, 217),
       body: Container(
         color: const Color.fromARGB(255, 73, 59, 59),
        // height: 100,
@@ -208,14 +246,17 @@ print(timeSlotsforthispage);
             )
           , 
          FutureBuilder<List<dynamic>>(
-  future: apifunction().getTimesByDates(1, selectedDate),
+  future: apifunction().getTimesByDates(DrID, selectedDate),
   builder: (context, snapshot) {
     if (snapshot.hasError) {
       // Display an error message if fetching data failed
+      //idher horha call
       return Text('Error: ${snapshot.error}');
     } else if (snapshot.hasData) {
       // Extract the data from the snapshotas
        final List<dynamic> data = snapshot.data!;
+
+   //   fetch avaialbe wala method me jao 
    print('i was here');
 
       return 
@@ -342,9 +383,10 @@ print(timeSlotsforthispage);
                          padding: const EdgeInsets.all(16.0),
                          mainAxisSpacing: 16.0,
                          crossAxisSpacing: 10.0,
-                         children: timeSlotsforthispage.asMap().entries.map((entry)
+                         children: newalltimeslots.asMap().entries.map((entry)
                          {
-                           
+                           //sorry yeh timeslotsforthispage hai
+
                            final index = entry.key;
                          final testtimeslot = entry.value; 
 
@@ -527,7 +569,14 @@ DropdownButton<String>(
                  onPressed: () {
                   var test;
                    complain = complaincontroller.text;
-                   if(selectedappointment == 'Myself'){
+                      print(selecteddateindices);
+                      print(selectedtime);
+                      if(selecteddateindices.isNotEmpty){
+                        if(selectedtime != null){
+                          print('you are good to go');
+                          if(selectedappointment == 'Myself' || selectedappointment == 'SomeoneElse'){
+                            if(complain.isNotEmpty){
+                                   if(selectedappointment == 'Myself'){
   Navigator.push(
     context,
     MaterialPageRoute(builder: (context) =>Payment(type,selectedDate,selectedtime,complain)),
@@ -538,13 +587,84 @@ DropdownButton<String>(
     MaterialPageRoute(builder: (context) =>appointmentforsomeoneelse('appointments',selectedDate,selectedtime,3 )),
   );     
                    }
-               //   apifunction().postDataToApi('2024-12-13','13:36:28.094Z',name,age,gender,complain); // Add your onPressed logic here.
-                //  print(name);
-                //  print(selectedgender);
-                //  print(complain);
-                //  print(selectedAge);
-               // List<dynamic> times = getTimesByDates( 1, DateTime.parse('2023-02-15'));
-                //print(times);
+                 //apifunction().postDataToApi('2024-12-13','13:36:28.094Z',name,age,gender,complain);
+                            }
+                            else{
+                                   final snackBar = SnackBar(
+                backgroundColor: Color(0xFF800020), // Customize the background color
+                content: Row(
+                  children: [
+                    Icon(Icons.warning, color: Colors.white), // Warning icon
+                    SizedBox(width: 8),
+                    Text(
+                      'Please Enter reasons for checkup',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
+                duration: Duration(seconds: 3),
+              );
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                            }
+           
+                          }
+                          else{
+                              final snackBar = SnackBar(
+                backgroundColor: Color(0xFF800020), // Customize the background color
+                content: Row(
+                  children: [
+                    Icon(Icons.warning, color: Colors.white), // Warning icon
+                    SizedBox(width: 8),
+                    Text(
+                      'Please Choose Who you booking for',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
+                duration: Duration(seconds: 3),
+              );
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          }
+                        }
+                        else{
+                             final snackBar = SnackBar(
+                backgroundColor: Color(0xFF800020), // Customize the background color
+                content: Row(
+                  children: [
+                    Icon(Icons.warning, color: Colors.white), // Warning icon
+                    SizedBox(width: 8),
+                    Text(
+                      'Please Choose Time',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
+                duration: Duration(seconds: 3),
+              );
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+                        }
+ 
+ 
+                       }
+                      else{
+                       final snackBar = SnackBar(
+                backgroundColor: Color(0xFF800020), // Customize the background color
+                content: Row(
+                  children: [
+                    Icon(Icons.warning, color: Colors.white), // Warning icon
+                    SizedBox(width: 8),
+                    Text(
+                      'Please Select date first',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
+                duration: Duration(seconds: 3),
+              );
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      }
+                 
                  },
                  child: Row(
                    children: [
