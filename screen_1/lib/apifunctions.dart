@@ -382,8 +382,8 @@ Future<void> postunregisteredtests(testid,name,age,gender,email,contactInfo,emer
 
 
 
-Future<void> postunresgiteredtestbilll(status) async {
-  final apiUrl = 'http://$ip:8000/postunregisteredtestsbill/$status'; // replace with your API URL
+Future<void> postunresgiteredtestbilll(status,charges) async {
+  final apiUrl = 'http://$ip:8000/postunregisteredtestsbill/$status/$charges'; // replace with your API URL
   final headers = {
     'Content-Type': 'application/json',
   };

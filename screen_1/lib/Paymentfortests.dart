@@ -230,8 +230,13 @@ class _PaymentScreenState extends State<Paymentfortests> {
                         await Future.delayed(Duration(seconds: 1));
 
                         await apifunction().postTestsBill('Paid',charges);
-                         Navigator.popUntil(context, (route) => route.isFirst ,);
-
+             Navigator.popUntil(context, (route) => route.isFirst,);
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DashBoard(),
+              ),
+            );
                         }
                       }
                       else{
@@ -240,8 +245,13 @@ class _PaymentScreenState extends State<Paymentfortests> {
                       //  await apifunction().postPatientsdata();
                         await Future.delayed(Duration(seconds: 1));
                         await apifunction().postTestsBill('Unpaid',charges);
-                         Navigator.popUntil(context, (route) => route.isFirst ,);
-
+             Navigator.popUntil(context, (route) => route.isFirst,);
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DashBoard(),
+              ),
+            );
                       }
                      
                       }
@@ -249,16 +259,26 @@ class _PaymentScreenState extends State<Paymentfortests> {
                     if(_selectedPaymentMethod == 0){
                         print('credit card');
                       
-                        await apifunction().postunresgiteredtestbilll('Paid');
-                         Navigator.popUntil(context, (route) => route.isFirst ,);
-
+                        await apifunction().postunresgiteredtestbilll('Paid',charges);
+             Navigator.popUntil(context, (route) => route.isFirst,);
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DashBoard(),
+              ),
+            );
                       }
                       else{
                         print('counter');
 
-                        await apifunction().postunresgiteredtestbilll('Unpaid');
-                         Navigator.popUntil(context, (route) => route.isFirst ,);
-
+                        await apifunction().postunresgiteredtestbilll('Unpaid',charges);
+             Navigator.popUntil(context, (route) => route.isFirst,);
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DashBoard(),
+              ),
+            );
                       }
                      
                       

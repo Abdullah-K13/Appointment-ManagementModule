@@ -1,13 +1,6 @@
 
 import 'package:flutter/material.dart';
 
-// class Colors {
-//   static const azureBlue = Color(0xFF3E64FF);
-//   Color graycolor = const Color.fromARGB(255, 207, 206, 206);
-//   static const white = Color(0xffFFFFFF);
-//   static const black = Color(0xff000000);
-// }
-
 class AboutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -204,7 +197,7 @@ class AboutPage extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SectionTitle(title: 'UI/UX Design:'
+                    SectionTitle(title: 'Backend:'
                   ),
                     TeamMember(name: 'M. Abdullah Khan'),
                     SizedBox(height: 10),

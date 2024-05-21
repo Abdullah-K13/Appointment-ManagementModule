@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:screen_1/BookAppointment.dart';
 import 'package:screen_1/Payment.dart';
 import 'package:screen_1/Paymentfortests.dart';
 import 'package:screen_1/apifunctions.dart';
@@ -27,7 +28,6 @@ var testid;
 var selecteddate;
 var from;
 var selecetedtime;
-var reason;
 _appointmentforsomeoneelseState(this.from,this.selecteddate,this.selecetedtime,this.testid);
 
 
@@ -36,6 +36,7 @@ String? selectedAge;
  int _selectedIndex = -1;
 
 var selectedgender;
+
 
 @override
   Widget build(BuildContext context) {
@@ -360,7 +361,7 @@ var selectedgender;
                    ),
                  ),
                  onPressed: () {
-
+                      print(reason);
 
                     if(isValidName(namecontroller.text)){
                       print('name is valid');

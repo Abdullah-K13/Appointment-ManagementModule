@@ -8,7 +8,7 @@ import 'package:screen_1/apifunctions.dart';
 import 'package:intl/intl.dart';
 List<String> timeSlotsforthispage = [];
 List<String> newalltimeslots = [];
-
+ var reason;
 var selectedDate = '2027-02-13';
 //List<String> timefromdata=[];
 //time jo fethc ho k api se arhy wo add kaha krwa rhy ho wo dkehae
@@ -34,7 +34,7 @@ class BookAppointment extends StatefulWidget{
 }
 
 class _BookAppointmentstate extends State<BookAppointment> {
-  var reason;
+ 
  var newshiftStart;
  var newshiftend; 
 String? selectedAge;
@@ -286,82 +286,85 @@ print(timeSlotsforthispage);
                        ),
                        SizedBox(height: 9,)
                        
-                       , Row(
-                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                         
-                                   children:
-                                   
-                                    List.generate(5, (index)  {
-                                     bool isSelected = selecteddateindices.contains(index);
-                                  //  var item = data[index];
-                         return GestureDetector(
-  onTap: () async {
-    print('in the gesture');
-    selectedDate = DateFormat('yyyy-MM-dd').format(next10Days[index]);
-    // print(selectedDate);
-
-    setState(()  {
-      if (isSelected)
-      {}
-     //   selecteddateindices.remove(index);
-      else
-        selecteddateindices = [index];
-      fetchAvailableTimeSlots(data);
-
-    });
-
-    // Call fetchAvailableTimeSlots directly after updating selecteddateindices
-  },
-
-
-                           child: Padding(
-                                     padding: const EdgeInsets.all(0.0),
-                                     child: Container(
-                                       width: 70, // Adjust the width as needed
-                                       height: 95, // Adjust the height as needed
-                                       decoration: BoxDecoration(
-                                       color:isSelected? Color(0xFF3E64FF): const Color.fromARGB(255, 252, 252, 252),
-                                       borderRadius: BorderRadius.circular(15)
-                  
-                                       ),
-                                       child: Center(
-                                         child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                                  DateFormat('d').format(next10Days[index]),
-                                                  style: TextStyle(
-                                      decoration: TextDecoration.none,
-                                      color: isSelected? const Color.
-                                      fromARGB(255, 255, 255, 255): const Color.fromARGB(255, 0, 0, 0),
-                                      fontSize: 33,
-                                      fontFamily: 'museo500',
-                                     // fontWeight: FontWeight.w800,
-                                      height: 0,
-                                      letterSpacing: -0.32,
-                                                  )),
+                       , SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                         child: Row(
+                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                            
-                                                  SizedBox(height: 5,),
-                                                  Text(
-                                                  DateFormat('EE').format(next10Days[index]),
-                                                  style: TextStyle(
-                                      decoration: TextDecoration.none,
-                                      color: isSelected? const Color.fromARGB(255, 255, 255, 255): const Color.fromARGB(255, 0, 0, 0),
-                                      fontSize: 16,
-                                      fontFamily: 'actor',
-                                     // fontWeight: FontWeight.w800,
-                                      height: 0,
-                                      letterSpacing: -0.32,
-                                                  )),
-                            ],
+                                     children:
+                                     
+                                      List.generate(10, (index)  {
+                                       bool isSelected = selecteddateindices.contains(index);
+                                    //  var item = data[index];
+                           return GestureDetector(
+                           onTap: () async {
+                             print('in the gesture');
+                             selectedDate = DateFormat('yyyy-MM-dd').format(next10Days[index]);
+                             // print(selectedDate);
+                         
+                             setState(()  {
+                               if (isSelected)
+                               {}
+                              //   selecteddateindices.remove(index);
+                               else
+                                 selecteddateindices = [index];
+                               fetchAvailableTimeSlots(data);
+                         
+                             });
+                         
+                             // Call fetchAvailableTimeSlots directly after updating selecteddateindices
+                           },
+                         
+                         
+                             child: Padding(
+                                       padding: const EdgeInsets.only(left:12.0),
+                                       child: Container(
+                                         width: 70, // Adjust the width as needed
+                                         height: 95, // Adjust the height as needed
+                                         decoration: BoxDecoration(
+                                         color:isSelected? Color(0xFF3E64FF): const Color.fromARGB(255, 252, 252, 252),
+                                         borderRadius: BorderRadius.circular(15)
+                                           
+                                         ),
+                                         child: Center(
+                                           child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                                    DateFormat('d').format(next10Days[index]),
+                                                    style: TextStyle(
+                                        decoration: TextDecoration.none,
+                                        color: isSelected? const Color.
+                                        fromARGB(255, 255, 255, 255): const Color.fromARGB(255, 0, 0, 0),
+                                        fontSize: 33,
+                                        fontFamily: 'museo500',
+                                       // fontWeight: FontWeight.w800,
+                                        height: 0,
+                                        letterSpacing: -0.32,
+                                                    )),
+                             
+                                                    SizedBox(height: 5,),
+                                                    Text(
+                                                    DateFormat('EE').format(next10Days[index]),
+                                                    style: TextStyle(
+                                        decoration: TextDecoration.none,
+                                        color: isSelected? const Color.fromARGB(255, 255, 255, 255): const Color.fromARGB(255, 0, 0, 0),
+                                        fontSize: 16,
+                                        fontFamily: 'actor',
+                                       // fontWeight: FontWeight.w800,
+                                        height: 0,
+                                        letterSpacing: -0.32,
+                                                    )),
+                              ],
+                                           ),
                                          ),
                                        ),
-                                     ),
+                             ),
+                           );
+                                     }),
+                                      
                            ),
-                         );
-                                   }),
-                                    
-                         )
+                       )
                      
                        
                     
@@ -569,6 +572,7 @@ DropdownButton<String>(
                  onPressed: () {
                   var test;
                    complain = complaincontroller.text;
+                   reason = complaincontroller.text;
                       print(selecteddateindices);
                       print(selectedtime);
                       if(selecteddateindices.isNotEmpty){

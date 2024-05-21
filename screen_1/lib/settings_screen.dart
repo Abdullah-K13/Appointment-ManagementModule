@@ -85,8 +85,13 @@ class SettingsBody extends StatelessWidget {
                 icon: Icons.logout,
                 onTap: () {
                   print('Logout tapped');
-                 Navigator.popUntil(context, (route) => route.isFirst);
-                },
+ Navigator.popUntil(context, (route) => route.isFirst,);
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SignInScreen(),
+              ),
+            );                },
               ),
             ],
           ),

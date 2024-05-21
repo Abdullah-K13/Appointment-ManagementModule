@@ -168,7 +168,7 @@ _Agecontroller = TextEditingController(text: data['Age'].toString());
                         // ),
                      
                     Padding(
-                      padding: const EdgeInsets.only(top: 30, right: 260),
+                      padding: const EdgeInsets.only(top: 20, right: 260),
                       child: Text('Full Name',
                           style: TextStyle(
                               fontSize: 18,
@@ -347,7 +347,7 @@ _Agecontroller = TextEditingController(text: data['Age'].toString());
                               fontFamily: 'nunito-semibold')),
                     ),
                     Container(
-                        height: 40,
+                        height: 50,
                         width: 350,
                         decoration: BoxDecoration(
                             color: Color(0xffFFFFFF),
@@ -372,10 +372,12 @@ _Agecontroller = TextEditingController(text: data['Age'].toString());
                         onPressed: () {
 
                      apifunction().UpdatepatientsInformation(_nameController.text, _Agecontroller.text, _GenderController.text, _AddressController.text,_PhoneNumberController.text,_EmergencyController.text, 4,_EmailController.text,_PasswordController.text);
+                       
+                       Navigator.pop(context);
                         //  controllers_intialization();
                         },
                         child: Text(
-                          'View Health Record',
+                          'Update',
                           style: TextStyle(
                               fontSize: 18,
                               color: Colors.white,
