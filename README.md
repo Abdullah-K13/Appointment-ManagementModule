@@ -1,5 +1,5 @@
 # Appointment Management Mobile App (Hospital System)
-This repository holds the source code for the Appointment Management Mobile App, designed to empower hospital patients with a user-friendly platform to manage appointments, tests, and access medical information conveniently.
+This repository holds the source code for the Appointment Management Mobile App, designed to empower hospital patients with a user-friendly platform to manage appointments, tests, and access medical information conveniently.<br>
 
 ## Features:
 
@@ -16,17 +16,17 @@ This repository holds the source code for the Appointment Management Mobile App,
 **Database:** SQL Server<br>
 
 **Getting Started:**
-Clone the repository: Begin by cloning the repository using the following command:
+Clone the repository: Begin by cloning the repository using the following command:<br>
 Bash
 git clone https://github.com/Abdullah-k13/appointment-management-app.git
-Use code with caution.
-Install Dependencies: Follow the project's specific instructions to install necessary libraries and dependencies for proper functionality.
-Configuration: Configure the app with your Hospital Information System API details and any other environment-specific settings to ensure seamless integration.
-Run the App: Follow the instructions to build and run the application on your preferred mobile development environment (e.g., Android Studio).
-Important Notes:
+Use code with caution.<br>
+Install Dependencies: Follow the project's specific instructions to install necessary libraries and dependencies for proper functionality.<br>
+Configuration: Configure the app with your Hospital Information System API details and any other environment-specific settings to ensure seamless integration.<br>
+Run the App: Follow the instructions to build and run the application on your preferred mobile development environment (e.g., Android Studio).<br>
+Important Notes:<br>
 
-This repository serves as a demonstration project. Integrating with a real Hospital Information System requires proper authorization and secure API access protocols.
-User authentication and data security are paramount. Implement robust login methods and encryption for sensitive user data to protect patient privacy.
-Contribution:
+This repository serves as a demonstration project. Integrating with a real Hospital Information System requires proper authorization and secure API access protocols.<br>
+User authentication and data security are paramount. Implement robust login methods and encryption for sensitive user data to protect patient privacy.<br>
+Contribution:<br>
 
-We welcome contributions to improve this project! Please adhere to standard Git branching practices and create pull requests for any code changes you wish to share.
+We welcome contributions to improve this project! Please adhere to standard Git branching practices and create pull requests for any code changes you wish to share.<br>
