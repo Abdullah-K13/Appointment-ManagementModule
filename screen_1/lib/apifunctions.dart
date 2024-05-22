@@ -22,7 +22,7 @@ class Visit {
 }
 
 class apifunction {
-final ip = '192.168.0.104';
+final ip = '10.133.136.65';
 
 Future<void> postDataToApi(date,time,name,age,gender,complain) async {
   final apiUrl = 'http://192.168.0.107:8000/testappointment/'; // replace with your API URL

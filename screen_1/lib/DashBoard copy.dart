@@ -510,7 +510,7 @@ Padding(
                                           
           
                               FutureBuilder<List< dynamic>>(
-          future: apifunction().fetchdoctorsinfobyid(1),
+          future: apifunction().fetchdoctorsinfobyid(tempdid),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               print('am i here');

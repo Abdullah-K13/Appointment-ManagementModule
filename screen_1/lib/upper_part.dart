@@ -16,8 +16,8 @@ class UpperPart extends StatelessWidget {
       child: Stack(
         children: [
           Positioned(
-            top: 15,
-            left: 6,
+            top: 35,
+            left: 25,
             child: GestureDetector(
               onTap: () {
                 // Handle back button tap
@@ -39,7 +39,7 @@ class UpperPart extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: 60,
+            top: 45,
             left: MediaQuery.of(context).size.width / 2 - 125,
             child: Container(
               width: 250,
