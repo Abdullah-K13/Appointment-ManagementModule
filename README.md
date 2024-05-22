@@ -5,15 +5,15 @@ This repository holds the source code for the Appointment Management Mobile App,
 
 **Appointment Scheduling:** Streamline appointment booking by browsing specialist lists, viewing doctor details, and selecting preferred dates and time slots. Real-time availability ensures you book appointments without conflicts. <br>
 **Test Scheduling:** Schedule diagnostic tests offered by the hospital system with a similar process as appointment booking. <br>
-**Medical History Access:** Depending on hospital policy and data security measures, you may access information regarding allergies, diagnoses, current medications, and potentially lab reports.
-**Prescription Viewing:** View a list of your prescribed medications with details like dosage, instructions, and prescribing doctor, promoting medication adherence.
-**AI Chatbot Consultant:** Utilize the powerful Gemini language model to ask general healthcare questions, receive symptom explanations, and get basic guidance, potentially reducing unnecessary consultations.
-
+**Medical History Access:** Depending on hospital policy and data security measures, you may access information regarding allergies, diagnoses, current medications, and potentially lab reports.<br>
+**Prescription Viewing:** View a list of your prescribed medications with details like dosage, instructions, and prescribing doctor, promoting medication adherence.<br>
+**AI Chatbot Consultant:** Utilize the powerful Gemini language model to ask general healthcare questions, receive symptom explanations, and get basic guidance, potentially reducing unnecessary consultations.<br>
+<br>
 ## Technology Stack:
-**Programming Language:** Dart and Python 
-**Mobile Framework:** Flutter
-**API Integration:** FastApi
-**Database:** SQL Server
+**Programming Language:** Dart and Python <br>
+**Mobile Framework:** Flutter<br>
+**API Integration:** FastApi<br>
+**Database:** SQL Server<br>
 
 **Getting Started:**
 Clone the repository: Begin by cloning the repository using the following command:
