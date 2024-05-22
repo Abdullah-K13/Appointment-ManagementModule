@@ -3,22 +3,22 @@ This repository holds the source code for the Appointment Management Mobile App,
 
 ## Features:
 
-** Appointment Scheduling: ** Streamline appointment booking by browsing specialist lists, viewing doctor details, and selecting preferred dates and time slots. Real-time availability ensures you book appointments without conflicts.
-Test Scheduling: Schedule diagnostic tests offered by the hospital system with a similar process as appointment booking.
-Medical History Access (Optional): Depending on hospital policy and data security measures, you may access information regarding allergies, diagnoses, current medications, and potentially lab reports.
-Prescription Viewing: View a list of your prescribed medications with details like dosage, instructions, and prescribing doctor, promoting medication adherence.
-AI Chatbot Consultant: Utilize the powerful Gemini language model to ask general healthcare questions, receive symptom explanations, and get basic guidance, potentially reducing unnecessary consultations.
+**Appointment Scheduling:** Streamline appointment booking by browsing specialist lists, viewing doctor details, and selecting preferred dates and time slots. Real-time availability ensures you book appointments without conflicts.
+**Test Scheduling:** Schedule diagnostic tests offered by the hospital system with a similar process as appointment booking.
+**Medical History Access:** Depending on hospital policy and data security measures, you may access information regarding allergies, diagnoses, current medications, and potentially lab reports.
+**Prescription Viewing:** View a list of your prescribed medications with details like dosage, instructions, and prescribing doctor, promoting medication adherence.
+**AI Chatbot Consultant:** Utilize the powerful Gemini language model to ask general healthcare questions, receive symptom explanations, and get basic guidance, potentially reducing unnecessary consultations.
 
-**Technology Stack:**
-Programming Language: Dart and Python 
-Mobile Framework: Flutter
-API Integration: FastApi
-Database: SQL Server
-Getting Started:
+## Technology Stack:
+**Programming Language:** Dart and Python 
+**Mobile Framework:** Flutter
+**API Integration:** FastApi
+**Database:** SQL Server
 
+**Getting Started:**
 Clone the repository: Begin by cloning the repository using the following command:
 Bash
-git clone https://github.com/<your-username>/appointment-management-app.git
+git clone https://github.com/Abdullah-k13/appointment-management-app.git
 Use code with caution.
 Install Dependencies: Follow the project's specific instructions to install necessary libraries and dependencies for proper functionality.
 Configuration: Configure the app with your Hospital Information System API details and any other environment-specific settings to ensure seamless integration.
