@@ -3,8 +3,8 @@ This repository holds the source code for the Appointment Management Mobile App,
 
 ## Features:
 
-**Appointment Scheduling:** Streamline appointment booking by browsing specialist lists, viewing doctor details, and selecting preferred dates and time slots. Real-time availability ensures you book appointments without conflicts.
-**Test Scheduling:** Schedule diagnostic tests offered by the hospital system with a similar process as appointment booking.
+**Appointment Scheduling:** Streamline appointment booking by browsing specialist lists, viewing doctor details, and selecting preferred dates and time slots. Real-time availability ensures you book appointments without conflicts. /n
+**Test Scheduling:** Schedule diagnostic tests offered by the hospital system with a similar process as appointment booking./n
 **Medical History Access:** Depending on hospital policy and data security measures, you may access information regarding allergies, diagnoses, current medications, and potentially lab reports.
 **Prescription Viewing:** View a list of your prescribed medications with details like dosage, instructions, and prescribing doctor, promoting medication adherence.
 **AI Chatbot Consultant:** Utilize the powerful Gemini language model to ask general healthcare questions, receive symptom explanations, and get basic guidance, potentially reducing unnecessary consultations.
